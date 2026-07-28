@@ -1,0 +1,3837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#0E6E56">
+<title>EduTAMS Mobile — Online Transactions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EEF1F4;
+    --surface:#FFFFFF;
+    --surface-alt:#F7F8FA;
+    --ink:#101720;
+    --ink-2:#5B6472;
+    --ink-3:#96A0AC;
+    --line:#E7EAEE;
+    --teal:#0E6E56;
+    --teal-deep:#073C30;
+    --teal-bg:#E3F5EE;
+    --green:#1C9564;
+    --green-bg:#E8F7EE;
+    --amber:#C2760B;
+    --amber-bg:#FDF1DD;
+    --red:#D33636;
+    --red-bg:#FBEAEA;
+    --blue:#2A5FC1;
+    --blue-bg:#E9EFFC;
+    --gold:#A8600A;
+    --gold-bg:#FBF0DE;
+    --purple:#6357D6;
+    --purple-bg:#ECEAFB;
+    --radius-lg:22px;
+    --radius-md:16px;
+    --radius-sm:11px;
+    --shadow-card:0 1px 2px rgba(16,23,32,.04), 0 8px 20px -12px rgba(16,23,32,.14);
+    --shadow-nav:0 8px 32px -8px rgba(16,23,32,.28), 0 0 0 1px rgba(16,23,32,.06);
+    --spring:cubic-bezier(.34,1.4,.64,1);
+    --ease-out:cubic-bezier(.22,1,.36,1);
+    --dock-h:76px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html{height:100%; -webkit-text-size-adjust:100%; background:var(--bg);}
+  body{
+    margin:0; padding:0; min-height:100dvh; height:100dvh; overflow:hidden;
+    background:var(--bg);
+    font-family:'Inter',sans-serif; color:var(--ink);
+    overscroll-behavior:none; -webkit-font-smoothing:antialiased;
+  }
+  @media (min-width:520px){
+    body{
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      background:var(--bg);
+    }
+  }
+  .app-shell{
+    width:100%; max-width:430px; height:100dvh; max-height:100dvh;
+    background:var(--bg); position:relative; overflow:hidden;
+    display:flex; flex-direction:column;
+    isolation:isolate;
+  }
+  @media (min-width:520px){
+    .app-shell{
+      height:min(896px,100dvh); border-radius:48px;
+      box-shadow:0 48px 96px -28px rgba(0,0,0,.55), 0 0 0 10px rgba(255,255,255,.06), inset 0 1px 0 rgba(255,255,255,.12);
+    }
+    .app-shell::before{
+      content:''; position:absolute; top:10px; left:50%; transform:translateX(-50%);
+      width:120px; height:34px; background:#101720; border-radius:20px; z-index:100; pointer-events:none;
+    }
+  }
+  .mobile-hero{
+    flex-shrink:0; position:relative; z-index:30;
+    padding:max(10px, env(safe-area-inset-top)) 18px 18px;
+    background:linear-gradient(165deg, var(--teal-deep) 0%, var(--teal) 42%, #12856A 100%);
+    transition:padding .32s cubic-bezier(.32,.72,0,1), box-shadow .32s ease, background .3s ease;
+  }
+  .mobile-hero.compact{padding-bottom:0; box-shadow:0 8px 28px -12px rgba(7,60,48,.55);}
+  .hero-mesh{
+    position:absolute; inset:0; pointer-events:none; overflow:hidden;
+    background:
+      radial-gradient(220px 140px at 92% 8%, rgba(255,255,255,.18), transparent 70%),
+      radial-gradient(180px 120px at 8% 95%, rgba(168,96,10,.22), transparent 65%);
+  }
+  .hero-mesh::after{
+    content:''; position:absolute; width:280px; height:280px; border-radius:50%;
+    top:-120px; right:-80px; background:rgba(255,255,255,.06);
+    animation:heroFloat 8s ease-in-out infinite alternate;
+  }
+  @keyframes heroFloat{from{transform:translate(0,0) scale(1);} to{transform:translate(-18px,12px) scale(1.08);}}
+  .statusbar{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:6px 2px 10px; font:600 13px/1 'Inter'; color:rgba(255,255,255,.92); flex-shrink:0;
+    position:relative; z-index:2;
+  }
+  .statusbar .icons{display:flex; align-items:center; gap:5px;}
+  .hero-top{display:flex; align-items:center; gap:11px; position:relative; z-index:2; padding-bottom:10px;}
+  .school-badge{
+    width:42px; height:42px; border-radius:14px; flex-shrink:0;
+    background:rgba(255,255,255,.16); backdrop-filter:blur(8px);
+    border:1px solid rgba(255,255,255,.22);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Sora'; font-weight:700; color:#fff; font-size:14px;
+    box-shadow:0 8px 20px -8px rgba(0,0,0,.35);
+    transition:transform .2s cubic-bezier(.34,1.56,.64,1);
+  }
+  .school-badge:active{transform:scale(.92);}
+  .school-name{font-family:'Sora'; font-weight:600; font-size:13px; line-height:1.25; letter-spacing:-.01em; color:#fff;}
+  .school-sub{font-size:10.5px; color:rgba(255,255,255,.72); margin-top:2px;}
+  .appbar-actions{margin-left:auto; display:flex; align-items:center; gap:8px;}
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.14);
+    backdrop-filter:blur(10px);
+    display:flex; align-items:center; justify-content:center; position:relative;
+    border:1px solid rgba(255,255,255,.2); color:#fff; cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .icon-btn:active{transform:scale(.9); background:rgba(255,255,255,.24);}
+  .icon-btn .dot{
+    position:absolute; top:7px; right:8px; width:7px; height:7px; border-radius:50%;
+    background:var(--red); border:1.5px solid var(--teal-deep);
+    animation:dotPulse 2s ease-in-out infinite;
+  }
+  @keyframes dotPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.15);}}
+  .hero-title-block{position:relative; z-index:2; padding:2px 0 12px;}
+  .hero-eyebrow{
+    margin:0; font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+    color:rgba(255,255,255,.68);
+  }
+  .hero-title{
+    margin:4px 0 0; font-family:'Sora'; font-weight:800; font-size:28px;
+    letter-spacing:-.03em; color:#fff; line-height:1.05;
+    transition:font-size .28s ease, margin .28s ease;
+  }
+  .mobile-hero.compact .hero-title{font-size:22px; margin-top:2px;}
+  .mobile-hero.compact .hero-title-block{padding-bottom:8px;}
+  .term-pill{
+    position:relative; z-index:2;
+    margin:10px 0 0; display:inline-flex; align-items:center; gap:8px;
+    background:rgba(255,255,255,.14); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.22); border-radius:999px;
+    padding:8px 16px 8px 12px; font-size:11.5px; color:rgba(255,255,255,.88); font-weight:500;
+    box-shadow:0 4px 16px -6px rgba(0,0,0,.2);
+    transition:transform .25s ease, background .25s ease;
+  }
+  .term-pill:active{transform:scale(.98); background:rgba(255,255,255,.2);}
+  .term-pill b{color:#fff; font-weight:700;}
+  .term-pill .term-dot{width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,.5);}
+  .theme-toggle{
+    width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.14);
+    backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.2); color:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .theme-toggle:active{transform:scale(.9); background:rgba(255,255,255,.24);}
+  .module-rail-wrap{
+    flex-shrink:0; position:sticky; top:0; z-index:25;
+    padding:12px 0 10px;
+    background:linear-gradient(180deg, var(--bg) 55%, transparent);
+  }
+  .module-switcher{
+    display:flex; align-items:center; gap:8px;
+    margin:0 16px;
+    padding:0 16px;
+    overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch; scroll-behavior:smooth;
+  }
+  .module-switcher::-webkit-scrollbar{display:none;}
+  .module-chip{
+    flex:0 0 auto; scroll-snap-align:start;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:10px 20px; border-radius:999px;
+    border:1px solid var(--line);
+    background:var(--surface); color:var(--ink-2);
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:600;
+    line-height:1.1; text-align:center;
+    white-space:nowrap; cursor:pointer;
+    transition:color .22s ease, transform .18s var(--spring), background .22s ease, border-color .22s ease, box-shadow .22s ease;
+    box-shadow:0 1px 2px rgba(16,23,32,.04);
+  }
+  .module-chip:active{transform:scale(.96);}
+  .module-chip.active{
+    background:var(--teal-deep);
+    border-color:var(--teal-deep);
+    color:#fff;
+    box-shadow:0 4px 14px -4px rgba(7,60,48,.35);
+  }
+  [data-theme="dark"] .module-chip{
+    background:var(--surface); border-color:var(--line); color:var(--ink-2);
+  }
+  [data-theme="dark"] .module-chip.active{
+    background:var(--teal); border-color:var(--teal); color:#fff;
+  }
+  .quick-actions{
+    display:flex; gap:10px; padding:0 16px 6px; overflow-x:auto;
+    scroll-snap-type:x mandatory;
+  }
+  .quick-actions::-webkit-scrollbar{display:none;}
+  .quick-action{
+    scroll-snap-align:start; flex:0 0 auto;
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    min-width:64px; border:none; background:transparent; cursor:pointer;
+    transition:transform .2s var(--spring);
+  }
+  .quick-action:active{transform:scale(.9);}
+  .quick-action-icon{
+    width:48px; height:48px; border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--surface); border:1px solid var(--line);
+    box-shadow:0 4px 14px -6px rgba(16,23,32,.12);
+    color:var(--teal-deep); transition:box-shadow .2s ease, transform .2s var(--spring);
+  }
+  .quick-action:active .quick-action-icon{box-shadow:0 2px 6px rgba(16,23,32,.08);}
+  .quick-action span{font-size:10px; font-weight:700; color:var(--ink-2);}
+  .body-scroll{
+    flex:1; overflow-y:auto; overflow-x:hidden;
+    padding-bottom:calc(var(--dock-h) + 28px + env(safe-area-inset-bottom));
+    scroll-behavior:smooth; -webkit-overflow-scrolling:touch;
+    background:var(--bg);
+  }
+  .body-scroll::-webkit-scrollbar{display:none;}
+  .pull-hint{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    height:0; overflow:hidden; opacity:0; font-size:11px; font-weight:600; color:var(--ink-3);
+    transition:height .2s ease, opacity .2s ease;
+  }
+  .pull-hint.visible{height:36px; opacity:1;}
+  .pull-spinner{
+    width:16px; height:16px; border-radius:50%;
+    border:2px solid var(--line); border-top-color:var(--teal);
+    animation:spin .8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .wallet-deck{padding:10px 0 4px;}
+  .stat-carousel{
+    display:flex; gap:14px; overflow-x:auto; padding:0 16px 8px;
+    scroll-snap-type:x mandatory; scroll-padding:16px;
+    perspective:900px;
+  }
+  .stat-carousel::-webkit-scrollbar{display:none;}
+  .stat-card{
+    scroll-snap-align:center; flex:0 0 72%; max-width:240px;
+    border-radius:24px; padding:14px 16px; position:relative; overflow:hidden;
+    display:grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap:10px 12px;
+    align-items:center;
+    transform:scale(.92) rotateY(4deg); opacity:.72;
+    transition:transform .42s var(--spring), opacity .35s ease, box-shadow .35s ease;
+    box-shadow:0 12px 32px -14px rgba(16,23,32,.22);
+    min-height:92px;
+  }
+  .stat-card.is-active{transform:scale(1) rotateY(0deg); opacity:1; box-shadow:0 20px 44px -16px rgba(16,23,32,.28);}
+  .stat-card::before{
+    content:''; position:absolute; top:0; right:0; width:80px; height:80px; border-radius:50%;
+    background:rgba(255,255,255,.35); transform:translate(30%,-30%);
+  }
+  .stat-card .icon-chip{
+    width:40px; height:40px; border-radius:16px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,.55); position:relative; z-index:1;
+    grid-row:1;
+    grid-column:1;
+  }
+  .stat-card .amount{
+    font-family:'Sora'; font-weight:800; font-size:18px; letter-spacing:-.03em;
+    position:relative; z-index:1;
+    margin:0;
+    grid-row:1;
+    grid-column:2;
+  }
+  .stat-card .label{
+    font-size:11px; font-weight:600; opacity:.88; position:relative; z-index:1;
+    line-height:1.4;
+    grid-column:1 / -1;
+    margin:0;
+  }
+  .stat-card.c1{background:linear-gradient(150deg,#E3F5EE,#D3EEE3); color:var(--teal-deep);}
+  .stat-card.c2{background:linear-gradient(150deg,#E8F7EE,#D7F0E1); color:#125A3C;}
+  .stat-card.c3{background:linear-gradient(150deg,#E9EFFC,#DAE5FA); color:#1C3E86;}
+  .stat-card.c4{background:linear-gradient(150deg,#FBF0DE,#F6E3C4); color:#7A4707;}
+  .dots{display:flex; justify-content:center; gap:6px; margin:6px 0 2px;}
+  .dots span{
+    width:6px; height:6px; border-radius:50%; background:var(--line);
+    transition:all .28s cubic-bezier(.34,1.2,.64,1);
+  }
+  .dots span.on{background:var(--teal); width:20px; border-radius:4px;}
+  .tabpanel-viewport{ position:relative; overflow:hidden; padding:0 4px; min-height:480px; }
+  .tabpanel{display:none; padding:2px 12px 8px; width:100%;}
+  .tabpanel.active{display:block;}
+  .tabpanel.animating.slide-out-left,
+  .tabpanel.animating.slide-out-right{
+    position:absolute; top:0; left:0; width:100%; padding:2px 12px 8px; z-index:1; pointer-events:none;
+  }
+  .tabpanel.animating.slide-in-right,
+  .tabpanel.animating.slide-in-left{
+    position:relative; z-index:2;
+  }
+  @keyframes slideOutLeft{ from{transform:translateX(0); opacity:1;} to{transform:translateX(-28%); opacity:0;} }
+  @keyframes slideOutRight{ from{transform:translateX(0); opacity:1;} to{transform:translateX(28%); opacity:0;} }
+  @keyframes slideInRight{ from{transform:translateX(32%); opacity:0;} to{transform:translateX(0); opacity:1;} }
+  @keyframes slideInLeft{ from{transform:translateX(-32%); opacity:0;} to{transform:translateX(0); opacity:1;} }
+  @keyframes fadeSlideUp{ from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+  @keyframes barGrow{ from{transform:scaleY(0);} to{transform:scaleY(1);} }
+  @keyframes progressGrow{ from{transform:scaleX(0);} to{transform:scaleX(1);} }
+  @keyframes lineDraw{ from{stroke-dashoffset:320;} to{stroke-dashoffset:0;} }
+  @keyframes countPop{ 0%{opacity:0; transform:translateY(6px) scale(.96);} 100%{opacity:1; transform:translateY(0) scale(1);} }
+  .slide-out-left{animation:slideOutLeft .34s cubic-bezier(.32,.72,0,1) forwards;}
+  .slide-out-right{animation:slideOutRight .34s cubic-bezier(.32,.72,0,1) forwards;}
+  .slide-in-right{animation:slideInRight .34s cubic-bezier(.32,.72,0,1) forwards;}
+  .slide-in-left{animation:slideInLeft .34s cubic-bezier(.32,.72,0,1) forwards;}
+  .tabpanel.active .mobile-block{
+    animation:fadeSlideUp .48s cubic-bezier(.22,1,.36,1) both;
+  }
+  .tabpanel.active .mobile-block:nth-child(1){animation-delay:.04s;}
+  .tabpanel.active .mobile-block:nth-child(2){animation-delay:.1s;}
+  .tabpanel.active .mobile-block:nth-child(3){animation-delay:.16s;}
+  .tabpanel.active .mobile-block:nth-child(4){animation-delay:.22s;}
+  .tabpanel.active .mobile-block:nth-child(5){animation-delay:.28s;}
+  .tabpanel.active .mobile-block:nth-child(6){animation-delay:.34s;}
+  .chart-bar-anim{transform-box:fill-box; transform-origin:bottom center; animation:barGrow .75s cubic-bezier(.34,1.3,.64,1) both;}
+  .chart-line-anim{stroke-dasharray:320; animation:lineDraw 1.2s cubic-bezier(.22,1,.36,1) forwards;}
+  .exact-status-fill{transform-origin:left center; animation:progressGrow 1s cubic-bezier(.22,1,.36,1) both;}
+  .card{
+    background:var(--surface); border-radius:22px; border:none;
+    padding:16px; margin-top:10px;
+    box-shadow:0 1px 2px rgba(16,23,32,.04), 0 10px 28px -16px rgba(16,23,32,.12);
+    transition:transform .22s var(--spring), box-shadow .22s ease;
+  }
+  .card:active{transform:scale(.992);}
+  .mobile-section-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 16px 6px;
+  }
+  .mobile-section-title{
+    font-family:'Sora'; font-weight:800; font-size:17px; letter-spacing:-.02em;
+  }
+  .mobile-section-sub{font-size:11px; color:var(--ink-3); margin-top:2px; font-weight:500;}
+  .filter-scroll{
+    display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;
+    scroll-snap-type:x proximity;
+  }
+  .filter-scroll::-webkit-scrollbar{display:none;}
+  .period-chip,.date-chip,.selector-chip{
+    flex:0 0 auto; min-width:0; height:38px; border-radius:999px;
+    display:flex; align-items:center; justify-content:space-between; gap:6px;
+    padding:0 14px; font-size:12px; font-weight:600;
+    scroll-snap-align:start; transition:transform .18s var(--spring);
+  }
+  .period-chip:active,.date-chip:active,.selector-chip:active{transform:scale(.96);}
+  .filter-row{display:flex; gap:8px; align-items:center; overflow-x:auto;}
+  .filter-row::-webkit-scrollbar{display:none;}
+  .card-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;}
+  .card-title{font-family:'Sora'; font-weight:600; font-size:14.5px; letter-spacing:-.01em;}
+  .card-sub{font-size:11px; color:var(--ink-3); margin-top:1px;}
+  .link-btn{font-size:12px; font-weight:600; color:var(--teal); display:flex; align-items:center; gap:3px;}
+  .period-chip{border:1px solid var(--teal); background:var(--teal-bg); color:var(--teal-deep); font-weight:700;}
+  .date-chip{border:1px solid var(--line); background:var(--surface-alt); color:var(--ink);}
+  .selector-chip{border:1px solid var(--line); background:var(--surface-alt); color:var(--ink);}  
+  .chart-card{margin-top:14px; position:relative; padding-top:4px;}
+  .chart-touch-layer{position:relative; touch-action:pan-y;}
+  .chart-area-fill{opacity:0; animation:areaFade .9s var(--ease-out) .3s forwards;}
+  @keyframes areaFade{to{opacity:1;}}
+  .chart-dot-pulse{animation:dotGlow 2s ease-in-out infinite;}
+  @keyframes dotGlow{0%,100%{r:4; opacity:1;} 50%{r:6; opacity:.7;}}
+  .chart-tooltip{
+    position:absolute; top:8px; left:50%; transform:translateX(-50%) translateY(4px);
+    background:var(--ink); color:#fff; font-size:10px; font-weight:700;
+    padding:5px 10px; border-radius:8px; opacity:0; pointer-events:none;
+    transition:opacity .2s ease, transform .2s var(--spring); white-space:nowrap; z-index:5;
+  }
+  .chart-tooltip.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .chart-xaxis{display:flex; justify-content:space-between; padding:0 28px 0 30px; margin-top:4px; font-size:9px; color:var(--ink-3); font-weight:600;}
+  .donut-wrap{display:flex; align-items:center; gap:16px; margin-bottom:4px;}
+  .donut-svg{flex:0 0 96px; animation:donutSpin .8s var(--ease-out) both;}
+  @keyframes donutSpin{from{transform:rotate(-90deg) scale(.85); opacity:0;} to{transform:rotate(0) scale(1); opacity:1;}}
+  .donut-center{
+    position:absolute; inset:0; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; pointer-events:none;
+  }
+  .donut-center-val{font-family:'Sora'; font-weight:800; font-size:15px; letter-spacing:-.02em;}
+  .donut-center-lbl{font-size:9px; font-weight:600; color:var(--ink-3); margin-top:1px;}
+  .donut-legend{flex:1; display:flex; flex-direction:column; gap:10px;}
+  .donut-leg-item{display:flex; align-items:center; gap:8px; font-size:11.5px; font-weight:600; color:var(--ink-2);}
+  .donut-leg-dot{width:8px; height:8px; border-radius:50%; flex-shrink:0;}
+  .donut-leg-amt{margin-left:auto; font-family:'Sora'; font-weight:800; font-size:12px; color:var(--ink);}
+  .status-mobile-stack{display:flex; flex-direction:column; gap:12px;}
+  .status-ring-row{
+    display:flex; align-items:center; gap:12px; padding:12px 14px;
+    background:var(--surface-alt); border-radius:16px; border:1px solid var(--line);
+    transition:transform .2s var(--spring), background .2s ease;
+  }
+  .status-ring-row:active{transform:scale(.98); background:var(--surface);}
+  .status-ring{
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Sora'; font-weight:800; font-size:11px; color:var(--ink);
+    background:conic-gradient(var(--ring-color) calc(var(--pct) * 1%), var(--line) 0);
+    position:relative;
+  }
+  .status-ring::after{
+    content:''; position:absolute; inset:5px; border-radius:50%; background:var(--surface-alt);
+  }
+  .status-ring span{position:relative; z-index:1;}
+  .status-ring-info{flex:1; min-width:0;}
+  .status-ring-name{font-size:13px; font-weight:700; color:var(--ink);}
+  .status-ring-track{height:4px; background:var(--line); border-radius:999px; margin-top:6px; overflow:hidden;}
+  .status-ring-fill{height:100%; border-radius:999px; transform-origin:left; animation:progressGrow 1s var(--ease-out) both;}
+  .status-ring-amt{font-family:'Sora'; font-weight:800; font-size:14px; text-align:right; flex-shrink:0;}
+  .stat-strip{
+    display:flex; gap:10px; overflow-x:auto; padding:2px 16px 4px;
+    scroll-snap-type:x mandatory; margin-top:0;
+  }
+  .stat-strip::-webkit-scrollbar{display:none;}
+  .stat-strip .stl-stat-box,
+  .stat-strip .recon-stat-box{
+    scroll-snap-align:start; flex:0 0 148px; min-width:148px;
+  }
+  .stl-stats-grid,.recon-stats-grid{display:none;}
+  .chart-caption{display:flex; align-items:center; gap:7px; font-size:11px; color:var(--ink-2); margin-top:12px; font-weight:500; line-height:1.5;}
+  .live-badge{position:relative; width:7px; height:7px; border-radius:50%; background:var(--teal); flex:0 0 7px;}
+  .live-badge::after{content:''; position:absolute; inset:-5px; border-radius:50%; border:1.4px solid var(--teal); animation:livePing 1.8s ease-out infinite;}
+  @keyframes livePing{0%{transform:scale(.5); opacity:.9;} 100%{transform:scale(2.2); opacity:0;}}
+  .live-ring{animation:liveR 1.8s ease-out infinite; transform-origin:center;}
+  @keyframes liveR{0%{r:4; opacity:.85;} 100%{r:13; opacity:0;}}
+  /* ================= TRANSACTION STATUS EXACT DESIGN ================= */
+  .status-card-box {
+    background: var(--surface);
+    border-radius: 20px;
+    border: none;
+    padding: 18px 18px 14px;
+    margin-top: 14px;
+    box-shadow: 0 1px 2px rgba(16,23,32,0.04), 0 10px 28px -16px rgba(16,23,32,.12);
+  }
+  .status-card-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 16.5px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+  .exact-status-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .exact-status-row:first-of-type {
+    border-top: none;
+    padding-top: 2px;
+  }
+  .exact-status-left {
+    flex: 1;
+    min-width: 0;
+    padding-right: 16px;
+  }
+  .exact-status-label-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .exact-status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .exact-status-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #4A5568;
+    line-height: 1.2;
+  }
+  .exact-status-track {
+    height: 5px;
+    background: #F2F4F7;
+    border-radius: 999px;
+    margin-top: 8px;
+    width: 100%;
+    max-width: 190px;
+    overflow: hidden;
+    margin-left: 19px;
+  }
+  .exact-status-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+  .exact-status-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .exact-status-amt {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .exact-status-pct {
+    font-size: 12px;
+    font-weight: 700;
+    color: #96A0AC;
+    margin-top: 3px;
+  }
+  .minmax {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--line);
+  }
+  .mm-chip {
+    flex: 1;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 12px;
+  }
+  .mm-chip .k {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .mm-chip .v {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--ink);
+    margin-top: 2px;
+  }
+
+  /* ================= SETTLEMENT MOBILE DESIGN ================= */
+  .stl-sync-card {
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    padding: 16px;
+    margin-top: 12px;
+    box-shadow: var(--shadow-card);
+  }
+  .stl-sync-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  
+  .stl-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .stl-stat-box {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(16,23,32,0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  .stl-stat-box.blue { background: linear-gradient(145deg, #F2F6FF, #E5EEFE); border-color: #D3E2FE; }
+  .stl-stat-box.pink { background: linear-gradient(145deg, #FFF5F5, #FEE4E4); border-color: #FCD0D0; }
+  .stl-stat-box.green { background: linear-gradient(145deg, #F0FDF4, #DCFCE7); border-color: #BBF7D0; }
+  .stl-stat-box.purple { background: linear-gradient(145deg, #F5F3FF, #EDE9FE); border-color: #DDD6FE; }
+
+  .stl-stat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  }
+  .stl-stat-box.blue .stl-stat-icon { color: #2A5FC1; }
+  .stl-stat-box.pink .stl-stat-icon { color: #D33636; }
+  .stl-stat-box.green .stl-stat-icon { color: #1C9564; }
+  .stl-stat-box.purple .stl-stat-icon { color: #6357D6; }
+
+  .stl-stat-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .stl-stat-lbl {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  .stl-chart-card {
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    padding: 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-card);
+  }
+  .stl-chart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .stl-chart-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .stl-chart-sub {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 1px;
+  }
+  
+  .stl-barchart-container {
+    position: relative;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+  .stl-bank-card {
+    background: var(--surface-alt);
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    padding: 12px;
+    margin-top: 8px;
+  }
+  .stl-bank-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .stl-bank-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .stl-bank-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--teal-deep);
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stl-bank-name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .stl-bank-acct {
+    font-size: 10.5px;
+    color: var(--ink-3);
+  }
+  .stl-bank-amt {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--teal-deep);
+    text-align: right;
+  }
+  .stl-bank-bar {
+    height: 5px;
+    background: var(--line);
+    border-radius: 999px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+  .stl-bank-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 999px;
+  }
+
+  .stl-hist-card {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 13px 14px;
+    margin-top: 10px;
+    box-shadow: 0 2px 6px rgba(16,23,32,0.03);
+    transition: all 0.2s ease;
+  }
+  .stl-hist-card:first-child { margin-top: 0; }
+  .stl-hist-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .stl-hist-bank {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .stl-hist-acct {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+  .stl-hist-amt {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--green);
+    text-align: right;
+  }
+  .stl-hist-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 9px;
+    border-top: 1px dashed var(--line);
+    font-size: 11px;
+    color: var(--ink-2);
+  }
+  .stl-hist-chips {
+    display: flex;
+    gap: 6px;
+  }
+  .stl-hist-chip {
+    font-size: 10px;
+    font-weight: 700;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    padding: 2px 7px;
+    border-radius: 6px;
+    color: var(--ink-2);
+  }
+
+  /* ================= RECONCILIATION MOBILE DESIGN ================= */
+  .recon-chart-card {
+    background: var(--surface);
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    padding: 16px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-card);
+  }
+  .recon-chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-top: 6px;
+    margin-bottom: 12px;
+  }
+  .recon-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .recon-legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 3px;
+  }
+
+  .recon-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .recon-stat-box {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(16,23,32,0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  .recon-stat-box.blue { background: linear-gradient(145deg, #F2F6FF, #E5EEFE); border-color: #D3E2FE; }
+  .recon-stat-box.green { background: linear-gradient(145deg, #F0FDF4, #DCFCE7); border-color: #BBF7D0; }
+  .recon-stat-box.amber { background: linear-gradient(145deg, #FFFBEB, #FEF3C7); border-color: #FDE68A; }
+  .recon-stat-box.teal { background: linear-gradient(145deg, #F0FDFA, #CCFBF1); border-color: #99F6E4; }
+
+  .recon-stat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.85);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  }
+  .recon-stat-box.blue .recon-stat-icon { color: #2A5FC1; }
+  .recon-stat-box.green .recon-stat-icon { color: #1C9564; }
+  .recon-stat-box.amber .recon-stat-icon { color: #D97706; }
+  .recon-stat-box.teal .recon-stat-icon { color: #0D9488; }
+
+  .recon-stat-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14.5px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .recon-stat-lbl {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+
+  /* ================= RECONCILIATION SECTION STYLING ================= */
+  .recon-section-card {
+    background: var(--surface);
+    border-radius: 24px;
+    border: 1px solid var(--line);
+    padding: 18px;
+    margin-top: 14px;
+    box-shadow: var(--shadow-card);
+  }
+  .recon-section-head {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .recon-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .recon-sec-title {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .recon-sec-sub {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-top: 2px;
+  }
+
+  .recon-btn-group {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .recon-action-btn {
+    flex: 1;
+    height: 38px;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .recon-action-btn.primary {
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 12px -2px rgba(14,110,86,0.3);
+  }
+  .recon-action-btn.primary:active { transform: scale(0.96); }
+  .recon-action-btn.secondary {
+    background: var(--surface-alt);
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+  }
+  .recon-action-btn.secondary:active { transform: scale(0.96); background: var(--line); }
+
+  .recon-info-callout {
+    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+    border: 1px solid #BFDBFE;
+    border-radius: 14px;
+    padding: 12px 14px;
+    margin-top: 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .recon-info-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #2563EB;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 22px;
+    margin-top: 1px;
+  }
+  .recon-info-text {
+    font-size: 10.5px;
+    line-height: 1.4;
+    color: #1E40AF;
+    font-weight: 500;
+  }
+
+  .recon-toolbar-box {
+    margin-top: 14px;
+    background: var(--surface-alt);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Exact Settlements Modal Styling from Image */
+  .stl-modal-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stl-modal-item:last-child {
+    border-bottom: none;
+  }
+  .stl-modal-left {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .stl-modal-txn {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .stl-modal-meta {
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+  .stl-modal-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+  }
+  .stl-modal-amt {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .stl-modal-btn {
+    background: #0E6E56;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 10.5px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px -1px rgba(14,110,86,0.35);
+  }
+  .stl-modal-btn:active {
+    transform: scale(0.94);
+    background: #00B074;
+  }
+
+  .recon-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .recon-bank-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .recon-bank-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #101720, #2D3748);
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .recon-bank-name {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .recon-bank-acct {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 1px;
+  }
+
+  .recon-metrics-row {
+    display: none;
+  }
+  .recon-metric-pill {
+    text-align: center;
+    padding: 6px 4px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .recon-metric-pill:active {
+    transform: scale(0.95);
+    border-color: var(--teal);
+    background: var(--teal-bg);
+  }
+  .recon-metric-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 13.5px;
+    color: var(--teal-deep);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .recon-metric-lbl {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-top: 1px;
+  }
+
+  .recon-progress-group {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .recon-progress-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .recon-progress-bar {
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 2px;
+  }
+  .recon-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+
+  .recon-balance-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--line);
+  }
+  .recon-bal-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-3);
+  }
+  .recon-bal-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14.5px;
+    color: var(--red);
+  }
+
+  .modal-item-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+  .modal-item-row:last-child { border-bottom: none; }
+  .modal-item-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .modal-item-ref {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .modal-item-amt {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 13.5px;
+    color: var(--ink);
+  }
+  .modal-item-sub {
+    font-size: 11px;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ================= RECENT TRANSACTIONS MOBILE DESIGN ================= */
+  .recent-section{margin-top:14px; background:transparent;}
+  .recent-head-bar{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; gap:8px;}
+  .recent-title-group{display:flex; align-items:center; gap:8px;}
+  .recent-title{font-family:'Sora',sans-serif; font-weight:700; font-size:15px; letter-spacing:-0.01em; color:var(--ink);}
+  .recent-actions{display:flex; align-items:center; gap:6px;}
+  .icon-action-btn{width:32px; height:32px; border-radius:10px; background:var(--surface); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-2); cursor:pointer; transition:all 0.2s ease; box-shadow:0 1px 2px rgba(16,23,32,0.03);}
+  .icon-action-btn:active{transform:scale(0.94); background:var(--surface-alt);}
+  
+  .txn-search-wrapper{max-height:0; overflow:hidden; transition:max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), margin 0.3s ease; margin-bottom:0;}
+  .txn-search-wrapper.open{max-height:52px; margin-bottom:10px;}
+  .txn-search-field{height:38px; background:var(--surface); border:1.5px solid var(--teal); border-radius:12px; display:flex; align-items:center; padding:0 12px; gap:8px; box-shadow:0 4px 12px -4px rgba(14,110,86,0.15);}
+  .txn-search-field input{border:none; outline:none; background:transparent; font-family:'Inter',sans-serif; font-size:12px; color:var(--ink); width:100%;}
+  .txn-search-clear{border:none; background:transparent; color:var(--ink-3); font-size:15px; cursor:pointer; padding:2px 4px;}
+
+  .status-tabs{display:flex; gap:4px; position:relative; margin:0 0 12px; padding:4px; background:rgba(231,234,238,0.65); backdrop-filter:blur(8px); border-radius:14px; border:1px solid var(--line); z-index:2;}
+  .status-tabs.sticky{position:sticky; top:0;}
+  .status-tab{flex:1; text-align:center; font-size:11.5px; font-weight:700; color:var(--ink-2); padding:7px 4px; border-radius:10px; white-space:nowrap; cursor:pointer; transition:color 0.2s ease; position:relative; z-index:2; display:flex; align-items:center; justify-content:center;}
+  .status-tab.active{color:var(--teal-deep);}
+  .status-indicator{position:absolute; top:4px; bottom:4px; background:var(--surface); border-radius:10px; box-shadow:0 2px 8px rgba(16,23,32,0.08), 0 0 0 1px rgba(16,23,32,0.04); transition:left .26s cubic-bezier(.4,0,.2,1), width .26s cubic-bezier(.4,0,.2,1); z-index:1;}
+
+  .txn-scroll-area{max-height:none; overflow:visible; padding-right:0; display:flex; flex-direction:column; gap:10px;}
+
+  .ultra-txn-card{background:var(--surface); border-radius:18px; border:none; padding:13px 14px; position:relative; overflow:hidden; transition:transform .22s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .22s ease; box-shadow:0 2px 10px -4px rgba(16,23,32,.08); cursor:pointer;}
+  .ultra-txn-card.txn-enter{animation:fadeSlideUp .42s cubic-bezier(.22,1,.36,1) both;}
+  .ultra-txn-card:active{transform:scale(.98); box-shadow:0 1px 4px rgba(16,23,32,0.06);}
+
+  .ultra-card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+  .ultra-avatar-group{display:flex; align-items:center; gap:11px; min-width:0;}
+  .ultra-avatar{width:40px; height:40px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-family:'Sora',sans-serif; font-weight:700; font-size:13px; color:#fff; flex-shrink:0; position:relative; box-shadow:0 4px 10px -2px rgba(16,23,32,0.12);}
+  .ultra-avatar.successful{background:linear-gradient(135deg,#0E6E56,#1C9564);}
+  .ultra-avatar.pending{background:linear-gradient(135deg,#C2760B,#E69B24);}
+  .ultra-avatar.declined{background:linear-gradient(135deg,#B82828,#E24B4B);}
+  .ultra-avatar-badge{position:absolute; bottom:-3px; right:-3px; width:16px; height:16px; border-radius:50%; background:var(--surface); border:1.5px solid var(--surface); display:flex; align-items:center; justify-content:center; font-size:7.5px; font-weight:800; color:var(--teal-deep); box-shadow:0 1px 3px rgba(0,0,0,0.15);}
+
+  .ultra-card-info{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .ultra-payer-name{font-family:'Sora',sans-serif; font-weight:700; font-size:13.5px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .ultra-fee-tag{font-size:11px; color:var(--ink-2); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+  .ultra-card-right{display:flex; flex-direction:column; align-items:flex-end; gap:3px; flex-shrink:0; text-align:right;}
+  .ultra-amount{font-family:'Sora',sans-serif; font-weight:800; font-size:15.5px; letter-spacing:-0.02em; color:var(--ink);}
+  .ultra-status-pill{display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:2.5px 8px; border-radius:999px;}
+  .ultra-status-pill.successful{background:var(--green-bg); color:var(--green);}
+  .ultra-status-pill.pending{background:var(--amber-bg); color:var(--amber);}
+  .ultra-status-pill.declined{background:var(--red-bg); color:var(--red);}
+  .ultra-status-dot{width:5px; height:5px; border-radius:50%; background:currentColor;}
+  .ultra-status-pill.successful .ultra-status-dot{animation:livePing 1.8s ease-out infinite;}
+
+  .ultra-card-bottom{margin-top:10px; padding-top:9px; border-top:1px dashed var(--line); display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .ultra-meta-item{display:flex; align-items:center; gap:5px; font-size:11px; color:var(--ink-3); font-weight:500;}
+  .ultra-ref-chip{font-family:'Sora',sans-serif; font-size:10.5px; font-weight:600; color:var(--ink-2); background:var(--surface-alt); padding:3px 7px; border-radius:6px; border:1px solid var(--line); display:inline-flex; align-items:center; gap:4px; cursor:pointer; transition:all 0.15s ease;}
+  .ultra-ref-chip:hover,.ultra-ref-chip:active{border-color:var(--teal); color:var(--teal); background:var(--teal-bg);}
+
+  .ultra-action-btn{font-size:11.5px; font-weight:700; color:var(--teal); display:flex; align-items:center; gap:3px; background:transparent; border:none; cursor:pointer; padding:2px 4px;}
+  .ultra-action-btn.retry{color:var(--red);}
+
+  .receipt-amount-card{text-align:center; padding:18px 12px 14px; background:var(--surface-alt); border-radius:16px; border:1px solid var(--line); margin-bottom:12px;}
+  .receipt-val{font-family:'Sora',sans-serif; font-weight:800; font-size:26px; letter-spacing:-0.03em; color:var(--ink);}
+  .receipt-status-tag{display:inline-flex; align-items:center; gap:5px; margin-top:6px; padding:4px 12px; border-radius:999px; font-size:11px; font-weight:700;}
+  .receipt-status-tag.successful{background:var(--green-bg); color:var(--green);}
+  .receipt-status-tag.pending{background:var(--amber-bg); color:var(--amber);}
+  .receipt-status-tag.declined{background:var(--red-bg); color:var(--red);}
+
+  .receipt-rows{display:flex; flex-direction:column; gap:10px; padding:4px 0 14px;}
+  .receipt-row{display:flex; justify-content:space-between; align-items:flex-start; font-size:12.5px;}
+  .receipt-lbl{color:var(--ink-3); font-weight:500;}
+  .receipt-txt{font-weight:600; color:var(--ink); text-align:right;}
+  .receipt-txt.bold{font-family:'Sora',sans-serif; font-weight:700;}
+
+  .toast-notice{
+    position:fixed; bottom:calc(var(--dock-h) + 20px + env(safe-area-inset-bottom)); left:50%;
+    transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff;
+    font-size:12px; font-weight:600; padding:10px 18px; border-radius:999px;
+    box-shadow:0 10px 25px -5px rgba(0,0,0,.35); opacity:0; pointer-events:none;
+    transition:all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1); z-index:9999;
+    display:flex; align-items:center; gap:6px; max-width:calc(100% - 32px);
+  }
+  .toast-notice.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  .btn{height:30px; border-radius:999px; border:1px solid var(--line); background:var(--surface-alt); display:flex; align-items:center; justify-content:center; gap:6px; font-size:12px; font-weight:700; color:var(--ink); padding:0 12px;}
+  .btn.link{background:transparent; border-color:transparent; color:var(--blue); box-shadow:none;}
+  .btn.primary{background:var(--teal); border-color:var(--teal); color:#fff;}
+  .btn-row{display:flex; gap:8px; margin-top:12px;}
+  .btn-row .btn{flex:1;}
+  .field{display:flex; flex-direction:column; gap:5px; flex:1;}
+  .field-label{font-size:9.5px; font-weight:700; color:var(--ink-3); text-transform:uppercase; letter-spacing:.05em;}
+  .field-control{height:38px; border-radius:var(--radius-sm); border:1px solid var(--line); background:var(--surface-alt); display:flex; align-items:center; justify-content:space-between; padding:0 11px; font-size:12px; font-weight:500; color:var(--ink); width:100%; font-family:'Inter',sans-serif; -webkit-appearance:none; appearance:none;}
+  .field-row{display:flex; gap:8px;}
+  .search-field{height:38px; border-radius:var(--radius-sm); border:1px solid var(--line); background:var(--surface-alt); display:flex; align-items:center; gap:8px; padding:0 11px; font-size:12px; color:var(--ink-3);}
+  .search-field input{border:none; outline:none; background:none; font:inherit; color:var(--ink); flex:1; min-width:0;}
+  .rev-toolbar{display:flex; gap:8px; margin-top:14px;}
+  .rev-toolbar .search-field{flex:1; margin-top:0;}
+  .filter-btn{position:relative; width:44px; height:44px; border-radius:14px; border:1px solid var(--line); background:var(--surface-alt); display:flex; align-items:center; justify-content:center; color:var(--ink-2);}
+  .filter-btn svg{width:18px; height:18px;}
+  .active-filters{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; margin-bottom:0;}
+  .pill-chip{font-size:10.5px; font-weight:600; color:var(--ink-2); background:var(--surface-alt); border:1px solid var(--line); padding:6px 12px; border-radius:999px;}
+  .rev-records-card{display:flex; flex-direction:column;}
+  .rev-records-head{flex-shrink:0;}
+  .rev-records-scroll{
+    max-height:260px; overflow-y:auto; overflow-x:hidden;
+    margin-top:16px; padding-top:4px; padding-right:2px;
+    -webkit-overflow-scrolling:touch;
+    border-top:1px dashed var(--line);
+  }
+  .rev-records-scroll::-webkit-scrollbar{width:3px;}
+  .rev-records-scroll::-webkit-scrollbar-thumb{background:var(--line); border-radius:4px;}
+  .rev-records-scroll .rev-card:first-child{margin-top:12px;}
+  .stl-modal-notice{
+    display:flex; gap:10px; align-items:flex-start;
+    padding:10px 12px; margin-bottom:12px;
+    background:var(--blue-bg); border:1px solid #BFDBFE; border-radius:12px;
+  }
+  [data-theme="dark"] .stl-modal-notice{background:rgba(42,95,193,.15); border-color:rgba(42,95,193,.35);}
+  .stl-modal-notice-icon{
+    width:28px; height:28px; border-radius:50%; flex-shrink:0;
+    background:var(--blue); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .stl-modal-notice-text{font-size:11px; line-height:1.45; color:#1E40AF; font-weight:500;}
+  [data-theme="dark"] .stl-modal-notice-text{color:#93C5FD;}
+  .stl-modal-item{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 0; border-bottom:1px solid var(--line);
+  }
+  .recon-card-item{
+    background:var(--surface); border-radius:20px; border:1px solid var(--line);
+    margin-top:14px; overflow:hidden;
+    box-shadow:0 4px 16px -8px rgba(16,23,32,.1);
+    transition:transform .2s var(--spring);
+  }
+  .recon-card-item:first-of-type{margin-top:0;}
+  .recon-card-item:active{transform:scale(.992);}
+  .recon-card-header{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:12px 14px 10px;
+    background:linear-gradient(135deg, var(--surface-alt) 0%, var(--surface) 100%);
+    border-bottom:1px solid var(--line);
+  }
+  .recon-card-accent{
+    position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:linear-gradient(180deg, var(--teal), var(--green));
+    border-radius:20px 0 0 20px;
+  }
+  .recon-card-item{position:relative; padding-left:4px;}
+  .recon-metrics-scroll{
+    display:flex; gap:24px; overflow-x:auto; padding:10px 14px 6px;
+    scroll-snap-type:x proximity;
+  }
+  .recon-metrics-scroll::-webkit-scrollbar{display:none;}
+  .recon-metric-chip{
+    scroll-snap-align:start; flex:0 0 auto; min-width:78px;
+    padding:5px 10px; border-radius:14px;
+    background:var(--surface-alt); border:1px solid rgba(16,23,32,.08);
+    text-align:center; cursor:pointer;
+    transition:transform .18s var(--spring), border-color .18s ease, background .18s ease;
+  }
+  .recon-metric-chip:active{transform:scale(.97); border-color:rgba(14,110,86,.2); background:rgba(236,251,242,.9);}
+  .recon-metric-chip .recon-metric-val{text-decoration:none; font-size:14px;}
+  .recon-metric-chip .recon-metric-lbl{font-size:10px; line-height:1; margin-top:-4px; }
+  .recon-card-body{padding:0 14px 12px;}
+  .recon-summary-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:10px;
+  }
+  .recon-summary-item{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:6px;
+  }
+  .recon-summary-label{font-size:11px; font-weight:900; color:var(--ink-3);}
+  .recon-summary-amt{font-family:'Sora',sans-serif; font-weight:700; font-size:14px; color:var(--ink); margin-left:2px;}
+  .recon-progress-group{margin-top:0; padding-top:0;}
+  .recon-balance-bar{
+    margin-top:10px; padding:6px 12px; border-radius:12px;
+    background:var(--red-bg); border:1px solid rgba(211,54,54,.15);
+  }
+  /* Recon View Mode & Quick Filter Pills */
+  .recon-filter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 12px;
+  }
+  .recon-pills {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .recon-pills::-webkit-scrollbar { display: none; }
+  .recon-pill {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-2);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .recon-pill.active {
+    background: var(--teal-bg);
+    border-color: var(--teal);
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .recon-view-toggle {
+    display: flex;
+    align-items: center;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 2px;
+    flex-shrink: 0;
+  }
+  .recon-view-btn {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .recon-view-btn.active {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  /* Compact Bank Row Layout */
+  .recon-compact-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    margin-top: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    cursor: pointer;
+  }
+  .recon-compact-item:first-of-type { margin-top: 0; }
+  .recon-compact-item:active { transform: scale(0.99); }
+  .recon-compact-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .recon-compact-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1E293B, #0F172A);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .recon-compact-title {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .recon-compact-sub {
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 1px;
+  }
+  .recon-compact-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .recon-compact-badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+  }
+  .recon-compact-badge.done {
+    background: var(--green-bg);
+    color: var(--green);
+  }
+  .recon-compact-badge.pending {
+    background: var(--red-bg);
+    color: var(--red);
+  }
+
+  /* ================= COMPLETE DARK MODE DESIGN SYSTEM ================= */
+  [data-theme="dark"]{
+    --bg:#090D14;
+    --surface:#121924;
+    --surface-alt:#182230;
+    --ink:#F1F5F9;
+    --ink-2:#94A3B8;
+    --ink-3:#64748B;
+    --line:#222E3E;
+    --teal:#14B8A6;
+    --teal-deep:#0D9488;
+    --teal-bg:rgba(20,184,166,.16);
+    --green:#10B981;
+    --green-bg:rgba(16,185,129,.16);
+    --amber:#F59E0B;
+    --amber-bg:rgba(245,158,11,.16);
+    --red:#EF4444;
+    --red-bg:rgba(239,68,68,.16);
+    --blue:#3B82F6;
+    --blue-bg:rgba(59,130,246,.16);
+    --gold:#F59E0B;
+    --gold-bg:rgba(245,158,11,.16);
+    --purple:#8B5CF6;
+    --purple-bg:rgba(139,92,246,.16);
+    --shadow-card:0 1px 2px rgba(0,0,0,.3), 0 8px 20px -12px rgba(0,0,0,.5);
+    --shadow-nav:0 8px 32px -8px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08);
+  }
+  html[data-theme="dark"], body[data-theme="dark"]{
+    background:var(--bg); color:var(--ink);
+  }
+  [data-theme="dark"] .app-shell{background:var(--bg);}
+  [data-theme="dark"] .mobile-hero{
+    background:linear-gradient(165deg, #070D15 0%, #0F1722 55%, #0B121B 100%) !important;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  [data-theme="dark"] .mobile-hero.compact{
+    box-shadow:0 8px 28px -12px rgba(0,0,0,.7);
+  }
+  [data-theme="dark"] .hero-mesh{
+    background:
+      radial-gradient(220px 140px at 92% 8%, rgba(20,184,166,.2), transparent 70%),
+      radial-gradient(180px 120px at 8% 95%, rgba(59,130,246,.16), transparent 65%);
+  }
+  [data-theme="dark"] .hero-mesh::after{
+    background:rgba(20,184,166,.06);
+  }
+  [data-theme="dark"] .card,
+  [data-theme="dark"] .status-card-box,
+  [data-theme="dark"] .stl-sync-card,
+  [data-theme="dark"] .stl-chart-card,
+  [data-theme="dark"] .recon-chart-card,
+  [data-theme="dark"] .recon-section-card{background:var(--surface); border-color:var(--line);}
+  [data-theme="dark"] .stat-card.c1{background:linear-gradient(150deg, rgba(14,110,86,.35), rgba(7,60,48,.6)); color:#A7F3D0;}
+  [data-theme="dark"] .stat-card.c2{background:linear-gradient(150deg, rgba(28,149,100,.35), rgba(18,90,60,.6)); color:#6EE7B7;}
+  [data-theme="dark"] .stat-card.c3{background:linear-gradient(150deg, rgba(42,95,193,.35), rgba(28,62,134,.6)); color:#93C5FD;}
+  [data-theme="dark"] .stat-card.c4{background:linear-gradient(150deg, rgba(194,118,11,.35), rgba(122,71,7,.6)); color:#FDE047;}
+  [data-theme="dark"] .stat-card .icon-chip{background:rgba(255,255,255,.12);}
+  [data-theme="dark"] .stat-card::before{background:rgba(255,255,255,.08);}
+  [data-theme="dark"] .quick-action-icon{background:var(--surface); border-color:var(--line); color:#5EEAD4;}
+  [data-theme="dark"] .exact-status-name{color:var(--ink-2);}
+  [data-theme="dark"] .exact-status-track{background:var(--line);}
+  [data-theme="dark"] .exact-status-pct{color:var(--ink-3);}
+  [data-theme="dark"] .exact-status-amt{color:var(--ink);}
+  [data-theme="dark"] .mm-chip{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .status-ring-row{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .status-ring::after{background:var(--surface-alt);}
+  [data-theme="dark"] .status-ring-name{color:var(--ink);}
+  [data-theme="dark"] .status-ring-track{background:var(--line);}
+  [data-theme="dark"] .stl-stat-box{background:var(--surface); border-color:var(--line);}
+  [data-theme="dark"] .stl-stat-box.blue{background:linear-gradient(145deg, rgba(42,95,193,.2), rgba(18,25,36,.95)); border-color:rgba(42,95,193,.35);}
+  [data-theme="dark"] .stl-stat-box.pink{background:linear-gradient(145deg, rgba(211,54,54,.2), rgba(18,25,36,.95)); border-color:rgba(211,54,54,.35);}
+  [data-theme="dark"] .stl-stat-box.green{background:linear-gradient(145deg, rgba(28,149,100,.2), rgba(18,25,36,.95)); border-color:rgba(28,149,100,.35);}
+  [data-theme="dark"] .stl-stat-box.purple{background:linear-gradient(145deg, rgba(99,87,214,.2), rgba(18,25,36,.95)); border-color:rgba(99,87,214,.35);}
+  [data-theme="dark"] .stl-stat-icon{background:rgba(255,255,255,.1);}
+  [data-theme="dark"] .stl-bank-card{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .stl-hist-card{background:var(--surface); border-color:var(--line);}
+  [data-theme="dark"] .stl-hist-chip{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .recon-stat-box.blue{background:linear-gradient(145deg, rgba(42,95,193,.2), rgba(18,25,36,.95)); border-color:rgba(42,95,193,.35);}
+  [data-theme="dark"] .recon-stat-box.green{background:linear-gradient(145deg, rgba(28,149,100,.2), rgba(18,25,36,.95)); border-color:rgba(28,149,100,.35);}
+  [data-theme="dark"] .recon-stat-box.amber{background:linear-gradient(145deg, rgba(217,119,6,.2), rgba(18,25,36,.95)); border-color:rgba(217,119,6,.35);}
+  [data-theme="dark"] .recon-stat-box.teal{background:linear-gradient(145deg, rgba(13,148,136,.2), rgba(18,25,36,.95)); border-color:rgba(13,148,136,.35);}
+  [data-theme="dark"] .recon-stat-icon{background:rgba(255,255,255,.1);}
+  [data-theme="dark"] .recon-action-btn.secondary{background:var(--surface-alt); border-color:var(--line); color:var(--ink);}
+  [data-theme="dark"] .recon-toolbar-box{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .recon-card-header{background:linear-gradient(135deg, var(--surface-alt) 0%, var(--surface) 100%); border-color:var(--line);}
+  [data-theme="dark"] .recon-bank-avatar{background:linear-gradient(135deg, #1E293B, #0F172A); border:1px solid var(--line);}
+  [data-theme="dark"] .recon-metric-chip{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .recon-progress-bar{background:var(--line);}
+  [data-theme="dark"] .recon-info-callout{background:rgba(42,95,193,.14); border-color:rgba(42,95,193,.35);}
+  [data-theme="dark"] .recon-info-text{color:#93C5FD;}
+  [data-theme="dark"] .status-tabs{background:rgba(24,34,48,.85); border-color:var(--line);}
+  [data-theme="dark"] .status-tab{color:var(--ink-2);}
+  [data-theme="dark"] .status-tab.active{color:#5EEAD4;}
+  [data-theme="dark"] .status-indicator{background:var(--surface); box-shadow:0 2px 8px rgba(0,0,0,.4);}
+  [data-theme="dark"] .txn-search-field{background:var(--surface); border-color:var(--teal);}
+  [data-theme="dark"] .icon-action-btn{background:var(--surface-alt); border-color:var(--line); color:var(--ink-2);}
+  [data-theme="dark"] .ultra-txn-card{background:var(--surface); border-color:var(--line);}
+  [data-theme="dark"] .ultra-ref-chip{background:var(--surface-alt); border-color:var(--line); color:var(--ink-2);}
+  [data-theme="dark"] .ultra-avatar-badge{background:var(--surface); border-color:var(--surface);}
+  [data-theme="dark"] .bottom-nav{
+    background:rgba(18,25,36,.96);
+    border-color:rgba(255,255,255,.08);
+    box-shadow:0 8px 32px -8px rgba(0,0,0,.55), 0 2px 8px -2px rgba(0,0,0,.35);
+  }
+  [data-theme="dark"] .module-switcher{background:transparent; border-color:transparent;}
+  [data-theme="dark"] .nav-fab{box-shadow:0 6px 20px -4px rgba(20,184,166,.45);}
+  [data-theme="dark"] .nav-item.active{color:#5EEAD4;}
+  [data-theme="dark"] .nav-item.active .nav-icon-wrap{background:rgba(20,184,166,.2); box-shadow:none;}
+  [data-theme="dark"] .sheet{background:var(--surface); border-top:1px solid var(--line);}
+  [data-theme="dark"] .sheet-handle{background:var(--line);}
+  [data-theme="dark"] .sheet-row-opt{border-color:var(--line); color:var(--ink-2);}
+  [data-theme="dark"] .sheet-row-opt.active{color:#5EEAD4;}
+  [data-theme="dark"] .icon-btn{background:var(--surface-alt); border-color:var(--line); color:var(--ink);}
+  [data-theme="dark"] .sheet-overlay .icon-btn{background:var(--surface-alt); border-color:var(--line); color:var(--ink);}
+  [data-theme="dark"] .receipt-amount-card{background:var(--surface-alt); border-color:var(--line);}
+  [data-theme="dark"] .stl-modal-notice{background:rgba(42,95,193,.15); border-color:rgba(42,95,193,.35);}
+  [data-theme="dark"] .stl-modal-notice-text{color:#93C5FD;}
+  [data-theme="dark"] .field-control, [data-theme="dark"] .search-field{background:var(--surface-alt); border-color:var(--line); color:var(--ink);}
+  [data-theme="dark"] ::placeholder{color:var(--ink-3); opacity:.8;}
+  [data-theme="dark"] svg line[stroke="#E7EAEE"]{stroke:var(--line) !important;}
+  [data-theme="dark"] svg text[fill="#96A0AC"]{fill:var(--ink-3) !important;}
+  [data-theme="dark"] svg circle[fill="#fff"]{fill:var(--surface) !important;}
+  .app-shell, .card, .status-card-box, .sheet, .bottom-nav, .module-switcher, .stat-card, .stl-sync-card, .stl-chart-card, .recon-chart-card, .recon-section-card, .ultra-txn-card {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .rev-card{border:1px solid var(--line); border-radius:var(--radius-sm); padding:14px 14px 12px; margin-top:14px;}
+  .rev-card:first-child{margin-top:0;}
+  .rev-card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+  .rev-card-name{font-family:'Sora'; font-weight:700; font-size:13px; line-height:1.3;}
+  .rev-card-code{font-size:10px; color:var(--ink-3); font-weight:600; margin-top:3px;}
+  .rev-card-amt{font-family:'Sora'; font-weight:700; font-size:14px; text-align:right; white-space:nowrap;}
+  .rev-card-meta{display:flex; align-items:center; gap:8px; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line);}
+  .rev-card-chip{font-size:10px; font-weight:700; padding:4px 9px; border-radius:999px; flex:0 0 auto;}
+  .rev-card-chip.compulsory{background:var(--teal-bg); color:var(--teal-deep);}
+  .rev-card-chip.optional{background:var(--amber-bg); color:var(--amber);}
+  .rev-card-txns{font-size:11px; color:var(--ink-2); font-weight:600;}
+  .rev-card-action{margin-left:auto; color:var(--ink-3); flex:0 0 auto; display:flex; align-items:center;}
+  .bottom-nav{
+    flex-shrink:0;
+    display:flex; justify-content:space-between; align-items:center;
+    gap:2px;
+    padding:8px 12px;
+    margin:0 16px max(12px, env(safe-area-inset-bottom));
+    background:var(--surface);
+    border:1px solid rgba(231,234,238,.9);
+    box-shadow:0 4px 24px -6px rgba(16,23,32,.14), 0 12px 36px -12px rgba(16,23,32,.1);
+    border-radius:999px;
+    position:absolute; bottom:0; left:0; right:0; z-index:40;
+  }
+  .nav-item{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    color:var(--ink-3); flex:1; min-width:0; padding:2px 0; border:none; background:transparent;
+    cursor:pointer; font-family:'Inter',sans-serif;
+    transition:transform .18s var(--spring), color .2s ease;
+  }
+  .nav-item:active{transform:scale(.92);}
+  .nav-item.active{color:var(--teal-deep);}
+  .nav-item .nav-icon-wrap{
+    width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+    border-radius:50%; color:inherit;
+    transition:background .22s var(--ease-out);
+  }
+  .nav-item.active .nav-icon-wrap{
+    background:var(--teal-bg);
+  }
+  .nav-item .nav-label{
+    font-size:10px; font-weight:600; letter-spacing:.01em; line-height:1;
+    color:inherit;
+  }
+  .nav-fab-wrap{
+    flex:0 0 auto; display:flex; align-items:center; justify-content:center;
+    padding:0 6px;
+  }
+  .nav-fab{
+    width:48px; height:48px; border-radius:14px; border:none; cursor:pointer;
+    background:var(--teal);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 22px -4px rgba(14,110,86,.55);
+    transform:translateY(-10px);
+    transition:transform .22s var(--spring), box-shadow .22s ease, background .2s ease;
+  }
+  .nav-fab:active{transform:translateY(-10px) scale(.94); box-shadow:0 4px 14px -4px rgba(14,110,86,.45);}
+  .ripple-host{position:relative; overflow:hidden;}
+  .ripple{
+    position:absolute; border-radius:50%; background:rgba(255,255,255,.35);
+    transform:scale(0); animation:rippleOut .55s ease-out forwards; pointer-events:none;
+  }
+  @keyframes rippleOut{to{transform:scale(4); opacity:0;}}
+  .page-shimmer{
+    position:fixed; inset:0; pointer-events:none; z-index:200;
+    background:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.06) 50%, transparent 60%);
+    transform:translateX(-100%); animation:shimmer 1.2s ease-out;
+  }
+  @keyframes shimmer{to{transform:translateX(100%);}}
+  .count-up{display:inline-block;}
+  .sheet-overlay{position:absolute; inset:0; background:rgba(10,14,20,.5); z-index:80; opacity:0; pointer-events:none; transition:opacity .25s ease; 
+    display:flex; align-items:flex-end;}
+  .sheet-overlay.open{opacity:1; pointer-events:auto;}
+  .sheet{width:100%; max-height:80%; background:var(--surface); border-radius:24px 24px 0 0; padding:10px 18px 22px; transform:translateY(100%); transition:transform .28s cubic-bezier(.32,.72,0,1); display:flex; flex-direction:column; overflow:hidden;}
+  .sheet-overlay.open .sheet{transform:translateY(0);}
+  .sheet-overlay.filter-screen{align-items:flex-end;}
+  .sheet-overlay.filter-screen .sheet{
+    max-height:min(520px, 88dvh);
+    border-radius:28px 28px 0 0;
+    padding:8px 20px calc(22px + env(safe-area-inset-bottom));
+  }
+  .filter-sheet-body{padding-top:6px; display:flex; flex-direction:column; gap:4px;}
+  .filter-form-field{margin-bottom:14px;}
+  .filter-form-label{
+    font-size:13px; font-weight:600; color:var(--ink);
+    margin-bottom:8px; display:block;
+  }
+  .filter-form-select{
+    width:100%; min-height:48px; border-radius:14px;
+    border:1px solid var(--line); background:var(--surface-alt);
+    padding:0 14px; display:flex; align-items:center; justify-content:space-between; gap:10px;
+    font-family:'Inter',sans-serif; font-size:13px; font-weight:500; color:var(--ink-2);
+    cursor:pointer; text-align:left;
+    transition:border-color .2s ease, background .2s ease;
+  }
+  .filter-form-select:active{background:var(--surface);}
+  .filter-form-select.open{border-color:var(--teal); background:var(--surface);}
+  .filter-form-select span{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .filter-form-panel{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .32s var(--ease-out), opacity .25s ease, margin .25s ease;
+    margin-top:0;
+  }
+  .filter-form-panel.open{
+    max-height:280px; opacity:1; margin-top:10px;
+  }
+  .filter-form-panel .sheet-list{margin-top:0;}
+  .filter-form-panel .field-row{margin-top:0;}
+  .filter-form-panel .field-control{font-size:13px;}
+  .filter-sheet-apply{margin-top:8px; width:100%; height:44px; border-radius:14px; font-size:13px;}
+  .sheet-handle{width:36px; height:4px; border-radius:2px; background:var(--line); margin:2px auto 12px;}
+  .sheet-head{display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px;}
+  .sheet-title{font-family:'Sora'; font-weight:700; font-size:15.5px; letter-spacing:-.01em;}
+  .sheet-sub{font-size:11.5px; color:var(--ink-3); margin-top:2px;}
+  .sheet-body{overflow-y:auto; padding-bottom:6px;}
+  .sheet-body::-webkit-scrollbar{display:none;}
+  .sheet-list{display:flex; flex-direction:column;}
+  .sheet-row-opt{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 2px; border-bottom:1px solid var(--line); font-size:13px; font-weight:600; color:var(--ink-2);}
+  .sheet-row-opt:last-child{border-bottom:none;}
+  .sheet-row-opt.active{color:var(--teal-deep);}
+  .sheet-row-opt .chk{opacity:0; color:var(--teal); flex:0 0 auto;}
+  .sheet-row-opt.active .chk{opacity:1;}
+  .sheet-apply{margin-top:16px;}
+  .sheet-custom-range{display:none; gap:8px; margin-top:10px;}
+  .sheet-custom-range.show{display:flex;}
+  .txn-row{display:flex; align-items:center; gap:10px; padding:11px 0; border-top:1px solid var(--line);}
+  .txn-row:first-child{border-top:none;}
+  .txn-id{font-size:12px; font-weight:600;}
+  .txn-meta{font-size:10.5px; color:var(--ink-3); margin-top:2px;}
+  .txn-mid{margin-left:auto; text-align:right;}
+  .txn-amt{font-family:'Sora'; font-weight:700; font-size:12.5px;}
+  .txn-status{font-size:10px; font-weight:600; color:var(--amber); margin-top:2px;}
+  .txn-btn{flex:0 0 auto; height:30px; padding:0 12px; border-radius:999px; background:var(--teal); color:#fff; font-size:11px; font-weight:700; display:flex; align-items:center;}
+  .empty{padding:32px 16px; text-align:center; animation:fadeSlideUp .4s ease both;}
+  .empty .ring{
+    width:52px; height:52px; border-radius:50%; margin:0 auto 12px;
+    background:var(--surface-alt); border:1px dashed var(--line);
+    display:flex; align-items:center; justify-content:center; color:var(--ink-3);
+  }
+  .empty .t1{font-family:'Sora'; font-weight:700; font-size:14px; color:var(--ink);}
+  .empty .t2{font-size:11.5px; color:var(--ink-3); margin-top:4px; line-height:1.45;}
+  .info-banner{
+    display:flex; gap:10px; align-items:flex-start; padding:10px 12px; border-radius:14px;
+    background:var(--blue-bg); border:1px solid #BFDBFE; font-size:10.5px; color:#1E40AF; line-height:1.4;
+  }
+  .info-banner svg{width:18px; height:18px; flex-shrink:0; margin-top:1px;}
+  .revenue-cta{
+    display:flex; align-items:center; gap:4px; font-size:11px; font-weight:700; color:var(--teal);
+    padding:6px 10px; border-radius:999px; background:var(--teal-bg); cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .revenue-cta:active{transform:scale(.94);}
+  .sheet-section-label{
+    font-size:10.5px; font-weight:700; color:var(--ink-3);
+    text-transform:uppercase; letter-spacing:.05em; margin:12px 0 8px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important;}
+  }
+  .sheet-overlay .icon-btn{
+    background:var(--surface-alt); border:1px solid var(--line); color:var(--ink);
+  }
+
+  /* ================= SIDE SLIDE MODAL ================= */
+  .side-modal-overlay{
+    position:absolute; inset:0; background:rgba(10,14,20,.45); z-index:200;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+    display:flex; justify-content:flex-end; backdrop-filter:blur(2px);
+  }
+  .side-modal-overlay.open{opacity:1; pointer-events:auto;}
+  .side-modal-panel{
+    width:min(88%, 370px); height:100%; background:var(--surface);
+    border-radius:28px 0 0 28px; box-shadow:-10px 0 36px rgba(16,23,32,.22);
+    transform:translateX(100%); transition:transform .34s cubic-bezier(.22,1,.36,1);
+    display:flex; flex-direction:column; overflow:hidden;
+  }
+  .side-modal-overlay.open .side-modal-panel{transform:translateX(0);}
+  .side-modal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 20px; border-bottom:1px solid var(--line); flex-shrink:0;
+  }
+  .side-modal-title{font-family:'Sora'; font-weight:700; font-size:16px; color:var(--ink);}
+  .side-modal-close{
+    width:32px; height:32px; border-radius:50%; background:var(--surface-alt);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    color:var(--ink-2); cursor:pointer; transition:all .2s ease; flex-shrink:0;
+  }
+  .side-modal-close:active{transform:scale(.9); background:var(--line);}
+  .side-modal-body{flex:1; overflow-y:auto; padding:16px 18px 24px;}
+  .side-modal-body::-webkit-scrollbar{display:none;}
+  .side-modal-accordion{
+    border:1px solid var(--line); border-radius:18px; margin-bottom:14px;
+    background:var(--surface); overflow:hidden; transition:border-color .2s ease, box-shadow .2s ease;
+    box-shadow:0 1px 3px rgba(16,23,32,.03);
+  }
+  .side-modal-accordion.open{
+    border-color:rgba(14,110,86,.35); box-shadow:0 4px 12px rgba(14,110,86,.08);
+  }
+  .side-modal-acc-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 18px; cursor:pointer; transition:background .2s ease; user-select:none;
+  }
+  .side-modal-acc-head:active{background:var(--surface-alt);}
+  .side-modal-acc-title{font-family:'Sora'; font-weight:700; font-size:14.5px; color:var(--ink);}
+  .side-modal-acc-meta{font-size:12px; color:var(--ink-3); margin-top:3px; font-weight:400;}
+  .side-modal-acc-arrow{
+    width:30px; height:30px; border-radius:50%; background:var(--surface-alt);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    color:var(--ink-2); transition:all .25s cubic-bezier(.34,1.4,.64,1); flex-shrink:0;
+  }
+  .side-modal-accordion.open .side-modal-acc-arrow{
+    transform:rotate(180deg); background:var(--teal-bg); color:var(--teal); border-color:transparent;
+  }
+  .side-modal-acc-body{
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .32s cubic-bezier(.4,0,.2,1), opacity .25s ease, padding .32s ease;
+    padding:0 18px;
+  }
+  .side-modal-accordion.open .side-modal-acc-body{
+    max-height:500px; opacity:1; padding:4px 18px 18px; border-top:1px dashed var(--line);
+  }
+  .side-modal-acc-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:10px 0; border-bottom:1px solid var(--line); font-size:12px;
+  }
+  .side-modal-acc-row:last-child{border-bottom:none;}
+  .side-modal-acc-row .label{color:var(--ink-3); font-weight:500;}
+  .side-modal-acc-row .value{font-family:'Sora'; font-weight:700; color:var(--ink);}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+    <header class="mobile-hero" id="mobileHero">
+      <div class="hero-mesh"></div>
+
+      <div class="statusbar">
+        <span>9:41</span>
+        <div class="icons">
+          <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="currentColor"/></svg>
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C10 2.5 12 3.5 13.7 5.3L12.3 6.7C10.9 5.3 9.3 4.5 7.5 4.5C5.7 4.5 4.1 5.3 2.7 6.7L1.3 5.3C3 3.5 5 2.5 7.5 2.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.4" fill="currentColor"/></svg>
+          <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="16" height="7" rx="1.2" fill="currentColor"/><rect x="21.5" y="3.5" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+        </div>
+      </div>
+
+      <div class="hero-top">
+        <div class="school-badge">MC</div>
+        <div>
+          <div class="school-name">Metropolitan College</div>
+          <div class="school-sub">Gov. Arms Rd. · Week 8</div>
+        </div>
+        <div class="appbar-actions">
+          <button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" id="themeIcon"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          </button>
+          <div class="icon-btn"><span class="dot"></span>
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          </div>
+          <div class="icon-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </div>
+        </div>
+      </div>
+        <div class="term-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        <b>2025/2026</b><span class="term-dot"></span>First term
+      </div>
+      <div class="hero-title-block">
+        <!-- <p class="hero-eyebrow">EduTAMS · Finance</p> -->
+       
+        <!-- <p style="margin:6px 0 0;font-size:12px;color:rgba(255,255,255,.75);font-weight:500;">₦245,000 collected today</p> -->
+      </div>
+
+      
+    </header>
+
+
+    <div class="body-scroll" id="bodyScroll">
+      <div class="pull-hint" id="pullHint"><span class="pull-spinner"></span> Release to refresh</div>
+
+      <div class="wallet-deck">
+        <div class="stat-carousel" id="carousel">
+        <div class="stat-card c1 is-active ">
+          <div class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg></div>
+          <div class="amount count-up" data-count="245000">₦245,000</div>
+          <div class="label">Transaction today</div>
+        </div>
+        <div class="stat-card c2">
+          <div class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg></div>
+          <div class="amount count-up" data-count="1320000">₦1,320,000</div>
+          <div class="label">This week</div>
+        </div>
+        <div class="stat-card c3">
+          <div class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg></div>
+          <div class="amount count-up" data-count="4980000">₦4,980,000</div>
+          <div class="label">This month</div>
+        </div>
+        <div class="stat-card c4">
+          <div class="icon-chip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg></div>
+          <div class="amount count-up" data-count="21640000">₦21,640,000</div>
+          <div class="label">This year</div>
+        </div>
+      </div>
+      <div class="dots" id="dots">
+        <span class="on"></span><span></span><span></span><span></span>
+      </div>
+      </div>
+
+      <div class="module-rail-wrap">
+        <div class="module-switcher" id="tabRow">
+          <button type="button" class="module-chip active" data-tab="transactions" onclick="switchTab('transactions', event)">
+            <span class="chip-label">Transactions</span>
+          </button>
+          <button type="button" class="module-chip" data-tab="revenue" onclick="switchTab('revenue', event)">
+            <span class="chip-label">Revenue</span>
+          </button>
+          <button type="button" class="module-chip" data-tab="settlement" onclick="switchTab('settlement', event)">
+            <span class="chip-label">Settlement</span>
+          </button>
+          <button type="button" class="module-chip" data-tab="recon" onclick="switchTab('recon', event)">
+            <span class="chip-label">Reconciliation</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tabpanel-viewport" id="tabViewport">
+
+      <!-- ============ TRANSACTIONS ============ -->
+      <div class="tabpanel active" data-panel="transactions">
+        <div class="card mobile-block">
+          <div class="card-head">
+            <div class="card-title">Transaction overview</div>
+          </div>
+          <div class="filter-row">
+            <div class="period-chip" id="periodChip" onclick="openSheet('periodSheetOverlay')">
+              <span id="periodLabel">Today</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="date-chip" id="periodDate" onclick="openSheet('dateSheetOverlay')">2026-07-24
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+            </div>
+          </div>
+
+          <div class="chart-card chart-touch-layer" id="txnChartWrap">
+            <div class="chart-tooltip" id="chartTooltip">₦245,000 peak</div>
+            <svg viewBox="0 0 336 138" width="100%" height="132" style="display:block;" id="txnLineChart">
+              <defs>
+                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0E6E56" stop-opacity=".28"/>
+                  <stop offset="100%" stop-color="#0E6E56" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="lineFade" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#0E6E56" stop-opacity=".4"/>
+                  <stop offset="100%" stop-color="#0E6E56" stop-opacity="1"/>
+                </linearGradient>
+              </defs>
+              <line x1="30" y1="6" x2="330" y2="6" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="35" x2="330" y2="35" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="64" x2="330" y2="64" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="93" x2="330" y2="93" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="122" x2="330" y2="122" stroke="#E7EAEE" stroke-width="1"/>
+              <text x="0" y="9" font-size="9" font-family="Inter" fill="#96A0AC">₦2M</text>
+              <text x="0" y="38" font-size="9" font-family="Inter" fill="#96A0AC">₦1.5M</text>
+              <text x="5" y="67" font-size="9" font-family="Inter" fill="#96A0AC">₦1M</text>
+              <text x="0" y="96" font-size="9" font-family="Inter" fill="#96A0AC">₦500K</text>
+              <text x="5" y="125" font-size="9" font-family="Inter" fill="#96A0AC">₦0</text>
+              <path d="M30 122 L80 118 L130 108 L180 88 L230 72 L280 45 L330 38 L330 122 L30 122 Z" fill="url(#areaGrad)" class="chart-area-fill"/>
+              <path d="M30 122 L80 118 L130 108 L180 88 L230 72 L280 45 L330 38" stroke="url(#lineFade)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" class="chart-line-anim"/>
+              <circle cx="330" cy="38" r="5" fill="#0E6E56" opacity=".25" class="chart-dot-pulse"/>
+              <circle cx="330" cy="38" r="4" fill="#0E6E56"/>
+              <circle cx="180" cy="88" r="3" fill="#fff" stroke="#0E6E56" stroke-width="2" opacity="0" class="chart-point" data-label="₦820K · 12:00"/>
+              <circle cx="280" cy="45" r="3" fill="#fff" stroke="#0E6E56" stroke-width="2" opacity="0" class="chart-point" data-label="₦1.6M · 18:00"/>
+            </svg>
+            <div class="chart-xaxis" id="chartXAxis"></div>
+            <div class="chart-caption"><span class="live-badge"></span>Live feed — peak today <b>₦245,000</b> at 10:42 AM</div>
+          </div>
+        </div>
+
+        <div class="status-card-box mobile-block">
+          <div class="status-card-title">Transaction status</div>
+
+          <div class="donut-wrap">
+            <div style="position:relative; width:96px; height:96px;">
+              <svg class="donut-svg" viewBox="0 0 96 96" width="96" height="96">
+                <circle cx="48" cy="48" r="38" fill="none" stroke="#E7EAEE" stroke-width="12"/>
+                <circle cx="48" cy="48" r="38" fill="none" stroke="#1C9564" stroke-width="12" stroke-dasharray="152 238.76" stroke-dashoffset="0" transform="rotate(-90 48 48)" class="chart-line-anim"/>
+                <circle cx="48" cy="48" r="38" fill="none" stroke="#C2760B" stroke-width="12" stroke-dasharray="52 238.76" stroke-dashoffset="-152" transform="rotate(-90 48 48)" class="chart-line-anim" style="animation-delay:.15s"/>
+                <circle cx="48" cy="48" r="38" fill="none" stroke="#D33636" stroke-width="12" stroke-dasharray="34 238.76" stroke-dashoffset="-204" transform="rotate(-90 48 48)" class="chart-line-anim" style="animation-delay:.3s"/>
+              </svg>
+              <div class="donut-center">
+                <div class="donut-center-val">₦3.76M</div>
+                <div class="donut-center-lbl">Total volume</div>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="donut-leg-item"><span class="donut-leg-dot" style="background:var(--green)"></span>Successful <span class="donut-leg-amt">64%</span></div>
+              <div class="donut-leg-item"><span class="donut-leg-dot" style="background:var(--amber)"></span>Pending <span class="donut-leg-amt">22%</span></div>
+              <div class="donut-leg-item"><span class="donut-leg-dot" style="background:var(--red)"></span>Declined <span class="donut-leg-amt">14%</span></div>
+            </div>
+          </div>
+
+          <div class="exact-status-row">
+            <div class="exact-status-left">
+              <div class="exact-status-label-group">
+                <span class="exact-status-dot" style="background: var(--green);"></span>
+                <span class="exact-status-name">Successful</span>
+              </div>
+              <div class="exact-status-track">
+                <div class="exact-status-fill" style="width: 64%; background: var(--green);"></div>
+              </div>
+            </div>
+            <div class="exact-status-right">
+              <div class="exact-status-amt">₦2,410,000</div>
+              <div class="exact-status-pct">64%</div>
+            </div>
+          </div>
+
+          <div class="exact-status-row">
+            <div class="exact-status-left">
+              <div class="exact-status-label-group">
+                <span class="exact-status-dot" style="background: var(--amber);"></span>
+                <span class="exact-status-name">Pending</span>
+              </div>
+              <div class="exact-status-track">
+                <div class="exact-status-fill" style="width: 22%; background: var(--amber);"></div>
+              </div>
+            </div>
+            <div class="exact-status-right">
+              <div class="exact-status-amt">₦830,000</div>
+              <div class="exact-status-pct">22%</div>
+            </div>
+          </div>
+
+          <div class="exact-status-row">
+            <div class="exact-status-left">
+              <div class="exact-status-label-group">
+                <span class="exact-status-dot" style="background: var(--red);"></span>
+                <span class="exact-status-name">Declined</span>
+              </div>
+              <div class="exact-status-track">
+                <div class="exact-status-fill" style="width: 14%; background: var(--red);"></div>
+              </div>
+            </div>
+            <div class="exact-status-right">
+              <div class="exact-status-amt">₦525,000</div>
+              <div class="exact-status-pct">14%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="recent-section mobile-block">
+          <div class="recent-head-bar">
+            <div class="recent-title-group">
+              <div class="recent-title">Recent transactions</div>
+            </div>
+            <div class="recent-actions">
+              <button class="icon-action-btn" id="toggleTxnSearchBtn" onclick="toggleTxnSearch()" title="Search transactions">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              </button>
+              <button class="icon-action-btn" onclick="showToast('Exporting CSV transaction report...')" title="Export CSV">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Expandable Live Search Bar -->
+          <div class="txn-search-wrapper" id="txnSearchWrapper">
+            <div class="txn-search-field">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" id="txnSearchInput" placeholder="Search student, ref ID, or fee..." oninput="onTxnSearchInput(this.value)">
+              <button class="txn-search-clear" onclick="clearTxnSearch()">&times;</button>
+            </div>
+          </div>
+
+          <!-- Segmented Status Tabs without Count Badges -->
+          <div class="status-tabs sticky" id="statusTabs">
+            <div class="status-tab active" data-status="all" onclick="selectStatusTab(event,'all')">All</div>
+            <div class="status-tab" data-status="successful" onclick="selectStatusTab(event,'successful')">Successful</div>
+            <div class="status-tab" data-status="pending" onclick="selectStatusTab(event,'pending')">Pending</div>
+            <div class="status-tab" data-status="declined" onclick="selectStatusTab(event,'declined')">Declined</div>
+            <div class="status-indicator" id="statusIndicator"></div>
+          </div>
+
+          <div class="txn-scroll-area" id="txnList"></div>
+        </div>
+      </div>
+
+      <!-- ============ REVENUE ============ -->
+      <div class="tabpanel" data-panel="revenue">
+        <div class="card mobile-block">
+          <div class="card-head">
+            <div class="card-title">Revenue amount</div>
+          </div>
+          <div class="filter-row">
+            <div class="selector-chip" id="revSessionTrigger" onclick="openSheet('sessionSheetOverlay')">
+              <span id="revSessionLabel">2025/2026</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="selector-chip" id="revTermTrigger" onclick="openSheet('termSheetOverlay')">
+              <span id="revTermLabel">First term</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+          </div>
+
+          <div class="chart-card">
+            <svg viewBox="0 0 336 138" width="100%" height="132" style="display:block;">
+              <line x1="30" y1="6" x2="330" y2="6" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="35" x2="330" y2="35" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="64" x2="330" y2="64" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="93" x2="330" y2="93" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="122" x2="330" y2="122" stroke="#E7EAEE" stroke-width="1"/>
+              <text x="0" y="9" font-size="9" font-family="Inter" fill="#96A0AC">₦2</text>
+              <text x="0" y="38" font-size="9" font-family="Inter" fill="#96A0AC">₦1.5</text>
+              <text x="5" y="67" font-size="9" font-family="Inter" fill="#96A0AC">₦1</text>
+              <text x="0" y="96" font-size="9" font-family="Inter" fill="#96A0AC">₦0.5</text>
+              <text x="5" y="125" font-size="9" font-family="Inter" fill="#96A0AC">₦0</text>
+              <rect x="65" y="28" width="26" height="94" rx="8" fill="var(--teal)" class="chart-bar-anim" style="animation-delay:.1s"/>
+              <rect x="155" y="108" width="26" height="14" rx="8" fill="var(--green)" class="chart-bar-anim" style="animation-delay:.2s"/>
+              <rect x="245" y="18" width="26" height="104" rx="8" fill="var(--blue)" class="chart-bar-anim" style="animation-delay:.3s"/>
+            </svg>
+            <div class="barchart-xaxis" style="display:flex; gap:4px; margin-top:10px;">
+              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦95,850,000</b>Acceptance fee</div>
+              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦950,000</b>Application fee</div>
+              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦85,000,000</b>School fee</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-card-box mobile-block">
+          <div class="status-card-title">Revenue status</div>
+          
+          <div class="exact-status-row">
+            <div class="exact-status-left">
+              <div class="exact-status-label-group">
+                <span class="exact-status-dot" style="background: var(--green);"></span>
+                <span class="exact-status-name">Compulsory</span>
+              </div>
+              <div class="exact-status-track">
+                <div class="exact-status-fill" style="width: 78%; background: var(--green);"></div>
+              </div>
+            </div>
+            <div class="exact-status-right">
+              <div class="exact-status-amt">₦94,450,000</div>
+              <div class="exact-status-pct">78%</div>
+            </div>
+          </div>
+
+          <div class="exact-status-row">
+            <div class="exact-status-left">
+              <div class="exact-status-label-group">
+                <span class="exact-status-dot" style="background: var(--amber);"></span>
+                <span class="exact-status-name">Optional</span>
+              </div>
+              <div class="exact-status-track">
+                <div class="exact-status-fill" style="width: 22%; background: var(--amber);"></div>
+              </div>
+            </div>
+            <div class="exact-status-right">
+              <div class="exact-status-amt">₦6,950,000</div>
+              <div class="exact-status-pct">22%</div>
+            </div>
+          </div>
+
+          <div class="minmax">
+            <div class="mm-chip"><div class="k">Min revenue</div><div class="v">₦600,000</div></div>
+            <div class="mm-chip"><div class="k">Max revenue</div><div class="v">₦85,000,000</div></div>
+          </div>
+        </div>
+
+        <div class="card mobile-block rev-records-card">
+          <div class="rev-records-head">
+            <div class="card-head">
+              <div class="card-title">Revenue records</div>
+              <div class="revenue-cta">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+                CSV
+              </div>
+            </div>
+            <div class="rev-toolbar">
+              <div class="search-field">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+                <input type="text" placeholder="Search by name" oninput="searchRevs(this.value)">
+              </div>
+               <div class="filter-btn" onclick="openRevFilterSheet()" title="Filter revenue">
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V18l-4 2.5v-9L3 4z"/></svg>
+               </div>
+            </div>
+            <!-- <div class="active-filters" id="revActiveFilters">
+              <span class="pill-chip" id="chipSession" onclick="openRevFilterSheet()" style="cursor:pointer;">2025/2026</span>
+              <span class="pill-chip" id="chipTerm" onclick="openRevFilterSheet()" style="cursor:pointer;">First term</span>
+              <span class="pill-chip" id="chipDate" onclick="openRevFilterSheet()" style="cursor:pointer;">All time</span>
+            </div> -->
+          </div>
+          <div class="rev-records-scroll" id="revList"></div>
+        </div>
+      </div>
+
+      <!-- ============ SETTLEMENT ============ -->
+      <div class="tabpanel" data-panel="settlement">
+        
+
+        <!-- Total Settlement Stats — horizontal strip -->
+        <div class="stat-strip mobile-block">
+          <div class="stl-stat-box blue">
+            <div class="stl-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg>
+            </div>
+            <div class="stl-stat-val">₦450,000</div>
+            <div class="stl-stat-lbl">Today</div>
+          </div>
+          <div class="stl-stat-box pink">
+            <div class="stl-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+            </div>
+            <div class="stl-stat-val">₦1,320,000</div>
+            <div class="stl-stat-lbl">This week</div>
+          </div>
+          <div class="stl-stat-box green">
+            <div class="stl-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="stl-stat-val">₦4,980,000</div>
+            <div class="stl-stat-lbl">This month</div>
+          </div>
+          <div class="stl-stat-box purple">
+            <div class="stl-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+            </div>
+            <div class="stl-stat-val">₦21,640,000</div>
+            <div class="stl-stat-lbl">This year</div>
+          </div>
+        </div>
+
+        <!-- Settlement Analytics Chart Card -->
+        <div class="stl-chart-card mobile-block">
+          <div class="stl-chart-head">
+            <div>
+              <div class="stl-chart-title">Settlement Analytics</div>
+              <div class="stl-chart-sub">Settlement amount by bank channel</div>
+            </div>
+            <button class="icon-action-btn" onclick="showToast('Exporting chart CSV...')" title="Export chart">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            </button>
+          </div>
+
+          <!-- Vertical Bar Chart SVG -->
+          <div class="stl-barchart-container">
+            <svg viewBox="0 0 330 150" width="100%" height="150" style="display:block;">
+              <!-- Dashed Grid Lines -->
+              <line x1="30" y1="15" x2="320" y2="15" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="45" x2="320" y2="45" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="75" x2="320" y2="75" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="105" x2="320" y2="105" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="135" x2="320" y2="135" stroke="#E7EAEE" stroke-width="1.2"/>
+              
+              <!-- Y Axis Labels -->
+              <text x="0" y="18" font-size="8.5" font-family="Inter" fill="#96A0AC">500K</text>
+              <text x="0" y="48" font-size="8.5" font-family="Inter" fill="#96A0AC">400K</text>
+              <text x="0" y="78" font-size="8.5" font-family="Inter" fill="#96A0AC">300K</text>
+              <text x="0" y="108" font-size="8.5" font-family="Inter" fill="#96A0AC">100K</text>
+              <text x="15" y="138" font-size="8.5" font-family="Inter" fill="#96A0AC">0</text>
+              
+              <!-- Rounded Vertical Bars for 5 Banks -->
+              <rect x="45" y="35" width="32" height="100" rx="6" fill="#0E6E56" class="chart-bar-anim" style="animation-delay:.05s"/>
+              <rect x="105" y="63" width="32" height="72" rx="6" fill="#1C9564" class="chart-bar-anim" style="animation-delay:.12s"/>
+              <rect x="165" y="73" width="32" height="62" rx="6" fill="#2A5FC1" class="chart-bar-anim" style="animation-delay:.19s"/>
+              <rect x="225" y="85" width="32" height="50" rx="6" fill="#C2760B" class="chart-bar-anim" style="animation-delay:.26s"/>
+              <rect x="285" y="104" width="28" height="31" rx="6" fill="#6357D6" class="chart-bar-anim" style="animation-delay:.33s"/>
+            </svg>
+
+            <!-- X Axis Bank Names -->
+            <div style="display:flex; justify-content:space-between; padding:4px 0 0 30px; font-size:9.5px; font-weight:700; color:var(--ink-2); text-align:center;">
+              <span style="width:32px;">GTB</span>
+              <span style="width:32px;">Access</span>
+              <span style="width:32px;">Zenith</span>
+              <span style="width:32px;">UBA</span>
+              <span style="width:28px;">First</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Handcoded Settlement History Records -->
+        <div class="card mobile-block" style="margin-top:14px;">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Settlement history</div>
+              <div class="card-sub">Recent payouts from gateway</div>
+            </div>
+            <div class="link-btn" onclick="showToast('Exporting settlement CSV...')" style="cursor:pointer;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              CSV
+            </div>
+          </div>
+
+          <div class="rev-toolbar" style="margin-top:8px; margin-bottom:12px;">
+            <div class="search-field">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" id="stlSearchInput" placeholder="Search by bank or account..." oninput="filterSettlements(this.value)">
+            </div>
+             <div class="filter-btn" onclick="openStlFilterSheet('Settlement Filters')" title="Filter settlements by date and status">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V18l-4 2.5v-9L3 4z"/></svg>
+             </div>
+          </div>
+
+          <div id="stlHistList">
+            <div class="stl-hist-card">
+              <div class="stl-hist-top">
+                <div>
+                  <div class="stl-hist-bank">GTBank · 0123456789</div>
+                  <div class="stl-hist-acct">Batch Ref: #STL-9948102</div>
+                </div>
+                <div class="stl-hist-amt">₦420,000</div>
+              </div>
+              <div class="stl-hist-meta">
+                <div class="stl-hist-chips">
+                  <span class="stl-hist-chip">128 Txns</span>
+                  <span class="stl-hist-chip">4 Rev Lines</span>
+                </div>
+                <div>Paid: <b>24 Jul 2026</b></div>
+              </div>
+            </div>
+
+            <div class="stl-hist-card">
+              <div class="stl-hist-top">
+                <div>
+                  <div class="stl-hist-bank">Access Bank · 0987654321</div>
+                  <div class="stl-hist-acct">Batch Ref: #STL-9948095</div>
+                </div>
+                <div class="stl-hist-amt">₦300,000</div>
+              </div>
+              <div class="stl-hist-meta">
+                <div class="stl-hist-chips">
+                  <span class="stl-hist-chip">94 Txns</span>
+                  <span class="stl-hist-chip">3 Rev Lines</span>
+                </div>
+                <div>Paid: <b>23 Jul 2026</b></div>
+              </div>
+            </div>
+
+            <div class="stl-hist-card">
+              <div class="stl-hist-top">
+                <div>
+                  <div class="stl-hist-bank">Zenith Bank · 0112233445</div>
+                  <div class="stl-hist-acct">Batch Ref: #STL-9948082</div>
+                </div>
+                <div class="stl-hist-amt">₦260,000</div>
+              </div>
+              <div class="stl-hist-meta">
+                <div class="stl-hist-chips">
+                  <span class="stl-hist-chip">82 Txns</span>
+                  <span class="stl-hist-chip">2 Rev Lines</span>
+                </div>
+                <div>Paid: <b>22 Jul 2026</b></div>
+              </div>
+            </div>
+
+            <div class="stl-hist-card">
+              <div class="stl-hist-top">
+                <div>
+                  <div class="stl-hist-bank">UBA · 0223344556</div>
+                  <div class="stl-hist-acct">Batch Ref: #STL-9948060</div>
+                </div>
+                <div class="stl-hist-amt">₦210,000</div>
+              </div>
+              <div class="stl-hist-meta">
+                <div class="stl-hist-chips">
+                  <span class="stl-hist-chip">65 Txns</span>
+                  <span class="stl-hist-chip">2 Rev Lines</span>
+                </div>
+                <div>Paid: <b>21 Jul 2026</b></div>
+              </div>
+            </div>
+
+            <div class="stl-hist-card">
+              <div class="stl-hist-top">
+                <div>
+                  <div class="stl-hist-bank">First Bank · 0334455667</div>
+                  <div class="stl-hist-acct">Batch Ref: #STL-9948033</div>
+                </div>
+                <div class="stl-hist-amt">₦130,000</div>
+              </div>
+              <div class="stl-hist-meta">
+                <div class="stl-hist-chips">
+                  <span class="stl-hist-chip">41 Txns</span>
+                  <span class="stl-hist-chip">1 Rev Line</span>
+                </div>
+                <div>Paid: <b>20 Jul 2026</b></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ============ RECONCILIATION ============ -->
+      <div class="tabpanel" data-panel="recon">
+        
+        <!-- Top KPI — horizontal strip -->
+        <div class="stat-strip mobile-block">
+          <div class="recon-stat-box blue">
+            <div class="recon-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+            </div>
+            <div class="recon-stat-val">₦127.4M</div>
+            <div class="recon-stat-lbl">Total revenue</div>
+          </div>
+          <div class="recon-stat-box green">
+            <div class="recon-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <div class="recon-stat-val">₦98.7M</div>
+            <div class="recon-stat-lbl">Settlement</div>
+          </div>
+          <div class="recon-stat-box amber">
+            <div class="recon-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            </div>
+            <div class="recon-stat-val">₦28.6M</div>
+            <div class="recon-stat-lbl">Reconciled</div>
+          </div>
+          <div class="recon-stat-box teal">
+            <div class="recon-stat-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/></svg>
+            </div>
+            <div class="recon-stat-val">₦45.2M</div>
+            <div class="recon-stat-lbl">Wallet</div>
+          </div>
+        </div>
+
+        <!-- Dual SVG Bar Chart: Settlement vs Reconciled Amount -->
+        <div class="recon-chart-card mobile-block">
+          <div class="stl-chart-head">
+            <div>
+              <div class="stl-chart-title">Settlement Recon.</div>
+              <div class="stl-chart-sub">Settlement Amount vs Reconciled Amount by bank</div>
+            </div>
+            <button class="icon-action-btn" onclick="showToast('Exporting recon chart...')" title="Export chart">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+            </button>
+          </div>
+
+          <div class="recon-chart-legend">
+            <div class="recon-legend-item"><span class="recon-legend-dot" style="background:#4F46E5;"></span>Settlement Amount</div>
+            <div class="recon-legend-item"><span class="recon-legend-dot" style="background:#10B981;"></span>Reconciled Amount</div>
+          </div>
+
+          <!-- Dual Bar SVG Chart -->
+          <div class="stl-barchart-container">
+            <svg viewBox="0 0 330 145" width="100%" height="145" style="display:block;">
+              <line x1="30" y1="15" x2="320" y2="15" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="45" x2="320" y2="45" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="75" x2="320" y2="75" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="105" x2="320" y2="105" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="130" x2="320" y2="130" stroke="#E7EAEE" stroke-width="1.2"/>
+              
+              <text x="0" y="18" font-size="8" font-family="Inter" fill="#96A0AC">₦3.0M</text>
+              <text x="0" y="48" font-size="8" font-family="Inter" fill="#96A0AC">₦2.0M</text>
+              <text x="0" y="78" font-size="8" font-family="Inter" fill="#96A0AC">₦1.0M</text>
+              <text x="0" y="108" font-size="8" font-family="Inter" fill="#96A0AC">₦500K</text>
+              <text x="15" y="133" font-size="8" font-family="Inter" fill="#96A0AC">0</text>
+              
+              <!-- Pair 1: GTBank (S: 100px, R: 83px) -->
+              <rect x="45" y="30" width="18" height="100" rx="4" fill="#4F46E5" class="chart-bar-anim" style="animation-delay:.05s"/>
+              <rect x="65" y="47" width="18" height="83" rx="4" fill="#10B981" class="chart-bar-anim" style="animation-delay:.12s"/>
+
+              <!-- Pair 2: Zenith Bank (S: 75px, R: 69px) -->
+              <rect x="115" y="55" width="18" height="75" rx="4" fill="#4F46E5" class="chart-bar-anim" style="animation-delay:.19s"/>
+              <rect x="135" y="61" width="18" height="69" rx="4" fill="#10B981" class="chart-bar-anim" style="animation-delay:.26s"/>
+
+              <!-- Pair 3: Access Bank (S: 55px, R: 50px) -->
+              <rect x="185" y="75" width="18" height="55" rx="4" fill="#4F46E5" class="chart-bar-anim" style="animation-delay:.33s"/>
+              <rect x="205" y="80" width="18" height="50" rx="4" fill="#10B981" class="chart-bar-anim" style="animation-delay:.4s"/>
+
+              <!-- Pair 4: First Bank (S: 110px, R: 90px) -->
+              <rect x="255" y="20" width="18" height="110" rx="4" fill="#4F46E5" class="chart-bar-anim" style="animation-delay:.47s"/>
+              <rect x="275" y="40" width="18" height="90" rx="4" fill="#10B981" class="chart-bar-anim" style="animation-delay:.54s"/>
+            </svg>
+
+            <div style="display:flex; justify-content:space-between; padding:4px 0 0 35px; font-size:9px; font-weight:700; color:var(--ink-2); text-align:center;">
+              <span style="width:38px;">GTBank</span>
+              <span style="width:38px;">Zenith</span>
+              <span style="width:38px;">Access</span>
+              <span style="width:38px;">First Bank</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Glassmorphic Callout Notice Banner -->
+        <div class="recon-info-callout mobile-block" style="margin-top:12px; margin-bottom:12px;">
+          <div class="recon-info-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>
+          </div>
+          <div class="recon-info-text">
+            Settlement represents the amount expected from transactions processed through payment channels. To ensure accuracy, always reconcile settlement figures against your uploaded bank statement.
+          </div>
+        </div>
+
+        <!-- Settlement Reconciliation Bank Cards List with Clickable Metrics -->
+        <div class="card mobile-block" style="margin-top:14px; padding-top:14px;">
+          <div class="card-head" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+            <div>
+              <div class="card-title" style="margin-bottom:2px;">Settlement reconciliation</div>
+              <div class="card-sub">This month · July 2026 · <span id="reconTotalCountLabel">200 Accounts</span></div>
+            </div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div class="search-field" style="flex:1;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" id="stlReconSearchInput" placeholder="Search by bank or account..." oninput="onReconSearchInput(this.value)">
+            </div>
+            <div class="filter-btn" onclick="openStlFilterSheet('Settlement reconciliation')" title="Filter settlements by date">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V18l-4 2.5v-9L3 4z"/></svg>
+            </div>
+          </div>
+
+          <!-- Dynamic Container for 200 Bank Accounts -->
+          <div id="reconBankListContainer"></div>
+
+          <!-- Pagination Bar -->
+          <div id="reconPaginationBar" style="margin-top:14px; text-align:center;">
+            <button class="btn secondary" style="width:100%; height:40px; border-radius:12px; font-size:12.5px; font-weight:600; font-family:'Sora';" onclick="loadMoreReconAccounts()">
+              Show More Banks <span id="reconPageCounterText">(8 of 38)</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      </div><!-- /tabpanel-viewport -->
+
+    </div>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button type="button" class="nav-item" data-nav="home" onclick="tapNav(this)">
+        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
+        <span class="nav-label">Home</span>
+      </button>
+      <button type="button" class="nav-item active" data-nav="pay" onclick="tapNav(this); document.querySelector('[data-tab=transactions]').click();">
+        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
+        <span class="nav-label">Pay</span>
+      </button>
+      <div class="nav-fab-wrap">
+        <button type="button" class="nav-fab ripple-host" onclick="spawnRipple(event); showToast('Quick collect — share payment link')" aria-label="Quick collect">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+      <button type="button" class="nav-item" data-nav="reports" onclick="tapNav(this); document.querySelector('[data-tab=revenue]').click();">
+        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-7"/></svg></span>
+        <span class="nav-label">Reports</span>
+      </button>
+      <button type="button" class="nav-item" data-nav="more" onclick="tapNav(this); document.querySelector('[data-tab=recon]').click();">
+        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></span>
+        <span class="nav-label">More</span>
+      </button>
+    </nav>
+
+    <div class="sheet-overlay" id="periodSheetOverlay" onclick="closeSheet(event,'periodSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div><div class="sheet-title">Select period</div><div class="sheet-sub">Choose the range for the chart above</div></div>
+          <div class="icon-btn" onclick="closeSheet(event,'periodSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+        </div>
+        <div class="sheet-body">
+          <div class="sheet-list">
+            <div class="sheet-row-opt active" data-period="today" onclick="selectPeriod(event,'today')">Today<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-period="week" onclick="selectPeriod(event,'week')">This week<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-period="month" onclick="selectPeriod(event,'month')">This month<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-period="year" onclick="selectPeriod(event,'year')">This year<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-overlay" id="dateSheetOverlay" onclick="closeSheet(event,'dateSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div><div class="sheet-title">Select date</div><div class="sheet-sub">Pick a quick range or a custom one</div></div>
+          <div class="icon-btn" onclick="closeSheet(event,'dateSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+        </div>
+        <div class="sheet-body">
+          <div class="sheet-list">
+            <div class="sheet-row-opt active" data-date="today" onclick="selectDatePreset(event,'today')">Today<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-date="yesterday" onclick="selectDatePreset(event,'yesterday')">Yesterday<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-date="last7" onclick="selectDatePreset(event,'last7')">Last 7 days<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-date="last30" onclick="selectDatePreset(event,'last30')">Last 30 days<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" data-date="custom" onclick="selectDatePreset(event,'custom')">Custom range<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          </div>
+          <div class="sheet-custom-range" id="customRangeRow">
+            <div class="field"><div class="field-label">From</div><input type="date" class="field-control" id="customFrom" value="2026-07-01"></div>
+            <div class="field"><div class="field-label">To</div><input type="date" class="field-control" id="customTo" value="2026-07-24"></div>
+          </div>
+          <button class="btn primary sheet-apply" style="width:100%;" onclick="applyDateSheet()">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-overlay" id="sessionSheetOverlay" onclick="closeSheet(event,'sessionSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head"><div><div class="sheet-title">Select session</div><div class="sheet-sub">Choose a session for the chart</div></div><div class="icon-btn" onclick="closeSheet(event,'sessionSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+        <div class="sheet-body"><div class="sheet-list"><div class="sheet-row-opt active" data-val="2025/2026" onclick="selectSession(event,'2025/2026')">2025/2026<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="sheet-row-opt" data-val="2024/2025" onclick="selectSession(event,'2024/2025')">2024/2025<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div></div></div>
+      </div>
+    </div>
+
+    <div class="sheet-overlay" id="termSheetOverlay" onclick="closeSheet(event,'termSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head"><div><div class="sheet-title">Select term</div><div class="sheet-sub">Choose a term for the chart</div></div><div class="icon-btn" onclick="closeSheet(event,'termSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+        <div class="sheet-body"><div class="sheet-list"><div class="sheet-row-opt active" data-val="First term" onclick="selectTerm(event,'First term')">First term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="sheet-row-opt" data-val="Second term" onclick="selectTerm(event,'Second term')">Second term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="sheet-row-opt" data-val="Third term" onclick="selectTerm(event,'Third term')">Third term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div></div></div>
+      </div>
+    </div>
+
+    <!-- Revenue Filters Right-Side Slide Modal -->
+    <div class="side-modal-overlay" id="revFilterSheetOverlay" onclick="closeSheet(event,'revFilterSheetOverlay')">
+      <div class="side-modal-panel" onclick="event.stopPropagation()">
+        <div class="side-modal-head">
+          <div class="side-modal-title">Revenue Filters</div>
+          <div class="side-modal-close" onclick="closeSheet(event,'revFilterSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="side-modal-body">
+          <!-- Date range Card -->
+          <div class="side-modal-accordion" id="revDateAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Date range</div>
+                <div class="side-modal-acc-meta" id="revDateRangeDisplay">2026-06-01 to 2026-07-24</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="field-row" style="margin-top:10px;">
+                <div class="field">
+                  <div class="field-label">From</div>
+                  <input type="date" class="field-control" id="revFrom" value="2026-06-01" onchange="updateRevDateDisplay()">
+                </div>
+                <div class="field">
+                  <div class="field-label">To</div>
+                  <input type="date" class="field-control" id="revTo" value="2026-07-24" onchange="updateRevDateDisplay()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Session Card -->
+          <div class="side-modal-accordion" id="revSessionAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Session</div>
+                <div class="side-modal-acc-meta" id="revSessionDisplay">2025/2026</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="revSessionList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="2025/2026" onclick="selectRevSession(event,'2025/2026')">2025/2026<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="2024/2025" onclick="selectRevSession(event,'2024/2025')">2024/2025<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="2023/2024" onclick="selectRevSession(event,'2023/2024')">2023/2024<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Term Card -->
+          <div class="side-modal-accordion" id="revTermAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Term</div>
+                <div class="side-modal-acc-meta" id="revTermDisplay">First term</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="revTermList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="First term" onclick="selectRevTerm(event,'First term')">First term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Second term" onclick="selectRevTerm(event,'Second term')">Second term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Third term" onclick="selectRevTerm(event,'Third term')">Third term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn primary filter-sheet-apply" style="width:100%; height:46px; border-radius:14px; margin-top:14px; font-weight:600; font-size:14px; font-family:'Sora';" onclick="applyRevFilters()">Apply filters</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sheet-overlay" id="reconSheetOverlay" onclick="closeSheet(event,'reconSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head"><div><div class="sheet-title">Guaranty Trust Bank</div><div class="sheet-sub">0145678901 · pending reconciliation</div></div><div class="icon-btn" onclick="closeSheet(event,'reconSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+        <div class="info-banner" style="margin-top:0;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-5M12 8h.01"/></svg>Settlement is the amount expected from transactions processed through this channel. Reconcile against your bank statement to confirm.</div>
+        <div class="sheet-body">
+          <div class="txn-row"><div><div class="txn-id">TXN-7784951</div><div class="txn-meta">SESSION-778495 · 01/01/2023</div></div><div class="txn-mid"><div class="txn-amt">₦850,000</div><div class="txn-status">Pending</div></div><div class="txn-btn">Reconcile</div></div>
+          <div class="txn-row"><div><div class="txn-id">TXN-7784952</div><div class="txn-meta">SESSION-778495 · 01/01/2023</div></div><div class="txn-mid"><div class="txn-amt">₦850,000</div><div class="txn-status">Pending</div></div><div class="txn-btn">Reconcile</div></div>
+          <div class="txn-row"><div><div class="txn-id">TXN-7784953</div><div class="txn-meta">SESSION-778495 · 01/01/2023</div></div><div class="txn-mid"><div class="txn-amt">₦850,000</div><div class="txn-status">Pending</div></div><div class="txn-btn">Reconcile</div></div>
+          <div class="txn-row"><div><div class="txn-id">TXN-7784954</div><div class="txn-meta">SESSION-778495 · 01/01/2023</div></div><div class="txn-mid"><div class="txn-amt">₦850,000</div><div class="txn-status">Pending</div></div><div class="txn-btn">Reconcile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction Receipt Detail Bottom Sheet -->
+    <div class="sheet-overlay" id="txnDetailSheetOverlay" onclick="closeSheet(event,'txnDetailSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div>
+            <div class="sheet-title" id="rcptTitle">Transaction Receipt</div>
+            <div class="sheet-sub" id="rcptSub">Metropolitan College · Official Payment Record</div>
+          </div>
+          <div class="icon-btn" onclick="closeSheet(event,'txnDetailSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="sheet-body" id="rcptBody">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Settlement Filters Right-Side Slide Modal -->
+    <div class="side-modal-overlay" id="stlFilterSheetOverlay" onclick="closeSheet(event,'stlFilterSheetOverlay')">
+      <div class="side-modal-panel" onclick="event.stopPropagation()">
+        <div class="side-modal-head">
+          <div class="side-modal-title" id="stlFilterSheetTitle">Settlement Filters</div>
+          <div class="side-modal-close" onclick="closeSheet(event,'stlFilterSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="side-modal-body">
+          
+          <!-- Sync with Gateway Card -->
+          <div class="side-modal-accordion open" id="stlSyncAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Sync with Gateway</div>
+                <div class="side-modal-acc-meta" id="stlSyncRangeDisplay">2026-07-01 to 2026-07-24</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="field-row" style="margin-top:10px;">
+                <div class="field">
+                  <div class="field-label">Sync From</div>
+                  <input type="date" class="field-control" id="stlSyncFrom" value="2026-07-01" onchange="updateStlSyncDateDisplay()">
+                </div>
+                <div class="field">
+                  <div class="field-label">Sync To</div>
+                  <input type="date" class="field-control" id="stlSyncTo" value="2026-07-24" onchange="updateStlSyncDateDisplay()">
+                </div>
+              </div>
+              <button class="btn primary" style="width:100%; height:42px; border-radius:12px; font-size:13.5px; font-weight:600; font-family:'Sora'; margin-top:12px;" onclick="fetchGatewaySettlements()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+                Fetch from Gateway
+              </button>
+            </div>
+          </div>
+
+          <!-- Date range Accordion Card -->
+          <div class="side-modal-accordion" id="stlDateAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Date range</div>
+                <div class="side-modal-acc-meta" id="stlHistRangeDisplay">2026-07-01 to 2026-07-24</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="field-row" style="margin-top:10px;">
+                <div class="field">
+                  <div class="field-label">From Date</div>
+                  <input type="date" class="field-control" id="stlFromDate" value="2026-07-01" onchange="updateStlHistDateDisplay()">
+                </div>
+                <div class="field">
+                  <div class="field-label">To Date</div>
+                  <input type="date" class="field-control" id="stlToDate" value="2026-07-24" onchange="updateStlHistDateDisplay()">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn primary filter-sheet-apply" style="width:100%; height:46px; border-radius:14px; margin-top:14px; font-weight:600; font-size:14px; font-family:'Sora';" onclick="applyStlFilters()">Apply settlement filters</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 3: Transactions Modal (Clicked No. of Transactions) -->
+    <div class="sheet-overlay" id="reconTxnsModalSheetOverlay" onclick="closeSheet(event,'reconTxnsModalSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div>
+            <div class="sheet-title" id="reconTxnsModalTitle">Transactions — Guaranty Trust Bank</div>
+            <div class="sheet-sub">All transactions breakdown for this bank</div>
+          </div>
+          <div class="icon-btn" onclick="closeSheet(event,'reconTxnsModalSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="sheet-body">
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">TXN-8823145</span><span class="modal-item-amt">₦85,000</span></div>
+            <div class="modal-item-sub"><span>Paid by Adaeze Michael · School fee</span><span>24 Jul 2026</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">TXN-8823142</span><span class="modal-item-amt">₦45,000</span></div>
+            <div class="modal-item-sub"><span>Paid by David Olatunji · Acceptance fee</span><span>24 Jul 2026</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">TXN-8823128</span><span class="modal-item-amt">₦30,000</span></div>
+            <div class="modal-item-sub"><span>Paid by Babatunde Adeleke · Development levy</span><span>23 Jul 2026</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">TXN-8823104</span><span class="modal-item-amt">₦10,000</span></div>
+            <div class="modal-item-sub"><span>Paid by Chidi Nwosu · PTA dues</span><span>21 Jul 2026</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 4: Revenue Lines Modal (Clicked No. of Revenue) -->
+    <div class="sheet-overlay" id="reconRevModalSheetOverlay" onclick="closeSheet(event,'reconRevModalSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div>
+            <div class="sheet-title" id="reconRevModalTitle">Revenue Lines — Guaranty Trust Bank</div>
+            <div class="sheet-sub">Revenue distribution by category</div>
+          </div>
+          <div class="icon-btn" onclick="closeSheet(event,'reconRevModalSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="sheet-body">
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">School fees (REV-001)</span><span class="modal-item-amt">₦85,000,000</span></div>
+            <div class="modal-item-sub"><span>420 Transactions</span><span class="status-badge successful">Compulsory</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">Acceptance fee (REV-002)</span><span class="modal-item-amt">₦9,450,000</span></div>
+            <div class="modal-item-sub"><span>210 Transactions</span><span class="status-badge successful">Compulsory</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">Development levy (REV-003)</span><span class="modal-item-amt">₦5,400,000</span></div>
+            <div class="modal-item-sub"><span>180 Transactions</span><span class="status-badge pending">Optional</span></div>
+          </div>
+          <div class="modal-item-row">
+            <div class="modal-item-top"><span class="modal-item-ref">PTA dues (REV-004)</span><span class="modal-item-amt">₦950,000</span></div>
+            <div class="modal-item-sub"><span>95 Transactions</span><span class="status-badge pending">Optional</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal 5: Bank Settlements Modal (Exact Match with Image) -->
+    <div class="sheet-overlay" id="reconStlModalSheetOverlay" onclick="closeSheet(event,'reconStlModalSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div>
+            <div class="sheet-title" id="reconStlModalTitle">Settlements — Guaranty Trust Bank (0145678901)</div>
+            <div class="sheet-sub">Pending reconciliation settlement items</div>
+          </div>
+          <div class="icon-btn" onclick="closeSheet(event,'reconStlModalSheetOverlay')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="sheet-body">
+          <div class="stl-modal-notice">
+            <div class="stl-modal-notice-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+            </div>
+            <div class="stl-modal-notice-text">Settlement represents the amount expected from transactions. Reconcile against your uploaded statement.</div>
+          </div>
+
+          <!-- Settlements Row List -->
+          <div class="stl-modal-item">
+            <div class="stl-modal-left">
+              <div class="stl-modal-txn">TXN-6101961</div>
+              <div class="stl-modal-meta">Session: SESSION-610196 · 01/01/2023</div>
+            </div>
+            <div class="stl-modal-right">
+              <div class="stl-modal-amt">₦850,000</div>
+              <button class="stl-modal-btn" onclick="showToast('Reconciled TXN-6101961 successfully')">Reconcile</button>
+            </div>
+          </div>
+
+          <div class="stl-modal-item">
+            <div class="stl-modal-left">
+              <div class="stl-modal-txn">TXN-6101962</div>
+              <div class="stl-modal-meta">Session: SESSION-610196 · 01/01/2023</div>
+            </div>
+            <div class="stl-modal-right">
+              <div class="stl-modal-amt">₦850,000</div>
+              <button class="stl-modal-btn" onclick="showToast('Reconciled TXN-6101962 successfully')">Reconcile</button>
+            </div>
+          </div>
+
+          <div class="stl-modal-item">
+            <div class="stl-modal-left">
+              <div class="stl-modal-txn">TXN-6101963</div>
+              <div class="stl-modal-meta">Session: SESSION-610196 · 01/01/2023</div>
+            </div>
+            <div class="stl-modal-right">
+              <div class="stl-modal-amt">₦850,000</div>
+              <button class="stl-modal-btn" onclick="showToast('Reconciled TXN-6101963 successfully')">Reconcile</button>
+            </div>
+          </div>
+
+          <div class="stl-modal-item">
+            <div class="stl-modal-left">
+              <div class="stl-modal-txn">TXN-6101964</div>
+              <div class="stl-modal-meta">Session: SESSION-610196 · 01/01/2023</div>
+            </div>
+            <div class="stl-modal-right">
+              <div class="stl-modal-amt">₦850,000</div>
+              <button class="stl-modal-btn" onclick="showToast('Reconciled TXN-6101964 successfully')">Reconcile</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side Slide Modal -->
+    <div class="side-modal-overlay" id="sideModalOverlay" onclick="closeSideModal(event)">
+      <div class="side-modal-panel" onclick="event.stopPropagation()">
+        <div class="side-modal-head">
+          <div class="side-modal-title" id="sideModalTitle">Filter Details</div>
+          <div class="side-modal-close" onclick="closeSideModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="side-modal-body" id="sideModalBody">
+          <!-- Accordion items injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div class="toast-notice" id="toastNotice">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg>
+      <span id="toastNoticeMsg">Copied to clipboard</span>
+    </div>
+
+</div>
+
+<script>
+  var TXNS = [
+    {id:'TXN-8823145', status:'successful', paidFor:'Adaeze Michael', regNo:'MET/2026/0412', studentClass:'SS 2A', wallet:'0145678901 · GTBank', desc:'School fee — Instalment 1', amount:'₦85,000', date:'24 Jul 2026, 10:42 AM', gatewayRef:'pay_889102934'},
+    {id:'TXN-8823142', status:'successful', paidFor:'David Olatunji', regNo:'MET/2026/0589', studentClass:'JSS 1C', wallet:'0987654321 · Zenith Bank', desc:'Acceptance fee', amount:'₦45,000', date:'24 Jul 2026, 09:15 AM', gatewayRef:'pay_889102871'},
+    {id:'TXN-8823139', status:'pending', paidFor:'Ifeoma Chukwu', regNo:'MET/2026/0901', studentClass:'Admission', wallet:'0223344556 · UBA', desc:'Application fee — New admission', amount:'₦25,000', date:'23 Jul 2026, 04:03 PM', gatewayRef:'pay_889101902'},
+    {id:'TXN-8823128', status:'successful', paidFor:'Babatunde Adeleke', regNo:'MET/2026/0211', studentClass:'SS 3B', wallet:'5678901234 · Access Bank', desc:'Development levy', amount:'₦30,000', date:'23 Jul 2026, 11:20 AM', gatewayRef:'pay_889101450'},
+    {id:'TXN-8823119', status:'declined', paidFor:'Musa Abdullahi', regNo:'MET/2026/0144', studentClass:'SS 1A', wallet:'0145678901 · GTBank', desc:'School fee — First term instalment', amount:'₦85,000', date:'22 Jul 2026, 08:31 AM', gatewayRef:'pay_889100823'},
+    {id:'TXN-8823104', status:'pending', paidFor:'Chidi Nwosu', regNo:'MET/2026/0672', studentClass:'JSS 3A', wallet:'1122334455 · First Bank', desc:'PTA dues & Sports fee', amount:'₦10,000', date:'21 Jul 2026, 02:45 PM', gatewayRef:'pay_889099611'}
+  ];
+
+  var REVS_ALL = [
+    {code:'REV-001', name:'School fees', txns:420, amount:'₦85,000,000', cat:'compulsory'},
+    {code:'REV-002', name:'Acceptance fee', txns:210, amount:'₦9,450,000', cat:'compulsory'},
+    {code:'REV-003', name:'Development levy', txns:180, amount:'₦5,400,000', cat:'optional'},
+    {code:'REV-004', name:'PTA dues', txns:95, amount:'₦950,000', cat:'optional'},
+    {code:'REV-005', name:'Sports fee', txns:60, amount:'₦600,000', cat:'optional'}
+  ];
+
+  var currentTxnFilter = 'all';
+  var currentTxnQuery = '';
+
+  function formatNaira(n){
+    if(n >= 1000000) return '₦' + (n/1000000).toFixed(n % 1000000 === 0 ? 0 : 1) + 'M';
+    if(n >= 1000) return '₦' + n.toLocaleString('en-NG');
+    return '₦' + n;
+  }
+
+  function animateCountUps(){
+    document.querySelectorAll('.count-up[data-count]').forEach(function(el, i){
+      var target = parseInt(el.dataset.count, 10);
+      if(!target) return;
+      var start = 0; var dur = 900; var t0 = performance.now() + i * 80;
+      function tick(now){
+        if(now < t0) { requestAnimationFrame(tick); return; }
+        var p = Math.min((now - t0) / dur, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = formatNaira(Math.round(start + (target - start) * eased));
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  function spawnRipple(e){
+    var host = e.currentTarget;
+    var rect = host.getBoundingClientRect();
+    var ripple = document.createElement('span');
+    ripple.className = 'ripple';
+    var size = Math.max(rect.width, rect.height);
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+    ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+    host.appendChild(ripple);
+    setTimeout(function(){ ripple.remove(); }, 560);
+    hapticPulse();
+  }
+
+  function replayChartMotion(panel){
+    if(!panel) return;
+    panel.querySelectorAll('.chart-bar-anim, .chart-line-anim, .exact-status-fill, .status-ring-fill, .chart-area-fill').forEach(function(el){
+      el.style.animation='none';
+      void el.offsetWidth;
+      el.style.animation='';
+    });
+  }
+
+  function scrollTabIntoView(target, direction){
+    var row=document.getElementById('tabRow');
+    if(!row || !target) return;
+    var chips=Array.prototype.slice.call(row.querySelectorAll('.module-chip'));
+    var idx=chips.indexOf(target);
+    if(idx < 0) return;
+
+    var peek=24;
+    var pad=16;
+    var maxScroll=Math.max(0, row.scrollWidth - row.clientWidth);
+    var scrollLeft;
+
+    if(direction > 0 && idx < chips.length - 1){
+      var next=chips[idx + 1];
+      scrollLeft=target.offsetLeft - pad;
+      var revealRight=next.offsetLeft + next.offsetWidth + peek - row.clientWidth;
+      if(revealRight > scrollLeft) scrollLeft=revealRight;
+    } else if(direction < 0 && idx > 0){
+      var prev=chips[idx - 1];
+      scrollLeft=prev.offsetLeft - peek;
+    } else if(idx === 0){
+      scrollLeft=0;
+    } else if(idx === chips.length - 1){
+      scrollLeft=maxScroll;
+    } else {
+      scrollLeft=target.offsetLeft - (row.clientWidth - target.offsetWidth) / 2;
+    }
+
+    row.scrollTo({left: Math.max(0, Math.min(scrollLeft, maxScroll)), behavior:'smooth'});
+  }
+
+  function syncTabViewportHeight(){
+    var viewport=document.getElementById('tabViewport');
+    var panel=document.querySelector('.tabpanel.active');
+    if(viewport && panel){
+      viewport.style.minHeight=Math.max(480, panel.scrollHeight + 16)+'px';
+    }
+  }
+
+  function initChartTooltip(){
+    var wrap = document.getElementById('txnChartWrap');
+    var tip = document.getElementById('chartTooltip');
+    if(!wrap || !tip) return;
+    wrap.addEventListener('click', function(e){
+      var pt = e.target.closest('.chart-point');
+      if(pt){
+        tip.textContent = pt.getAttribute('data-label') || '';
+        tip.classList.add('show');
+        hapticPulse();
+        setTimeout(function(){ tip.classList.remove('show'); }, 1800);
+      }
+    });
+  }
+
+  function badgeLabel(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  function flashPageShimmer(){
+    var el = document.createElement('div');
+    el.className = 'page-shimmer';
+    document.querySelector('.app-shell').appendChild(el);
+    setTimeout(function(){ el.remove(); }, 1200);
+  }
+
+  function getInitials(name){
+    if(!name) return 'ST';
+    var parts = name.trim().split(' ');
+    if(parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+    return parts[0].substring(0, 2).toUpperCase();
+  }
+
+  function getBankBadge(wallet){
+    if(!wallet) return 'BK';
+    if(wallet.indexOf('GTBank') > -1) return 'GT';
+    if(wallet.indexOf('Zenith') > -1) return 'ZB';
+    if(wallet.indexOf('UBA') > -1) return 'UB';
+    if(wallet.indexOf('Access') > -1) return 'AB';
+    if(wallet.indexOf('First Bank') > -1) return 'FB';
+    return 'BK';
+  }
+
+  function showToast(msg){
+    var toast = document.getElementById('toastNotice');
+    document.getElementById('toastNoticeMsg').textContent = msg || 'Copied to clipboard';
+    toast.classList.add('show');
+    setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+
+  function copyTxnId(e, id){
+    if(e) e.stopPropagation();
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(id);
+    }
+    showToast('Reference #'+id+' copied!');
+  }
+
+  function toggleTxnSearch(){
+    var wrapper = document.getElementById('txnSearchWrapper');
+    wrapper.classList.toggle('open');
+    if(wrapper.classList.contains('open')){
+      document.getElementById('txnSearchInput').focus();
+    }
+  }
+
+  function clearTxnSearch(){
+    document.getElementById('txnSearchInput').value = '';
+    onTxnSearchInput('');
+  }
+
+  function onTxnSearchInput(val){
+    currentTxnQuery = (val || '').toLowerCase().trim();
+    renderTxns(currentTxnFilter);
+  }
+
+  function updateTxnCounts(){
+    var allCount = TXNS.length;
+    var succCount = TXNS.filter(function(t){ return t.status==='successful'; }).length;
+    var pendCount = TXNS.filter(function(t){ return t.status==='pending'; }).length;
+    var declCount = TXNS.filter(function(t){ return t.status==='declined'; }).length;
+    
+    var elTotal = document.getElementById('txnTotalCount');
+    if(elTotal) elTotal.textContent = allCount;
+    var elAll = document.getElementById('countAll');
+    if(elAll) elAll.textContent = allCount;
+    var elSucc = document.getElementById('countSuccessful');
+    if(elSucc) elSucc.textContent = succCount;
+    var elPend = document.getElementById('countPending');
+    if(elPend) elPend.textContent = pendCount;
+    var elDecl = document.getElementById('countDeclined');
+    if(elDecl) elDecl.textContent = declCount;
+  }
+
+  function openTxnDetail(id){
+    var item = TXNS.find(function(t){ return t.id === id; });
+    if(!item) return;
+    
+    document.getElementById('rcptSub').textContent = 'Ref: #' + item.id + ' · ' + item.date;
+    var body = document.getElementById('rcptBody');
+    
+    body.innerHTML = 
+      '<div class="receipt-amount-card">' +
+        '<div class="receipt-val">'+item.amount+'</div>' +
+        '<span class="receipt-status-tag '+item.status+'"><span class="ultra-status-dot"></span>'+badgeLabel(item.status)+' Payment</span>' +
+      '</div>' +
+      '<div class="receipt-rows">' +
+        '<div class="receipt-row"><span class="receipt-lbl">Student Name</span><span class="receipt-txt bold">'+item.paidFor+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Registration No</span><span class="receipt-txt">'+(item.regNo || 'MET/2026/0000')+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Class / Stream</span><span class="receipt-txt">'+(item.studentClass || 'N/A')+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Payment Type</span><span class="receipt-txt bold">'+item.desc+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Channel / Account</span><span class="receipt-txt">'+item.wallet+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Gateway Ref</span><span class="receipt-txt" style="font-family:monospace;">'+(item.gatewayRef || 'N/A')+'</span></div>' +
+        '<div class="receipt-row"><span class="receipt-lbl">Date & Time</span><span class="receipt-txt">'+item.date+'</span></div>' +
+      '</div>' +
+      '<div style="text-align:center; padding:12px 0 6px; border-top:1px dashed var(--line); margin-top:8px;">' +
+        '<div style="font-size:10px; font-weight:700; color:var(--ink-3); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px;">Official Verification Stamp</div>' +
+        '<div style="display:inline-flex; gap:3px; background:#fff; padding:6px 12px; border-radius:8px; border:1px solid var(--line); font-family:monospace; font-size:11px; color:var(--ink-2);">' +
+          '<span>||||</span><span>||</span><span>|||||</span><span>|||</span><span>||||</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="btn-row">' +
+        '<button class="btn primary" onclick="showToast(\'PDF Receipt downloaded\'); closeSheet(null,\'txnDetailSheetOverlay\')">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Download PDF' +
+        '</button>' +
+        '<button class="btn" onclick="copyTxnId(null, \''+item.id+'\')">' +
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy Ref' +
+        '</button>' +
+      '</div>';
+
+    openSheet('txnDetailSheetOverlay');
+  }
+
+  function renderTxns(filter){
+    currentTxnFilter = filter || 'all';
+    updateTxnCounts();
+    var list = document.getElementById('txnList');
+    
+    var items = TXNS.filter(function(t){
+      var matchesStatus = (currentTxnFilter === 'all' || t.status === currentTxnFilter);
+      var matchesQuery = !currentTxnQuery || 
+        t.paidFor.toLowerCase().indexOf(currentTxnQuery) > -1 || 
+        t.id.toLowerCase().indexOf(currentTxnQuery) > -1 ||
+        t.desc.toLowerCase().indexOf(currentTxnQuery) > -1 ||
+        t.wallet.toLowerCase().indexOf(currentTxnQuery) > -1;
+      return matchesStatus && matchesQuery;
+    });
+
+    if(items.length === 0){
+      list.innerHTML = '<div class="empty"><div class="ring"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2Z"/></svg></div><div class="t1">No transactions found</div><div class="t2">Try adjusting your search query or status filter.</div></div>';
+      return;
+    }
+
+    list.innerHTML = items.map(function(t){
+      var initials = getInitials(t.paidFor);
+      var bankBadge = getBankBadge(t.wallet);
+      var actionBtn = t.status === 'declined' ? 
+        '<button class="ultra-action-btn retry" onclick="event.stopPropagation(); showToast(\'Retrying payment...\')">Retry payment <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg></button>' :
+        '<button class="ultra-action-btn" onclick="openTxnDetail(\''+t.id+'\')">View receipt <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>';
+
+      return '<div class="ultra-txn-card '+t.status+'" onclick="openTxnDetail(\''+t.id+'\')">' +
+        '<div class="ultra-card-top">' +
+          '<div class="ultra-avatar-group">' +
+            '<div class="ultra-avatar '+t.status+'">' +
+              initials +
+              '<span class="ultra-avatar-badge">'+bankBadge+'</span>' +
+            '</div>' +
+            '<div class="ultra-card-info">' +
+              '<div class="ultra-payer-name">'+t.paidFor+'</div>' +
+              '<div class="ultra-fee-tag">'+t.desc+'</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ultra-card-right">' +
+            '<div class="ultra-amount">'+t.amount+'</div>' +
+            '<div class="ultra-status-pill '+t.status+'"><span class="ultra-status-dot"></span>'+badgeLabel(t.status)+'</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="ultra-card-bottom">' +
+          '<div class="ultra-meta-item">' +
+            '<span class="ultra-ref-chip" onclick="copyTxnId(event, \''+t.id+'\')" title="Copy Reference ID">' +
+              '#' + t.id +
+              '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+            '</span>' +
+            '<span>· ' + t.date.split(',')[0] + '</span>' +
+          '</div>' +
+          '<div>' + actionBtn + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    setTimeout(function(){
+      list.querySelectorAll('.ultra-txn-card').forEach(function(card, i){
+        card.classList.add('txn-enter');
+        card.style.animationDelay = (i * 0.055) + 's';
+      });
+    }, 16);
+  }
+
+  function renderRevs(query){
+    query = (query || '').trim().toLowerCase();
+    var items = REVS_ALL.filter(function(r){ return !query || r.name.toLowerCase().indexOf(query) > -1; });
+    var list = document.getElementById('revList');
+    if(items.length === 0){
+      list.innerHTML = '<div class="empty"><div class="ring"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div><div class="t1">No revenue lines found</div><div class="t2">Try a different name or clear your filters.</div></div>';
+      return;
+    }
+    list.innerHTML = items.map(function(r){
+      return '<div class="rev-card"><div class="rev-card-top"><div><div class="rev-card-name">'+r.name+'</div><div class="rev-card-code">'+r.code+'</div></div><div class="rev-card-amt">'+r.amount+'</div></div><div class="rev-card-meta"><div class="rev-card-chip '+r.cat+'">'+badgeLabel(r.cat)+'</div><div class="rev-card-txns">'+r.txns+' transactions</div><div class="rev-card-action"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div></div></div>';
+    }).join('');
+  }
+
+  function searchRevs(v){ renderRevs(v); }
+  function openSheet(id){
+    hapticPulse();
+    document.getElementById(id).classList.add('open');
+  }
+  function closeSheet(e,id){if(e) e.stopPropagation(); document.getElementById(id).classList.remove('open');}
+
+  var TAB_ORDER=['transactions','revenue','settlement','recon'];
+  var TAB_LABELS={transactions:'Transactions',revenue:'Revenue',settlement:'Settlement',recon:'Reconciliation'};
+  var currentTab='transactions';
+
+  function hapticPulse(){
+    if(navigator.vibrate) navigator.vibrate(8);
+  }
+
+  function toggleTheme(){
+    var shell = document.querySelector('.app-shell');
+    var isDark = (shell && shell.getAttribute('data-theme') === 'dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+    if(isDark){
+      if(shell) shell.removeAttribute('data-theme');
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('edutams-theme', 'light');
+    } else {
+      if(shell) shell.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem('edutams-theme', 'dark');
+    }
+    updateThemeIcon();
+    updateThemeColorMeta();
+    hapticPulse();
+  }
+
+  function updateThemeIcon(){
+    var icon = document.getElementById('themeIcon');
+    if(!icon) return;
+    var shell = document.querySelector('.app-shell');
+    var isDark = (shell && shell.getAttribute('data-theme') === 'dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+    icon.innerHTML = isDark
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+      : '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/>';
+  }
+
+  function updateThemeColorMeta(){
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if(!meta) return;
+    var shell = document.querySelector('.app-shell');
+    var isDark = (shell && shell.getAttribute('data-theme') === 'dark') || document.documentElement.getAttribute('data-theme') === 'dark';
+    meta.setAttribute('content', isDark ? '#090D14' : '#0E6E56');
+  }
+
+  function initTheme(){
+    var saved = localStorage.getItem('edutams-theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = saved ? (saved === 'dark') : prefersDark;
+    var shell = document.querySelector('.app-shell');
+    if(isDark){
+      if(shell) shell.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      if(shell) shell.removeAttribute('data-theme');
+      document.documentElement.removeAttribute('data-theme');
+    }
+    updateThemeIcon();
+    updateThemeColorMeta();
+
+    if(window.matchMedia){
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e){
+        if(!localStorage.getItem('edutams-theme')){
+          var shell = document.querySelector('.app-shell');
+          if(e.matches){
+            if(shell) shell.setAttribute('data-theme', 'dark');
+            document.documentElement.setAttribute('data-theme', 'dark');
+          } else {
+            if(shell) shell.removeAttribute('data-theme');
+            document.documentElement.removeAttribute('data-theme');
+          }
+          updateThemeIcon();
+          updateThemeColorMeta();
+        }
+      });
+    }
+  }
+
+  function switchTab(key,evt){
+    if(!key || !TAB_ORDER.includes(key)) return;
+    var chip = (evt && evt.currentTarget) ? evt.currentTarget : document.querySelector('.module-chip[data-tab="'+key+'"]');
+    var oldIdx=TAB_ORDER.indexOf(currentTab);
+    var newIdx=TAB_ORDER.indexOf(key);
+    var dir=newIdx > oldIdx ? 1 : (newIdx < oldIdx ? -1 : 0);
+
+    if(key===currentTab){
+      scrollTabIntoView(chip, dir || (newIdx < TAB_ORDER.length - 1 ? 1 : -1));
+      hapticPulse();
+      return;
+    }
+
+    hapticPulse();
+    document.querySelectorAll('.module-chip').forEach(function(p){p.classList.toggle('active', p.dataset.tab===key);});
+    scrollTabIntoView(chip, dir);
+    var heroTitle=document.getElementById('heroTitle');
+    if(heroTitle) heroTitle.textContent=TAB_LABELS[key] || 'Transactions';
+    var oldPanel=document.querySelector('.tabpanel[data-panel="'+currentTab+'"]');
+    var newPanel=document.querySelector('.tabpanel[data-panel="'+key+'"]');
+    if(!newPanel) return;
+    if(oldPanel && oldPanel !== newPanel){
+      oldPanel.classList.add('animating', dir>0?'slide-out-left':'slide-out-right');
+      newPanel.classList.add('active','animating', dir>0?'slide-in-right':'slide-in-left');
+      flashPageShimmer();
+      setTimeout(function(){
+        oldPanel.classList.remove('active','animating','slide-out-left','slide-out-right');
+        newPanel.classList.remove('animating','slide-in-right','slide-in-left');
+        replayChartMotion(newPanel);
+        syncTabViewportHeight();
+      }, 340);
+    } else {
+      document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.remove('active','animating','slide-out-left','slide-out-right','slide-in-left','slide-in-right'); });
+      newPanel.classList.add('active');
+      replayChartMotion(newPanel);
+      syncTabViewportHeight();
+    }
+    currentTab=key;
+    document.getElementById('bodyScroll').scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function tapNav(el){
+    hapticPulse();
+    document.querySelectorAll('.bottom-nav .nav-item').forEach(function(n){ n.classList.remove('active'); });
+    el.classList.add('active');
+  }
+
+  var carousel=document.getElementById('carousel');
+  var statCards=carousel ? carousel.querySelectorAll('.stat-card') : [];
+  var dots=document.querySelectorAll('#dots span');
+
+  function updateCarouselState(){
+    if(!carousel || !statCards.length) return;
+    var cardWidth=statCards[0].offsetWidth + 12;
+    var idx=Math.round(carousel.scrollLeft/cardWidth);
+    idx=Math.max(0, Math.min(idx, statCards.length-1));
+    dots.forEach(function(d,i){ d.classList.toggle('on', i===idx); });
+    statCards.forEach(function(card,i){ card.classList.toggle('is-active', i===idx); });
+  }
+
+  if(carousel){
+    carousel.addEventListener('scroll', updateCarouselState, {passive:true});
+    updateCarouselState();
+  }
+
+  var bodyScroll=document.getElementById('bodyScroll');
+  var mobileHero=document.getElementById('mobileHero');
+  var pullHint=document.getElementById('pullHint');
+  var pullStartY=0; var pulling=false;
+
+  if(bodyScroll){
+    bodyScroll.addEventListener('scroll', function(){
+      if(mobileHero) mobileHero.classList.toggle('compact', bodyScroll.scrollTop > 28);
+    }, {passive:true});
+
+    bodyScroll.addEventListener('touchstart', function(e){
+      if(bodyScroll.scrollTop <= 0) pullStartY=e.touches[0].clientY;
+    }, {passive:true});
+
+    bodyScroll.addEventListener('touchmove', function(e){
+      if(bodyScroll.scrollTop > 0 || !pullStartY) return;
+      var delta=e.touches[0].clientY - pullStartY;
+      if(delta > 12 && pullHint){
+        pullHint.classList.add('visible');
+        pulling=true;
+      }
+    }, {passive:true});
+
+    bodyScroll.addEventListener('touchend', function(){
+      if(pulling){
+        showToast('Dashboard refreshed');
+        replayChartMotion(document.querySelector('.tabpanel.active'));
+      }
+      pulling=false;
+      pullStartY=0;
+      if(pullHint) pullHint.classList.remove('visible');
+    });
+  }
+
+  var periods={today:{label:'Today',date:'2026-07-24',ticks:['00:00','04:00','08:00','12:00','16:00','20:00']}, week:{label:'This week',date:'2026-W30',ticks:['Mon','Tue','Wed','Thu','Fri','Sat','Sun']}, month:{label:'This month',date:'July 2026',ticks:['1','5','10','15','20','25','31']}, year:{label:'This year',date:'2026',ticks:['Jan','Mar','May','Jul','Sep','Nov']}};
+  function renderXAxis(ticks){document.getElementById('chartXAxis').innerHTML=ticks.map(function(t){return '<span>'+t+'</span>';}).join('');}
+  renderXAxis(periods.today.ticks);
+  function selectPeriod(e,key){var p=periods[key]; document.getElementById('periodLabel').textContent=p.label; document.querySelectorAll('#periodSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.period===key);}); renderXAxis(p.ticks); closeSheet(e,'periodSheetOverlay');}
+
+  var datePresets={today:'2026-07-24',yesterday:'2026-07-23',last7:'17 Jul – 24 Jul 2026',last30:'25 Jun – 24 Jul 2026',custom:null};
+  function selectDatePreset(e,key){document.querySelectorAll('#dateSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.date===key);}); document.getElementById('customRangeRow').classList.toggle('show', key==='custom'); if(key!=='custom'){document.getElementById('periodDate').childNodes[0].nodeValue=datePresets[key]+' '; closeSheet(e,'dateSheetOverlay');}}
+  function applyDateSheet(){var activeOpt=document.querySelector('#dateSheetOverlay .sheet-row-opt.active'); var key=activeOpt?activeOpt.dataset.date:'today'; if(key==='custom'){var from=document.getElementById('customFrom').value; var to=document.getElementById('customTo').value; document.getElementById('periodDate').childNodes[0].nodeValue=(from+' – '+to+' ');} closeSheet(null,'dateSheetOverlay');}
+
+  function moveStatusIndicator(target){var ind=document.getElementById('statusIndicator'); var container=document.getElementById('statusTabs'); if(!ind || !container || !target) return; var cRect=container.getBoundingClientRect(); var tRect=target.getBoundingClientRect(); ind.style.left=(tRect.left-cRect.left)+'px'; ind.style.width=tRect.width+'px';}
+  function selectStatusTab(e,key){document.querySelectorAll('.status-tab').forEach(function(t){t.classList.toggle('active', t.dataset.status===key);}); moveStatusIndicator(e.currentTarget); renderTxns(key);}
+
+  function selectSession(e,val){document.querySelectorAll('#sessionSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); document.getElementById('revSessionLabel').textContent=val; closeSheet(e,'sessionSheetOverlay');}
+  function selectTerm(e,val){document.querySelectorAll('#termSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); document.getElementById('revTermLabel').textContent=val; closeSheet(e,'termSheetOverlay');}
+
+  var revFilters={session:'2025/2026',term:'First term',date:'All time'};
+
+  function openRevFilterSheet(){
+    updateRevDateDisplay();
+    var sessionDisp = document.getElementById('revSessionDisplay');
+    if(sessionDisp) sessionDisp.textContent = revFilters.session;
+    var termDisp = document.getElementById('revTermDisplay');
+    if(termDisp) termDisp.textContent = revFilters.term;
+    openSheet('revFilterSheetOverlay');
+  }
+
+  function toggleFilterPanel(panelId, trigger){
+    var panel=document.getElementById(panelId);
+    if(!panel) return;
+    var isOpen=panel.classList.contains('open');
+    document.querySelectorAll('.filter-form-panel').forEach(function(p){ p.classList.remove('open'); });
+    document.querySelectorAll('.filter-form-select').forEach(function(b){ b.classList.remove('open'); });
+    if(!isOpen){
+      panel.classList.add('open');
+      if(trigger) trigger.classList.add('open');
+    }
+    hapticPulse();
+  }
+
+  function updateRevDateDisplay(){
+    var from=document.getElementById('revFrom').value;
+    var to=document.getElementById('revTo').value;
+    var el=document.getElementById('revDateRangeDisplay');
+    if(el && from && to) el.textContent=from + ' to ' + to;
+  }
+
+  function selectRevSession(e,val){
+    if(e) e.stopPropagation();
+    document.querySelectorAll('#revSessionList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val===val);
+    });
+    revFilters.session=val;
+    var display=document.getElementById('revSessionDisplay');
+    if(display) display.textContent=val;
+    hapticPulse();
+  }
+
+  function selectRevTerm(e,val){
+    if(e) e.stopPropagation();
+    document.querySelectorAll('#revTermList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val===val);
+    });
+    revFilters.term=val;
+    var display=document.getElementById('revTermDisplay');
+    if(display) display.textContent=val;
+    hapticPulse();
+  }
+
+  function applyRevFilters(){
+    updateRevDateDisplay();
+    if(document.getElementById('chipSession')) document.getElementById('chipSession').textContent=revFilters.session;
+    if(document.getElementById('chipTerm')) document.getElementById('chipTerm').textContent=revFilters.term;
+    var from=document.getElementById('revFrom').value;
+    var to=document.getElementById('revTo').value;
+    if(document.getElementById('chipDate')) document.getElementById('chipDate').textContent=(from&&to)?(from+' – '+to):'All time';
+    closeSheet(null,'revFilterSheetOverlay');
+    showToast('Filters applied');
+  }
+
+  function filterSettlements(query){
+    query = (query || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('#stlHistList .stl-hist-card');
+    cards.forEach(function(card){
+      var text = card.textContent.toLowerCase();
+      card.style.display = (!query || text.indexOf(query) > -1) ? 'block' : 'none';
+    });
+  }
+
+  function openStlFilterSheet(customTitle){
+    var title = customTitle || 'Settlement Filters';
+    var titleEl = document.getElementById('stlFilterSheetTitle');
+    if(titleEl) {
+      titleEl.textContent = title;
+    }
+    var syncAcc = document.getElementById('stlSyncAcc');
+    var dateAcc = document.getElementById('stlDateAcc');
+    if(title === 'Settlement reconciliation'){
+      if(syncAcc) syncAcc.style.display = 'none';
+      if(dateAcc) dateAcc.classList.add('open');
+    } else {
+      if(syncAcc) syncAcc.style.display = 'block';
+    }
+    updateStlSyncDateDisplay();
+    updateStlHistDateDisplay();
+    openSheet('stlFilterSheetOverlay');
+  }
+
+  function updateStlSyncDateDisplay(){
+    var syncFrom = document.getElementById('stlSyncFrom');
+    var syncTo = document.getElementById('stlSyncTo');
+    var el = document.getElementById('stlSyncRangeDisplay');
+    if(el && syncFrom && syncTo && syncFrom.value && syncTo.value) {
+      el.textContent = syncFrom.value + ' to ' + syncTo.value;
+    }
+  }
+
+  function updateStlHistDateDisplay(){
+    var from = document.getElementById('stlFromDate').value;
+    var to = document.getElementById('stlToDate').value;
+    var el = document.getElementById('stlHistRangeDisplay');
+    if(el && from && to) el.textContent = from + ' to ' + to;
+  }
+
+  function selectStlStatus(e, val){
+    if(e) e.stopPropagation();
+    document.querySelectorAll('#stlStatusList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val === val);
+    });
+    var el = document.getElementById('stlStatusDisplay');
+    if(el) el.textContent = val;
+    hapticPulse();
+  }
+
+  function applyStlFilters(){
+    updateStlHistDateDisplay();
+    var from = document.getElementById('stlFromDate').value;
+    var to = document.getElementById('stlToDate').value;
+    closeSheet(null, 'stlFilterSheetOverlay');
+    showToast('Fetched settlement records (' + (from || 'start') + ' – ' + (to || 'end') + ')');
+  }
+
+  function fetchGatewaySettlements(){
+    var from = document.getElementById('stlSyncFrom').value;
+    var to = document.getElementById('stlSyncTo').value;
+    closeSheet(null, 'stlFilterSheetOverlay');
+    showToast('Fetching settlements from ' + (from || 'start') + ' to ' + (to || 'end'));
+  }
+
+  function openSideModal(title, items){
+    var overlay=document.getElementById('sideModalOverlay');
+    var titleEl=document.getElementById('sideModalTitle');
+    var bodyEl=document.getElementById('sideModalBody');
+    if(!overlay || !titleEl || !bodyEl) return;
+    titleEl.textContent=title || 'Details';
+    bodyEl.innerHTML=items.map(function(item, i){
+      return '<div class="side-modal-accordion" data-acc="'+i+'">' +
+        '<div class="side-modal-acc-head" onclick="toggleAccordion(this)">' +
+          '<div><div class="side-modal-acc-title">'+item.title+'</div>' +
+          '<div class="side-modal-acc-meta">'+item.meta+'</div></div>' +
+          '<div class="side-modal-acc-arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></div>' +
+        '</div>' +
+        '<div class="side-modal-acc-body">' +
+          (item.rows||[]).map(function(row){
+            return '<div class="side-modal-acc-row"><span class="label">'+row.label+'</span><span class="value">'+row.value+'</span></div>';
+          }).join('') +
+        '</div>' +
+      '</div>';
+    }).join('');
+    overlay.classList.add('open');
+    hapticPulse();
+  }
+
+  function closeSideModal(e){
+    if(e) e.stopPropagation();
+    var overlay=document.getElementById('sideModalOverlay');
+    if(overlay) overlay.classList.remove('open');
+  }
+
+  function toggleAccordion(head){
+    var acc=head.parentElement;
+    acc.classList.toggle('open');
+  }
+
+  function openReconTxnsModal(bankName, bankAcct){
+    document.getElementById('reconTxnsModalTitle').textContent = 'Transactions — ' + (bankName || 'Guaranty Trust Bank');
+    openSheet('reconTxnsModalSheetOverlay');
+  }
+
+  function openReconRevModal(bankName, bankAcct){
+    document.getElementById('reconRevModalTitle').textContent = 'Revenue Lines — ' + (bankName || 'Guaranty Trust Bank');
+    openSheet('reconRevModalSheetOverlay');
+  }
+
+  function openReconStlModal(bankName, bankAcct){
+    document.getElementById('reconStlModalTitle').textContent = 'Settlements — ' + (bankName || 'Zenith Bank Plc') + ' (' + (bankAcct || '0987654321') + ')';
+    openSheet('reconStlModalSheetOverlay');
+  }
+
+  function filterReconCards(query){
+    query = (query || '').toLowerCase().trim();
+    var cards = document.querySelectorAll('.recon-card-item');
+    cards.forEach(function(card){
+      var text = card.textContent.toLowerCase();
+      card.style.display = (!query || text.indexOf(query) > -1) ? 'block' : 'none';
+    });
+  }
+
+  // 200 Bank Accounts Dataset Generator & Dynamic Controller
+  var ALL_RECON_BANKS = [];
+  var bankNamesList = [
+    'Guaranty Trust Bank', 'Zenith Bank Plc', 'Access Bank', 'First Bank of Nigeria',
+    'United Bank for Africa', 'Kuda Microfinance Bank', 'Moniepoint MFB', 'OPay Digital Services',
+    'Wema Bank Plc', 'Sterling Bank', 'Stanbic IBTC Bank', 'FCMB', 'Fidelity Bank',
+    'Union Bank', 'Providus Bank', 'Taj Bank', 'Parallex Bank', 'Heritage Bank',
+    'Keystone Bank', 'SunTrust Bank', 'Lotus Bank', 'Titan Trust Bank', 'Globus Bank',
+    'Jaiz Bank', 'Standard Chartered Bank', 'Citibank Nigeria', 'VFD Microfinance Bank',
+    'FairMoney MFB', 'PalmPay Nigeria', 'Carbon MFB'
+  ];
+
+  function initReconBankData() {
+    ALL_RECON_BANKS = [];
+    for (var i = 1; i <= 200; i++) {
+      var bankName = bankNamesList[(i - 1) % bankNamesList.length];
+      if (i > 30) bankName += ' (' + (Math.floor((i - 1) / 30) + 1) + ')';
+      var initials = bankName.split(' ').map(function(w){ return w[0]; }).join('').slice(0, 2).toUpperCase();
+      var acctNum = String(1000000000 + i * 473219).slice(0, 10);
+      var txns = 30 + (i * 17) % 250;
+      var revLines = 3 + (i * 3) % 15;
+      var stls = Math.floor(txns * 0.85);
+      var settledAmt = (txns * 55000) + (i * 120000);
+      var pct = (i % 5 === 0) ? 100 : (60 + (i * 7) % 38);
+      var reconAmt = Math.floor(settledAmt * (pct / 100));
+      var outBal = settledAmt - reconAmt;
+
+      ALL_RECON_BANKS.push({
+        id: i,
+        bankName: bankName,
+        initials: initials,
+        acctNum: acctNum,
+        txns: txns,
+        revLines: revLines,
+        stls: stls,
+        settledAmt: settledAmt,
+        reconAmt: reconAmt,
+        outBal: outBal,
+        pct: pct,
+        isCompleted: pct === 100
+      });
+    }
+  }
+
+  var currentReconFilter = 'action'; // 'action' | 'completed' | 'all'
+  var currentReconViewMode = 'card'; // 'card' | 'compact'
+  var reconDisplayLimit = 8;
+  var currentReconSearchQuery = '';
+
+  function setReconFilter(filter, el) {
+    currentReconFilter = filter;
+    document.querySelectorAll('#reconFilterPills .recon-pill').forEach(function(p){ p.classList.remove('active'); });
+    if(el) el.classList.add('active');
+    reconDisplayLimit = 8;
+    renderReconBankList();
+    hapticPulse();
+  }
+
+  function setReconViewMode(mode) {
+    currentReconViewMode = mode;
+    document.getElementById('reconViewCardBtn').classList.toggle('active', mode === 'card');
+    document.getElementById('reconViewCompactBtn').classList.toggle('active', mode === 'compact');
+    renderReconBankList();
+    hapticPulse();
+  }
+
+  function onReconSearchInput(val) {
+    currentReconSearchQuery = (val || '').toLowerCase().trim();
+    reconDisplayLimit = 8;
+    renderReconBankList();
+  }
+
+  function loadMoreReconAccounts() {
+    reconDisplayLimit += 12;
+    renderReconBankList();
+    hapticPulse();
+  }
+
+  function renderReconBankList() {
+    if (!ALL_RECON_BANKS.length) initReconBankData();
+    var container = document.getElementById('reconBankListContainer');
+    if (!container) return;
+
+    var filtered = ALL_RECON_BANKS.filter(function(item) {
+      if (currentReconFilter === 'action' && item.isCompleted) return false;
+      if (currentReconFilter === 'completed' && !item.isCompleted) return false;
+      if (currentReconSearchQuery) {
+        var matchText = (item.bankName + ' ' + item.acctNum).toLowerCase();
+        if (matchText.indexOf(currentReconSearchQuery) === -1) return false;
+      }
+      return true;
+    });
+
+    var visibleItems = filtered.slice(0, reconDisplayLimit);
+    var html = '';
+
+    if (visibleItems.length === 0) {
+      html = '<div style="text-align:center; padding:24px 12px; color:var(--ink-3); font-size:12.5px;">No bank accounts found matching your search.</div>';
+    } else {
+      visibleItems.forEach(function(item) {
+        if (currentReconViewMode === 'card') {
+          // Detailed Card View
+          html += '<div class="recon-card-item">' +
+            '<div class="recon-card-accent"></div>' +
+            '<div class="recon-card-header">' +
+              '<div class="recon-bank-group">' +
+                '<div>' +
+                  '<div class="recon-bank-name">' + item.bankName + '</div>' +
+                  '<div class="recon-bank-acct">' + item.acctNum + '</div>' +
+                '</div>' +
+              '</div>' +
+              '<div style="display:flex; align-items:center; gap:8px;">' +
+                '<button class="btn primary" style="height:28px; font-size:10.5px; padding:0 12px; border-radius:999px;" onclick="openReconStlModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">Reconcile</button>' +
+                '<button class="btn secondary" style="height:28px; width:34px; padding:0; border-radius:999px; display:flex; align-items:center; justify-content:center;" onclick="downloadReconReport(\'' + item.bankName + '\', \'' + item.acctNum + '\')">' +
+                  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>' +
+                '</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="recon-metrics-scroll">' +
+              '<div class="recon-metric-chip" onclick="openReconTxnsModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">' +
+                '<div class="recon-metric-val">' + item.txns + '</div>' +
+                '<div class="recon-metric-lbl">Transactions</div>' +
+              '</div>' +
+              '<div class="recon-metric-chip" onclick="openReconRevModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">' +
+                '<div class="recon-metric-val">' + item.revLines + '</div>' +
+                '<div class="recon-metric-lbl">Revenue</div>' +
+              '</div>' +
+              '<div class="recon-metric-chip" onclick="openReconStlModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">' +
+                '<div class="recon-metric-val">' + item.stls + '</div>' +
+                '<div class="recon-metric-lbl">Settlements</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="recon-card-body">' +
+              '<div class="recon-summary-grid">' +
+                '<div class="recon-summary-item"><span class="recon-summary-label">Settled:</span><span class="recon-summary-amt">₦' + item.settledAmt.toLocaleString() + '</span></div>' +
+                '<div class="recon-summary-item"><span class="recon-summary-label">Reconciled:</span><span class="recon-summary-amt">₦' + item.reconAmt.toLocaleString() + '</span></div>' +
+              '</div>' +
+              '<div class="recon-balance-bar" style="' + (item.isCompleted ? 'background:var(--green-bg); border-color:rgba(16,185,129,.2);' : '') + '">' +
+                '<span class="recon-bal-lbl">' + (item.isCompleted ? 'Reconciliation Status' : 'Outstanding Balance') + '</span>' +
+                '<span class="recon-bal-val" style="' + (item.isCompleted ? 'color:var(--green);' : '') + '">' + (item.isCompleted ? 'Fully Reconciled' : '₦' + item.outBal.toLocaleString()) + '</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        } else {
+          // Compact Row View
+          html += '<div class="recon-compact-item" onclick="openReconStlModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">' +
+            '<div class="recon-compact-left">' +
+              '<div class="recon-compact-avatar">' + item.initials + '</div>' +
+              '<div>' +
+                '<div class="recon-compact-title">' + item.bankName + '</div>' +
+                '<div class="recon-compact-sub">' + item.acctNum + ' · ' + item.txns + ' txns</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="recon-compact-right">' +
+              '<span class="recon-compact-badge ' + (item.isCompleted ? 'done' : 'pending') + '">' + item.pct + '%</span>' +
+              '<button class="btn primary" style="height:26px; font-size:10px; padding:0 10px; border-radius:999px;" onclick="event.stopPropagation(); openReconStlModal(\'' + item.bankName + '\', \'' + item.acctNum + '\')">Reconcile</button>' +
+            '</div>' +
+          '</div>';
+        }
+      });
+    }
+
+    container.innerHTML = html;
+
+    // Update pagination & counters
+    var paginationBar = document.getElementById('reconPaginationBar');
+    var counterText = document.getElementById('reconPageCounterText');
+    if (paginationBar) {
+      if (filtered.length > visibleItems.length) {
+        paginationBar.style.display = 'block';
+        if (counterText) counterText.textContent = '(' + visibleItems.length + ' of ' + filtered.length + ')';
+      } else {
+        paginationBar.style.display = 'none';
+      }
+    }
+  }
+
+  renderTxns('all'); renderRevs('');
+  initTheme();
+  window.addEventListener('load', function(){
+    renderReconBankList();
+    moveStatusIndicator(document.querySelector('.status-tab.active'));
+    scrollTabIntoView(document.querySelector('.module-chip.active'), 1);
+    updateCarouselState();
+    replayChartMotion(document.querySelector('.tabpanel.active'));
+    animateCountUps();
+    initChartTooltip();
+    syncTabViewportHeight();
+  });
+  window.addEventListener('resize', function(){
+    moveStatusIndicator(document.querySelector('.status-tab.active'));
+    scrollTabIntoView(document.querySelector('.module-chip.active'), 0);
+    syncTabViewportHeight();
+  });
+</script>
+</body>
+</html>
