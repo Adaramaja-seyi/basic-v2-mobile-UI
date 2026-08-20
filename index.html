@@ -1805,6 +1805,487 @@
   .side-modal-acc-row:last-child{border-bottom:none;}
   .side-modal-acc-row .label{color:var(--ink-3); font-weight:500;}
   .side-modal-acc-row .value{font-family:'Sora'; font-weight:700; color:var(--ink);}
+
+  /* ============ ATTENDANCE MODULE STYLES (Image 1 & 2 design) ============ */
+  .attendance-filters-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    margin-bottom: 12px;
+  }
+  .attendance-filters-row::-webkit-scrollbar { display: none; }
+
+  .attendance-filter-chip {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 38px;
+    padding: 0 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(16,23,32,.04);
+    transition: transform .18s var(--spring), background .18s ease;
+  }
+  .attendance-filter-chip:active { transform: scale(.96); }
+
+  .attendance-search-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+  .attendance-search-wrap input {
+    width: 100%;
+    height: 40px;
+    padding: 0 14px 0 38px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .attendance-search-wrap input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(14,110,86,.12);
+  }
+  .attendance-search-wrap svg {
+    position: absolute;
+    left: 12px;
+    color: var(--ink-3);
+    pointer-events: none;
+  }
+
+  /* Attendance Toolbar & Funnel Filter - EXACT FROM IMAGE */
+  .att-toolbar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .att-funnel-btn {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: #F9FAFB;
+    border: 1px solid #E5E7EB;
+    color: #6B7280;
+    font-family: 'Inter', sans-serif;
+    font-size: 0;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    user-select: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .att-funnel-btn svg {
+    width: 15px;
+    height: 15px;
+  }
+  .att-funnel-btn:hover, .att-funnel-btn:active {
+    background: #F3F4F6;
+    border-color: #D1D5DB;
+    color: var(--ink);
+    transform: scale(.96);
+  }
+  .att-funnel-badge {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    background: #1C9564;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(28,149,100,.3);
+  }
+  .att-active-tags-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .att-tag-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface-alt);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .att-tag-chip:active { transform: scale(.95); }
+  .att-tag-chip b { color: var(--teal-deep); font-weight: 700; }
+  .att-tag-chip svg { opacity: .65; transition: opacity .15s; }
+  .att-tag-chip:hover svg { opacity: 1; }
+
+  .session-switcher-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .session-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background .22s ease, color .22s ease, transform .15s ease, box-shadow .22s ease;
+  }
+  .session-btn.active {
+    background: #F5E7A0; /* Match exact warm yellow in Image 2 */
+    color: #101720;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  }
+  [data-theme="dark"] .session-btn.active {
+    background: #544610;
+    color: #FFF2B3;
+  }
+  .session-btn:active { transform: scale(.96); }
+
+  /* Weekday Circles (Mon - Fri from Image 2) - EXACT DESIGN */
+  .weekday-picker {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12;
+    gap: 10px;
+    flex: 1;
+  }
+  .weekday-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .18s var(--spring);
+  }
+  .weekday-item:active { transform: scale(.94); }
+  .weekday-circle {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: none;
+    background: #F3F4F6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .22s ease, box-shadow .22s ease, transform .2s var(--spring);
+    position: relative;
+  }
+  .weekday-circle::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: transparent;
+    transition: background .22s ease;
+  }
+  .weekday-item.active .weekday-circle {
+    background: #0B5844;
+    box-shadow: 0 2px 8px rgba(11,88,68,.25);
+  }
+  .weekday-item.active .weekday-circle::after {
+    background: #FFFFFF;
+  }
+  .weekday-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #9CA3AF;
+    transition: color .2s ease, font-weight .2s ease;
+  }
+  .weekday-item.active .weekday-label {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  /* Table Header from Image 2 */
+  .attendance-header-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 120px;
+    align-items: center;
+    padding: 10px 8px 12px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 8px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: var(--surface);
+  }
+  .att-col-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .att-col-head.mark-col {
+    justify-content: flex-end;
+  }
+  .att-col-accent {
+    width: 3.5px;
+    height: 18px;
+    border-radius: 4px;
+    background: #1C9564;
+    display: inline-block;
+  }
+  .att-mark-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 6px;
+  }
+  .att-icon-badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .att-icon-badge:active { transform: scale(.88); }
+  .att-icon-badge.red { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
+  .att-icon-badge.green { background: #DCFCE7; color: #16A34A; border-color: #86EFAC; }
+  .att-icon-badge.purple { background: #F3E8FF; color: #9333EA; border-color: #D8B4FE; }
+
+  /* Student Rows Container - Scrollable under Learner header */
+  .learner-list-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    padding-top: 2px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .learner-list-wrap::-webkit-scrollbar {
+    width: 4px;
+  }
+  .learner-list-wrap::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .learner-list-wrap::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+  }
+  .learner-row-item {
+    display: grid;
+    grid-template-columns: 36px 1fr 120px;
+    align-items: center;
+    padding: 12px 10px;
+    border-radius: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 3px rgba(16,23,32,.03);
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .learner-row-item:active { transform: scale(.99); }
+  .learner-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink-3);
+  }
+  .learner-name-col {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .learner-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--teal-bg);
+    color: var(--teal-deep);
+    border: 1px solid rgba(14,110,86,.2);
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .learner-text-wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .learner-full-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13.5px;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .learner-roll {
+    font-size: 10.5px;
+    color: var(--ink-3);
+    font-weight: 500;
+  }
+
+  /* Status Option Buttons */
+  .mark-actions-cell {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+  .mark-radio-btn {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--surface-alt);
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s var(--spring), background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+  }
+  .mark-radio-btn:active { transform: scale(.88); }
+  
+  .mark-radio-btn.btn-absent.active {
+    background: #FEE2E2;
+    border-color: #EF4444;
+    color: #DC2626;
+    box-shadow: 0 2px 8px rgba(239,68,68,.25);
+  }
+  .mark-radio-btn.btn-present.active {
+    background: #DCFCE7;
+    border-color: #22C55E;
+    color: #15803D;
+    box-shadow: 0 2px 8px rgba(34,197,94,.25);
+  }
+  .mark-radio-btn.btn-late.active {
+    background: #F3E8FF;
+    border-color: #A855F7;
+    color: #7E22CE;
+    box-shadow: 0 2px 8px rgba(168,85,247,.25);
+  }
+
+  /* Submit Attendance Action Button (from Image 2) */
+  .submit-attendance-wrap {
+    margin: 20px 0 16px;
+  }
+  .btn-submit-attendance {
+    width: 100%;
+    height: 52px;
+    border-radius: 14px;
+    border: none;
+    background: #1C9564;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(28,149,100,.32);
+    transition: transform .18s var(--spring), background .2s ease, box-shadow .2s ease;
+  }
+  .btn-submit-attendance:active {
+    transform: scale(.98);
+    background: #167A52;
+    box-shadow: 0 2px 8px rgba(28,149,100,.2);
+  }
+
+  /* Summary Stat Banner */
+  .attendance-stat-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-card);
+  }
+  .att-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .att-stat-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: .03em;
+  }
+  .att-stat-val {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .att-progress-track {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--line);
+    overflow: hidden;
+    display: flex;
+    margin-top: 8px;
+  }
+  .att-progress-fill-present { background: #1C9564; transition: width .3s ease; }
+  .att-progress-fill-absent { background: #DC2626; transition: width .3s ease; }
+  .att-progress-fill-late { background: #9333EA; transition: width .3s ease; }
 </style>
 </head>
 <body>
@@ -1856,6 +2337,9 @@
 
     <div class="body-scroll" id="bodyScroll">
       <div class="pull-hint" id="pullHint"><span class="pull-spinner"></span> Release to refresh</div>
+
+      <!-- PAY MAIN PAGE VIEW -->
+      <div class="main-page-view active" id="mainPagePay">
 
       <div class="wallet-deck">
         <div class="stat-carousel" id="carousel">
@@ -2066,112 +2550,148 @@
 
       <!-- ============ REVENUE ============ -->
       <div class="tabpanel" data-panel="revenue">
-        <div class="card mobile-block">
-          <div class="card-head">
-            <div class="card-title">Revenue amount</div>
+
+        <!-- Card 1: Revenue Amount Chart Card -->
+        <div class="card mobile-block" style="margin-top:14px; padding:16px;">
+          <div class="card-head" style="margin-bottom:14px;">
+            <div class="card-title" style="font-family:'Sora',sans-serif; font-size:18px; font-weight:700; color:var(--ink);">Revenue amount</div>
           </div>
-          <div class="filter-row">
-            <div class="selector-chip" id="revSessionTrigger" onclick="openSheet('sessionSheetOverlay')">
-              <span id="revSessionLabel">2025/2026</span>
+
+          <!-- Dropdown Filter Pills Row (Opens bottom sheet modals like Image 3) -->
+          <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <div class="attendance-filter-chip" onclick="openSheet('sessionSheetOverlay')" style="flex:1; justify-content:space-between; height:42px; border-color:var(--teal); background:var(--teal-bg); color:var(--teal-deep); border-radius:14px; font-weight:700;">
+              <span id="revAmountSessionLabel">2025/2026</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
             </div>
-            <div class="selector-chip" id="revTermTrigger" onclick="openSheet('termSheetOverlay')">
-              <span id="revTermLabel">First term</span>
+            <div class="attendance-filter-chip" onclick="openSheet('termSheetOverlay')" style="flex:1; justify-content:space-between; height:42px; border-radius:14px; background:var(--surface-alt); font-weight:600;">
+              <span id="revAmountTermLabel">Term</span>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
             </div>
           </div>
 
-          <div class="chart-card">
-            <svg viewBox="0 0 336 138" width="100%" height="132" style="display:block;">
-              <line x1="30" y1="6" x2="330" y2="6" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
-              <line x1="30" y1="35" x2="330" y2="35" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
-              <line x1="30" y1="64" x2="330" y2="64" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
-              <line x1="30" y1="93" x2="330" y2="93" stroke="#E7EAEE" stroke-width="1" stroke-dasharray="2 4"/>
-              <line x1="30" y1="122" x2="330" y2="122" stroke="#E7EAEE" stroke-width="1"/>
-              <text x="0" y="9" font-size="9" font-family="Inter" fill="#96A0AC">₦2</text>
-              <text x="0" y="38" font-size="9" font-family="Inter" fill="#96A0AC">₦1.5</text>
-              <text x="5" y="67" font-size="9" font-family="Inter" fill="#96A0AC">₦1</text>
-              <text x="0" y="96" font-size="9" font-family="Inter" fill="#96A0AC">₦0.5</text>
-              <text x="5" y="125" font-size="9" font-family="Inter" fill="#96A0AC">₦0</text>
-              <rect x="65" y="28" width="26" height="94" rx="8" fill="var(--teal)" class="chart-bar-anim" style="animation-delay:.1s"/>
-              <rect x="155" y="108" width="26" height="14" rx="8" fill="var(--green)" class="chart-bar-anim" style="animation-delay:.2s"/>
-              <rect x="245" y="18" width="26" height="104" rx="8" fill="var(--blue)" class="chart-bar-anim" style="animation-delay:.3s"/>
+          <!-- Vertical Bar Chart Area with Handcoded Data -->
+          <div style="position:relative; margin-top:10px; margin-bottom:8px;">
+            <svg viewBox="0 0 320 140" width="100%" height="140" style="display:block;">
+              <!-- Dashed Y-Axis Grid Lines -->
+              <line x1="30" y1="12" x2="310" y2="12" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="40" x2="310" y2="40" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="68" x2="310" y2="68" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="96" x2="310" y2="96" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+              <line x1="30" y1="124" x2="310" y2="124" stroke="var(--line)" stroke-width="1.2"/>
+              
+              <!-- Y-Axis Labels -->
+              <text x="0" y="15" font-size="9" font-family="Inter" font-weight="600" fill="var(--ink-3)">₦2M</text>
+              <text x="0" y="43" font-size="9" font-family="Inter" font-weight="600" fill="var(--ink-3)">₦1.5M</text>
+              <text x="0" y="71" font-size="9" font-family="Inter" font-weight="600" fill="var(--ink-3)">₦1M</text>
+              <text x="0" y="99" font-size="9" font-family="Inter" font-weight="600" fill="var(--ink-3)">₦0.5M</text>
+              <text x="0" y="127" font-size="9" font-family="Inter" font-weight="600" fill="var(--ink-3)">₦0</text>
+
+              <!-- Green bar indicators with proportional heights for handcoded data -->
+              <rect x="52" y="71" width="50" height="53" rx="4" fill="#1C9564" class="chart-bar-anim" style="animation-delay:.05s"/>
+              <rect x="142" y="94" width="50" height="30" rx="4" fill="#1C9564" class="chart-bar-anim" style="animation-delay:.15s"/>
+              <rect x="232" y="20" width="50" height="104" rx="4" fill="#1C9564" class="chart-bar-anim" style="animation-delay:.25s"/>
             </svg>
-            <div class="barchart-xaxis" style="display:flex; gap:4px; margin-top:10px;">
-              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦95,850,000</b>Acceptance fee</div>
-              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦950,000</b>Application fee</div>
-              <div style="flex:1; text-align:center; font-size:9px; font-weight:600; color:var(--ink-3); line-height:1.4; padding:0 2px;"><b style="display:block; color:var(--ink); font-weight:700; font-size:9.5px;">₦85,000,000</b>School fee</div>
+
+            <!-- X-Axis Labels & Handcoded Amount Columns -->
+            <div style="display:flex; justify-content:space-around; margin-top:8px; padding-left:24px; text-align:center;">
+              <div style="flex:1;">
+                <div style="font-family:'Sora',sans-serif; font-size:12px; font-weight:800; color:var(--ink);">₦9.45M</div>
+                <div style="font-size:11px; font-weight:600; color:var(--ink-3); margin-top:3px;">Acceptance fee</div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-family:'Sora',sans-serif; font-size:12px; font-weight:800; color:var(--ink);">₦5.40M</div>
+                <div style="font-size:11px; font-weight:600; color:var(--ink-3); margin-top:3px;">Application fee</div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-family:'Sora',sans-serif; font-size:12px; font-weight:800; color:var(--ink);">₦85.0M</div>
+                <div style="font-size:11px; font-weight:600; color:var(--ink-3); margin-top:3px;">School fee</div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="status-card-box mobile-block">
-          <div class="status-card-title">Revenue status</div>
-          
-          <div class="exact-status-row">
-            <div class="exact-status-left">
-              <div class="exact-status-label-group">
-                <span class="exact-status-dot" style="background: var(--green);"></span>
-                <span class="exact-status-name">Compulsory</span>
+        <!-- Card 2: Revenue Status Breakdown Card with Handcoded Data -->
+        <div class="card mobile-block" style="margin-top:14px; padding:16px;">
+          <div class="card-head" style="margin-bottom:16px;">
+            <div class="card-title" style="font-family:'Sora',sans-serif; font-size:18px; font-weight:700; color:var(--ink);">Revenue status</div>
+          </div>
+
+          <!-- Compulsory Breakdown Row -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="width:10px; height:10px; border-radius:50%; background:#1C9564; display:inline-block;"></span>
+                <span style="font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:var(--ink);">Compulsory</span>
               </div>
-              <div class="exact-status-track">
-                <div class="exact-status-fill" style="width: 78%; background: var(--green);"></div>
+              <div style="text-align:right;">
+                <div style="font-family:'Sora',sans-serif; font-size:14px; font-weight:800; color:var(--ink);">₦94,450,000</div>
+                <div style="font-size:11px; font-weight:600; color:var(--ink-3);">93%</div>
               </div>
             </div>
-            <div class="exact-status-right">
-              <div class="exact-status-amt">₦94,450,000</div>
-              <div class="exact-status-pct">78%</div>
+            <div style="width:100%; height:6px; background:var(--surface-alt); border-radius:999px; overflow:hidden;">
+              <div style="width:93%; height:100%; background:#1C9564; border-radius:999px;"></div>
             </div>
           </div>
 
-          <div class="exact-status-row">
-            <div class="exact-status-left">
-              <div class="exact-status-label-group">
-                <span class="exact-status-dot" style="background: var(--amber);"></span>
-                <span class="exact-status-name">Optional</span>
+          <!-- Optional Breakdown Row -->
+          <div style="margin-bottom:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="width:10px; height:10px; border-radius:50%; background:#C2760B; display:inline-block;"></span>
+                <span style="font-family:'Inter',sans-serif; font-size:14px; font-weight:700; color:var(--ink);">Optional</span>
               </div>
-              <div class="exact-status-track">
-                <div class="exact-status-fill" style="width: 22%; background: var(--amber);"></div>
+              <div style="text-align:right;">
+                <div style="font-family:'Sora',sans-serif; font-size:14px; font-weight:800; color:var(--ink);">₦6,950,000</div>
+                <div style="font-size:11px; font-weight:600; color:var(--ink-3);">7%</div>
               </div>
             </div>
-            <div class="exact-status-right">
-              <div class="exact-status-amt">₦6,950,000</div>
-              <div class="exact-status-pct">22%</div>
+            <div style="width:100%; height:6px; background:var(--surface-alt); border-radius:999px; overflow:hidden;">
+              <div style="width:7%; height:100%; background:#C2760B; border-radius:999px;"></div>
             </div>
           </div>
 
-          <div class="minmax">
-            <div class="mm-chip"><div class="k">Min revenue</div><div class="v">₦600,000</div></div>
-            <div class="mm-chip"><div class="k">Max revenue</div><div class="v">₦85,000,000</div></div>
+          <!-- Min & Max Revenue KPI Boxes -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:14px; padding:14px;">
+              <div style="font-size:10px; font-weight:700; color:var(--ink-3); letter-spacing:.04em; text-transform:uppercase;">MIN REVENUE</div>
+              <div style="font-family:'Sora',sans-serif; font-size:16px; font-weight:800; color:var(--ink); margin-top:4px;">₦600,000</div>
+            </div>
+            <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:14px; padding:14px;">
+              <div style="font-size:10px; font-weight:700; color:var(--ink-3); letter-spacing:.04em; text-transform:uppercase;">MAX REVENUE</div>
+              <div style="font-family:'Sora',sans-serif; font-size:16px; font-weight:800; color:var(--ink); margin-top:4px;">₦85,000,000</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Revenue lines & collection card -->
+        <div class="card mobile-block" style="margin-top:14px;">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Revenue lines & collection</div>
+              <div class="card-sub">Revenue streams by category</div>
+            </div>
+            <div class="link-btn" onclick="openSheet('revFilterSheetOverlay')" style="cursor:pointer;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></polygon></svg>
+              Filters
+            </div>
+          </div>
+
+          <div class="rev-toolbar" style="margin-top:8px; margin-bottom:12px;">
+            <div class="search-field">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+              <input type="text" placeholder="Search revenue name or code..." oninput="searchRevs(this.value)">
+            </div>
+            <div class="filter-btn" onclick="openSheet('revFilterSheetOverlay')" title="Filter revenue lines">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></polygon></svg>
+            </div>
+          </div>
+
+          <div class="rev-records-card">
+            <div class="rev-records-scroll" id="revList"></div>
           </div>
         </div>
 
-        <div class="card mobile-block rev-records-card">
-          <div class="rev-records-head">
-            <div class="card-head">
-              <div class="card-title">Revenue records</div>
-              <div class="revenue-cta">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v13m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
-                CSV
-              </div>
-            </div>
-            <div class="rev-toolbar">
-              <div class="search-field">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-                <input type="text" placeholder="Search by name" oninput="searchRevs(this.value)">
-              </div>
-               <div class="filter-btn" onclick="openRevFilterSheet()" title="Filter revenue">
-                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h18l-7 8.5V18l-4 2.5v-9L3 4z"/></svg>
-               </div>
-            </div>
-            <!-- <div class="active-filters" id="revActiveFilters">
-              <span class="pill-chip" id="chipSession" onclick="openRevFilterSheet()" style="cursor:pointer;">2025/2026</span>
-              <span class="pill-chip" id="chipTerm" onclick="openRevFilterSheet()" style="cursor:pointer;">First term</span>
-              <span class="pill-chip" id="chipDate" onclick="openRevFilterSheet()" style="cursor:pointer;">All time</span>
-            </div> -->
-          </div>
-          <div class="rev-records-scroll" id="revList"></div>
-        </div>
       </div>
 
       <!-- ============ SETTLEMENT ============ -->
@@ -2507,6 +3027,112 @@
       </div>
 
       </div><!-- /tabpanel-viewport -->
+      </div><!-- /mainPagePay -->
+
+      <!-- ============ ATTENDANCE PAGE VIEW ============ -->
+      <div class="main-page-view" id="mainPageAttendance" style="display:none;">
+        <div class="card mobile-block" style="padding:16px;">
+          
+          <!-- Week Selector + Funnel Filter Row - EXACT FROM IMAGE -->
+          <div class="att-toolbar-row">
+            
+            <!-- Week Circle Selector (Mon - Fri) - Large circles like in image -->
+            <div class="weekday-picker">
+              <div class="weekday-item active" data-day="Mon" onclick="setWeekday('Mon', this)">
+                <div class="weekday-circle"></div>
+                <span class="weekday-label">Mon</span>
+              </div>
+              <div class="weekday-item" data-day="Tue" onclick="setWeekday('Tue', this)">
+                <div class="weekday-circle"></div>
+                <span class="weekday-label">Tue</span>
+              </div>
+              <div class="weekday-item" data-day="Wed" onclick="setWeekday('Wed', this)">
+                <div class="weekday-circle"></div>
+                <span class="weekday-label">Wed</span>
+              </div>
+              <div class="weekday-item" data-day="Thu" onclick="setWeekday('Thu', this)">
+                <div class="weekday-circle"></div>
+                <span class="weekday-label">Thu</span>
+              </div>
+              <div class="weekday-item" data-day="Fri" onclick="setWeekday('Fri', this)">
+                <div class="weekday-circle"></div>
+                <span class="weekday-label">Fri</span>
+              </div>
+            </div>
+
+            <!-- Funnel Filter Button (Square icon button matching image) -->
+            <button type="button" class="att-funnel-btn" onclick="openSheet('attFilterSideModal')" title="Filter attendance" aria-label="Open filters">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
+              </svg>
+            </button>
+          </div>
+
+
+
+          <!-- Live Summary Stats Card -->
+          <div class="attendance-stat-banner">
+            <div class="att-stat-item">
+              <span class="att-stat-label">TOTAL</span>
+              <span class="att-stat-val" id="attTotalCount">10</span>
+            </div>
+            <div style="width:1px; height:24px; background:var(--line);"></div>
+            <div class="att-stat-item" onclick="markAll('present')" style="cursor:pointer;" title="Click to Mark All Present">
+              <span class="att-stat-label" style="color:var(--green);">PRESENT</span>
+              <span class="att-stat-val" style="color:var(--green);" id="attPresentCount">7</span>
+            </div>
+            <div style="width:1px; height:24px; background:var(--line);"></div>
+            <div class="att-stat-item" onclick="markAll('absent')" style="cursor:pointer;" title="Click to Mark All Absent">
+              <span class="att-stat-label" style="color:var(--red);">ABSENT</span>
+              <span class="att-stat-val" style="color:var(--red);" id="attAbsentCount">2</span>
+            </div>
+            <div style="width:1px; height:24px; background:var(--line);"></div>
+            <div class="att-stat-item" onclick="markAll('clear')" style="cursor:pointer;" title="Click to Clear All Marks">
+              <span class="att-stat-label" style="color:var(--purple);">CLEAR</span>
+              <span class="att-stat-val" style="color:var(--purple);" id="attClearCount">0</span>
+            </div>
+          </div>
+
+          <!-- Attendance Ratio Progress Bar (Clickable segments to mark all) -->
+          <div class="att-progress-track" style="margin-bottom:16px; cursor:pointer;" title="Click bar segment to mark all students">
+            <div class="att-progress-fill-present" id="attBarPresent" style="width: 70%;" onclick="markAll('present')" title="Mark All Present"></div>
+            <div class="att-progress-fill-absent" id="attBarAbsent" style="width: 20%;" onclick="markAll('absent')" title="Mark All Absent"></div>
+            <div class="att-progress-fill-late" id="attBarClear" style="width: 10%;" onclick="markAll('clear')" title="Clear All Marks"></div>
+          </div>
+
+          <!-- Table Header -->
+          <div class="attendance-header-row">
+            <div class="att-col-head">
+              <span class="att-col-accent"></span>
+              <span>#</span>
+            </div>
+            <div class="att-col-head">
+              <span class="att-col-accent"></span>
+              <span>Learners Name</span>
+            </div>
+            <div class="att-col-head mark-col">
+              <span class="att-col-accent"></span>
+              <span>Mark</span>
+              <div class="att-mark-icons">
+                <span class="att-icon-badge red" onclick="markAll('absent')" title="Mark All Absent">✕</span>
+                <span class="att-icon-badge green" onclick="markAll('present')" title="Mark All Present">✓</span>
+                <span class="att-icon-badge purple" onclick="markAll('clear')" title="Clear All Marks">–</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Handcoded Learners List Container -->
+          <div class="learner-list-wrap" id="attendanceLearnerList"></div>
+
+          <!-- Submit Attendance Primary Button -->
+          <div class="submit-attendance-wrap">
+            <button type="button" class="btn-submit-attendance" onclick="submitAttendance()">
+              Submit Attendance
+            </button>
+          </div>
+
+        </div>
+      </div><!-- /mainPageAttendance -->
 
     </div>
 
@@ -2515,7 +3141,7 @@
         <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
         <span class="nav-label">Home</span>
       </button>
-      <button type="button" class="nav-item active" data-nav="pay" onclick="tapNav(this); document.querySelector('[data-tab=transactions]').click();">
+      <button type="button" class="nav-item active" data-nav="pay" onclick="tapNav(this); switchTab('transactions');">
         <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Z"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>
         <span class="nav-label">Pay</span>
       </button>
@@ -2524,11 +3150,11 @@
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </button>
       </div>
-      <button type="button" class="nav-item" data-nav="reports" onclick="tapNav(this); document.querySelector('[data-tab=revenue]').click();">
-        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-6 3 3 5-7"/></svg></span>
-        <span class="nav-label">Reports</span>
+      <button type="button" class="nav-item" data-nav="attendance" onclick="tapNav(this)">
+        <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l2 2 4-4"/><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="8" y="3" width="8" height="4" rx="1" ry="1"/></svg></span>
+        <span class="nav-label">Attendance</span>
       </button>
-      <button type="button" class="nav-item" data-nav="more" onclick="tapNav(this); document.querySelector('[data-tab=recon]').click();">
+      <button type="button" class="nav-item" data-nav="more" onclick="tapNav(this); switchTab('recon');">
         <span class="nav-icon-wrap"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></span>
         <span class="nav-label">More</span>
       </button>
@@ -2589,6 +3215,44 @@
         <div class="sheet-handle"></div>
         <div class="sheet-head"><div><div class="sheet-title">Select term</div><div class="sheet-sub">Choose a term for the chart</div></div><div class="icon-btn" onclick="closeSheet(event,'termSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
         <div class="sheet-body"><div class="sheet-list"><div class="sheet-row-opt active" data-val="First term" onclick="selectTerm(event,'First term')">First term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="sheet-row-opt" data-val="Second term" onclick="selectTerm(event,'Second term')">Second term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><div class="sheet-row-opt" data-val="Third term" onclick="selectTerm(event,'Third term')">Third term<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div></div></div>
+      </div>
+    </div>
+
+    <!-- Attendance Class Sheet Overlay -->
+    <div class="sheet-overlay" id="attClassSheetOverlay" onclick="closeSheet(event,'attClassSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div><div class="sheet-title">Select Class</div><div class="sheet-sub">Choose class for marking attendance</div></div>
+          <div class="icon-btn" onclick="closeSheet(event,'attClassSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+        </div>
+        <div class="sheet-body">
+          <div class="sheet-list">
+            <div class="sheet-row-opt active" onclick="selectAttendanceClass(event,'JSS 1 Gold')">JSS 1 Gold<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceClass(event,'JSS 2 Silver')">JSS 2 Silver<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceClass(event,'SSS 1 Science')">SSS 1 Science<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceClass(event,'SSS 3 Arts')">SSS 3 Arts<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Week Sheet Overlay -->
+    <div class="sheet-overlay" id="attWeekSheetOverlay" onclick="closeSheet(event,'attWeekSheetOverlay')">
+      <div class="sheet" onclick="event.stopPropagation()">
+        <div class="sheet-handle"></div>
+        <div class="sheet-head">
+          <div><div class="sheet-title">Select Week</div><div class="sheet-sub">Choose academic week</div></div>
+          <div class="icon-btn" onclick="closeSheet(event,'attWeekSheetOverlay')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></div>
+        </div>
+        <div class="sheet-body">
+          <div class="sheet-list">
+            <div class="sheet-row-opt active" onclick="selectAttendanceWeek(event,'Week 8')">Week 8 (Current)<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceWeek(event,'Week 7')">Week 7<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceWeek(event,'Week 6')">Week 6<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <div class="sheet-row-opt" onclick="selectAttendanceWeek(event,'Week 5')">Week 5<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2668,6 +3332,90 @@
           </div>
 
           <button class="btn primary filter-sheet-apply" style="width:100%; height:46px; border-radius:14px; margin-top:14px; font-weight:600; font-size:14px; font-family:'Sora';" onclick="applyRevFilters()">Apply filters</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance Filters Right-Side Slide Modal -->
+    <div class="side-modal-overlay" id="attFilterSideModal" onclick="closeSheet(event,'attFilterSideModal')">
+      <div class="side-modal-panel" onclick="event.stopPropagation()">
+        <div class="side-modal-head">
+          <div>
+            <div class="side-modal-title">Attendance Filters</div>
+            <div style="font-size:12px; font-weight:500; color:var(--ink-3); margin-top:2px;">Filter class, week, shift and session</div>
+          </div>
+          <div class="side-modal-close" onclick="closeSheet(event,'attFilterSideModal')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="side-modal-body">
+          
+          <!-- Class Card Accordion -->
+          <div class="side-modal-accordion" id="attClassAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Class</div>
+                <div class="side-modal-acc-meta" id="attClassFilterDisplay">JSS 1 Gold</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="attClassFilterList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="JSS 1 Gold" onclick="selectAttClassFilter(event,'JSS 1 Gold')">JSS 1 Gold<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="JSS 2 Silver" onclick="selectAttClassFilter(event,'JSS 2 Silver')">JSS 2 Silver<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="SSS 1 Science" onclick="selectAttClassFilter(event,'SSS 1 Science')">SSS 1 Science<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="SSS 3 Arts" onclick="selectAttClassFilter(event,'SSS 3 Arts')">SSS 3 Arts<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Week Card Accordion -->
+          <div class="side-modal-accordion" id="attWeekAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Week</div>
+                <div class="side-modal-acc-meta" id="attWeekFilterDisplay">Week 8</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="attWeekFilterList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="Week 8" onclick="selectAttWeekFilter(event,'Week 8')">Week 8<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Week 7" onclick="selectAttWeekFilter(event,'Week 7')">Week 7<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Week 6" onclick="selectAttWeekFilter(event,'Week 6')">Week 6<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Week 5" onclick="selectAttWeekFilter(event,'Week 5')">Week 5<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shift / Session Card Accordion -->
+          <div class="side-modal-accordion" id="attShiftAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Shift</div>
+                <div class="side-modal-acc-meta" id="attShiftFilterDisplay">Morning</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="attShiftFilterList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="morning" onclick="selectAttShiftFilter(event,'morning')">Morning ☀️<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="afternoon" onclick="selectAttShiftFilter(event,'afternoon')">Afternoon 🌙<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn secondary" style="flex:1; height:46px; border-radius:14px; font-weight:600; font-size:13.5px; font-family:'Sora';" onclick="resetAttFilters()">Reset</button>
+            <button class="btn primary filter-sheet-apply" style="flex:2; height:46px; border-radius:14px; font-weight:600; font-size:13.5px; font-family:'Sora';" onclick="applyAttFilters()">Apply filters</button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -3260,6 +4008,208 @@
   var TAB_LABELS={transactions:'Transactions',revenue:'Revenue',settlement:'Settlement',recon:'Reconciliation'};
   var currentTab='transactions';
 
+  /* ============ ATTENDANCE MODULE JS ============ */
+  var attendanceData = [
+    { id: 1, name: 'Adeboye Samuel', roll: 'ADM-2024-001', mark: 'present' },
+    { id: 2, name: 'Chioma Okonjo', roll: 'ADM-2024-002', mark: 'present' },
+    { id: 3, name: 'Fatima Abubakar', roll: 'ADM-2024-003', mark: 'absent' },
+    { id: 4, name: 'David Mensah', roll: 'ADM-2024-004', mark: 'present' },
+    { id: 5, name: 'Zainab Bello', roll: 'ADM-2024-005', mark: 'clear' },
+    { id: 6, name: 'Emmanuel Eze', roll: 'ADM-2024-006', mark: 'present' },
+    { id: 7, name: 'Blessing Williams', roll: 'ADM-2024-007', mark: 'present' },
+    { id: 8, name: 'Olumide Johnson', roll: 'ADM-2024-008', mark: 'absent' },
+    { id: 9, name: 'Hauwa Umar', roll: 'ADM-2024-009', mark: 'present' },
+    { id: 10, name: 'Tarik Danjuma', roll: 'ADM-2024-010', mark: 'present' },
+    { id: 11, name: 'Aisha Dahiru', roll: 'ADM-2024-011', mark: 'present' },
+    { id: 12, name: 'Kelechi Nnamdi', roll: 'ADM-2024-012', mark: 'clear' },
+    { id: 13, name: 'Chiamaka Okeke', roll: 'ADM-2024-013', mark: 'present' },
+    { id: 14, name: 'Samuel Adeleke', roll: 'ADM-2024-014', mark: 'present' },
+    { id: 15, name: 'Grace Bassey', roll: 'ADM-2024-015', mark: 'absent' },
+    { id: 16, name: 'Victor Kalu', roll: 'ADM-2024-016', mark: 'present' }
+  ];
+
+  var currentSession = 'morning';
+  var currentDay = 'Mon';
+  var currentClassFilter = 'JSS 1 Gold';
+  var currentWeekFilter = 'Week 8';
+
+  function renderAttendanceList(filterText) {
+    var container = document.getElementById('attendanceLearnerList');
+    if (!container) return;
+    var query = (filterText || '').toLowerCase().trim();
+    var filtered = attendanceData.filter(function(item) {
+      return !query || item.name.toLowerCase().includes(query) || item.roll.toLowerCase().includes(query);
+    });
+
+    if (filtered.length === 0) {
+      container.innerHTML = '<div style="padding: 32px 16px; text-align: center; color: var(--ink-3); font-size: 13.5px; font-weight: 500;">No learners found</div>';
+      updateAttendanceStats();
+      return;
+    }
+
+    var html = '';
+    filtered.forEach(function(item, idx) {
+      var initials = item.name.split(' ').map(function(n){return n[0];}).join('').substring(0, 2);
+      html += '<div class="learner-row-item" id="learnerRow-' + item.id + '">' +
+        '<div class="learner-num">' + String(idx + 1).padStart(2, '0') + '</div>' +
+        '<div class="learner-name-col">' +
+          '<div class="learner-avatar">' + initials + '</div>' +
+          '<div class="learner-text-wrap">' +
+            '<div class="learner-full-name">' + item.name + '</div>' +
+            '<div class="learner-roll">' + item.roll + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="mark-actions-cell">' +
+          '<button type="button" class="mark-radio-btn btn-absent ' + (item.mark === 'absent' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'absent\')" title="Mark Absent">✕</button>' +
+          '<button type="button" class="mark-radio-btn btn-present ' + (item.mark === 'present' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'present\')" title="Mark Present">✓</button>' +
+          '<button type="button" class="mark-radio-btn btn-late ' + (item.mark === 'clear' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'clear\')" title="Clear mark">–</button>' +
+        '</div>' +
+      '</div>';
+    });
+    container.innerHTML = html;
+    updateAttendanceStats();
+  }
+
+  function setLearnerMark(id, status) {
+    var item = attendanceData.find(function(l){ return l.id === id; });
+    if (item) {
+      item.mark = (item.mark === status && status !== 'clear') ? 'clear' : status;
+      hapticPulse();
+      renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
+    }
+  }
+
+  function markAll(status) {
+    status = status || 'present';
+    attendanceData.forEach(function(l){ l.mark = status; });
+    hapticPulse();
+    renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
+    var label = status === 'absent' ? 'Absent' : (status === 'present' ? 'Present' : 'Cleared');
+    showToast(status === 'clear' ? 'Cleared all learner marks' : 'All learners marked as ' + label);
+  }
+  function markAllPresent() { markAll('present'); }
+
+  function updateAttendanceStats() {
+    var total = attendanceData.length;
+    var present = attendanceData.filter(function(l){ return l.mark === 'present'; }).length;
+    var absent = attendanceData.filter(function(l){ return l.mark === 'absent'; }).length;
+    var clearMarks = attendanceData.filter(function(l){ return l.mark === 'clear' || !l.mark; }).length;
+
+    var elTotal = document.getElementById('attTotalCount');
+    var elPresent = document.getElementById('attPresentCount');
+    var elAbsent = document.getElementById('attAbsentCount');
+    var elClear = document.getElementById('attClearCount');
+
+    if (elTotal) elTotal.textContent = total;
+    if (elPresent) elPresent.textContent = present;
+    if (elAbsent) elAbsent.textContent = absent;
+    if (elClear) elClear.textContent = clearMarks;
+
+    var barPresent = document.getElementById('attBarPresent');
+    var barAbsent = document.getElementById('attBarAbsent');
+    var barClear = document.getElementById('attBarClear');
+
+    if (barPresent && barAbsent && barClear && total > 0) {
+      barPresent.style.width = ((present / total) * 100) + '%';
+      barAbsent.style.width = ((absent / total) * 100) + '%';
+      barClear.style.width = ((clearMarks / total) * 100) + '%';
+    }
+  }
+
+  function setSession(sessionType, evt) {
+    currentSession = sessionType;
+    hapticPulse();
+    document.querySelectorAll('.session-btn').forEach(function(b){
+      b.classList.toggle('active', b.dataset.session === sessionType);
+    });
+    showToast('Switched to ' + sessionType.charAt(0).toUpperCase() + sessionType.slice(1) + ' session');
+  }
+
+  function setWeekday(day, el) {
+    currentDay = day;
+    hapticPulse();
+    document.querySelectorAll('.weekday-item').forEach(function(item){
+      item.classList.toggle('active', item.dataset.day === day);
+    });
+    showToast('Viewing attendance for ' + day);
+  }
+
+  function selectAttClassFilter(e, val) {
+    document.querySelectorAll('#attClassFilterList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val === val);
+    });
+    var el = document.getElementById('attClassFilterDisplay');
+    if (el) el.textContent = val;
+  }
+
+  function selectAttWeekFilter(e, val) {
+    document.querySelectorAll('#attWeekFilterList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val === val);
+    });
+    var el = document.getElementById('attWeekFilterDisplay');
+    if (el) el.textContent = val;
+  }
+
+  function selectAttShiftFilter(e, val) {
+    document.querySelectorAll('#attShiftFilterList .sheet-row-opt').forEach(function(o){
+      o.classList.toggle('active', o.dataset.val === val);
+    });
+    var el = document.getElementById('attShiftFilterDisplay');
+    if (el) el.textContent = val === 'morning' ? 'Morning' : 'Afternoon';
+  }
+
+  function applyAttFilters() {
+    var activeClass = document.querySelector('#attClassFilterList .sheet-row-opt.active');
+    var activeWeek = document.querySelector('#attWeekFilterList .sheet-row-opt.active');
+    var activeShift = document.querySelector('#attShiftFilterList .sheet-row-opt.active');
+
+    if (activeClass) {
+      currentClassFilter = activeClass.dataset.val;
+      var el = document.getElementById('attTagClassText');
+      if (el) el.textContent = currentClassFilter;
+    }
+    if (activeWeek) {
+      currentWeekFilter = activeWeek.dataset.val;
+      var el = document.getElementById('attTagWeekText');
+      if (el) el.textContent = currentWeekFilter;
+    }
+    if (activeShift) {
+      setSession(activeShift.dataset.val);
+    }
+    closeSheet(null, 'attFilterSideModal');
+    showToast('Filters applied successfully');
+  }
+
+  function resetAttFilters() {
+    selectAttClassFilter(null, 'JSS 1 Gold');
+    selectAttWeekFilter(null, 'Week 8');
+    selectAttShiftFilter(null, 'morning');
+    applyAttFilters();
+  }
+
+  function submitAttendance() {
+    hapticPulse();
+    var present = attendanceData.filter(function(l){ return l.mark === 'present'; }).length;
+    var total = attendanceData.length;
+    showToast('Attendance submitted (' + present + '/' + total + ' present) for ' + currentClassFilter + ' - ' + currentDay);
+  }
+
+  function selectAttendanceClass(e, className) {
+    currentClassFilter = className;
+    closeSheet(e, 'attClassSheetOverlay');
+    var el = document.getElementById('attClassLabel');
+    if (el) el.textContent = className;
+    showToast('Class set to ' + className);
+  }
+
+  function selectAttendanceWeek(e, weekName) {
+    currentWeekFilter = weekName;
+    closeSheet(e, 'attWeekSheetOverlay');
+    var el = document.getElementById('attWeekLabel');
+    if (el) el.textContent = weekName;
+    showToast('Week set to ' + weekName);
+  }
+
   function hapticPulse(){
     if(navigator.vibrate) navigator.vibrate(8);
   }
@@ -3362,21 +4312,48 @@
         newPanel.classList.remove('animating','slide-in-right','slide-in-left');
         replayChartMotion(newPanel);
         syncTabViewportHeight();
+        if(key === 'revenue') renderRevs('');
       }, 340);
     } else {
       document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.remove('active','animating','slide-out-left','slide-out-right','slide-in-left','slide-in-right'); });
       newPanel.classList.add('active');
       replayChartMotion(newPanel);
       syncTabViewportHeight();
+      if(key === 'revenue') renderRevs('');
     }
     currentTab=key;
-    document.getElementById('bodyScroll').scrollTo({top:0, behavior:'smooth'});
+    var scrollEl = document.getElementById('bodyScroll');
+    if (scrollEl) scrollEl.scrollTo({top:0, behavior:'smooth'});
   }
 
   function tapNav(el){
     hapticPulse();
     document.querySelectorAll('.bottom-nav .nav-item').forEach(function(n){ n.classList.remove('active'); });
     el.classList.add('active');
+    var targetNav = el.getAttribute('data-nav');
+    switchMainView(targetNav);
+  }
+
+  function switchMainView(targetNav){
+    var payView = document.getElementById('mainPagePay');
+    var attView = document.getElementById('mainPageAttendance');
+
+    if(targetNav === 'attendance'){
+      if(payView) payView.style.display = 'none';
+      if(attView) {
+        attView.style.display = 'block';
+        attView.classList.add('active');
+      }
+      renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
+    } else {
+      if(attView) attView.style.display = 'none';
+      if(payView) {
+        payView.style.display = 'block';
+        payView.classList.add('active');
+      }
+    }
+    var scrollEl = document.getElementById('bodyScroll');
+    if (scrollEl) scrollEl.scrollTo({top:0, behavior:'smooth'});
   }
 
   var carousel=document.getElementById('carousel');
@@ -3443,8 +4420,8 @@
   function moveStatusIndicator(target){var ind=document.getElementById('statusIndicator'); var container=document.getElementById('statusTabs'); if(!ind || !container || !target) return; var cRect=container.getBoundingClientRect(); var tRect=target.getBoundingClientRect(); ind.style.left=(tRect.left-cRect.left)+'px'; ind.style.width=tRect.width+'px';}
   function selectStatusTab(e,key){document.querySelectorAll('.status-tab').forEach(function(t){t.classList.toggle('active', t.dataset.status===key);}); moveStatusIndicator(e.currentTarget); renderTxns(key);}
 
-  function selectSession(e,val){document.querySelectorAll('#sessionSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); document.getElementById('revSessionLabel').textContent=val; closeSheet(e,'sessionSheetOverlay');}
-  function selectTerm(e,val){document.querySelectorAll('#termSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); document.getElementById('revTermLabel').textContent=val; closeSheet(e,'termSheetOverlay');}
+  function selectSession(e,val){document.querySelectorAll('#sessionSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); var el=document.getElementById('revAmountSessionLabel'); if(el) el.textContent=val; var el2=document.getElementById('revSessionLabel'); if(el2) el2.textContent=val; closeSheet(e,'sessionSheetOverlay'); hapticPulse();}
+  function selectTerm(e,val){document.querySelectorAll('#termSheetOverlay .sheet-row-opt').forEach(function(o){o.classList.toggle('active', o.dataset.val===val);}); var el=document.getElementById('revAmountTermLabel'); if(el) el.textContent=val; var el2=document.getElementById('revTermLabel'); if(el2) el2.textContent=val; closeSheet(e,'termSheetOverlay'); hapticPulse();}
 
   var revFilters={session:'2025/2026',term:'First term',date:'All time'};
 
@@ -3819,6 +4796,7 @@
   initTheme();
   window.addEventListener('load', function(){
     renderReconBankList();
+    renderAttendanceList();
     moveStatusIndicator(document.querySelector('.status-tab.active'));
     scrollTabIntoView(document.querySelector('.module-chip.active'), 1);
     updateCarouselState();
