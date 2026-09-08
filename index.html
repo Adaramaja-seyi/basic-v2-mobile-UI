@@ -1485,7 +1485,8 @@
   [data-theme="dark"] .app-shell{background:var(--bg);}
   [data-theme="dark"] .mobile-hero,
   [data-theme="dark"] .home-hero-header,
-  [data-theme="dark"] .bursar-hero-header{
+  [data-theme="dark"] .bursar-hero-header,
+  [data-theme="dark"] .teacher-hero-header{
     background:linear-gradient(165deg, #070D15 0%, #0F1722 55%, #0B121B 100%) !important;
     border-bottom:1px solid rgba(255,255,255,.08);
   }
@@ -2845,7 +2846,7 @@
     margin-top: 2px;
   }
   .home-section-title {
-    margin: 0;
+    margin: 3;
     font-family: 'Sora', sans-serif;
     font-size: 15px;
     font-weight: 700;
@@ -3684,6 +3685,21 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+  }
+  .activity-log-items-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  .activity-log-items-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .activity-log-items-list::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
   }
   .log-row-item {
     display: flex;
@@ -3788,6 +3804,878 @@
     padding-top: 6px;
     border-top: 1px dashed #CBD5E1;
   }
+
+  /* =========================================================
+     TEACHER MOBILE DASHBOARD STYLES
+     ========================================================= */
+  #mainPageTeacher {
+    padding-bottom: calc(var(--dock-h) + 32px + env(safe-area-inset-bottom));
+    background: #F4F6F9;
+    min-height: 100%;
+  }
+
+  .teacher-hero-header {
+    background: linear-gradient(165deg, var(--teal-deep) 0%, var(--teal) 42%, #12856A 100%);
+    padding: max(10px, env(safe-area-inset-top)) 16px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    overflow: hidden;
+  }
+
+  .teacher-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 4px;
+  }
+
+  .teacher-search-box.in-content {
+    margin-top: 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+  }
+  .teacher-search-box.in-content svg {
+    color: var(--subtle);
+  }
+  .teacher-search-box.in-content .teacher-search-input {
+    background: transparent;
+    border: none;
+    color: var(--ink);
+  }
+  .teacher-search-box.in-content .teacher-search-input::placeholder {
+    color: var(--subtle);
+  }
+
+  .teacher-school-branding {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0 2px;
+    color: #FFFFFF;
+  }
+
+  .teacher-school-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #FFFFFF;
+  }
+
+  .teacher-school-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #FFFFFF;
+  }
+
+  .teacher-school-sub {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 500;
+  }
+
+  .teacher-role-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.15);
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-top: 2px;
+  }
+
+  .teacher-subtitle-row {
+    margin-top: 10px;
+  }
+
+  .teacher-class-summary {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.4;
+    margin: 0 0 8px;
+  }
+
+  .teacher-search-box {
+    margin-top: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .teacher-search-box svg {
+    position: absolute;
+    left: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+  }
+
+  .teacher-search-input {
+    width: 100%;
+    padding: 9px 12px 9px 36px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    color: #FFFFFF;
+    font-size: 12.5px;
+    outline: none;
+    transition: background 0.2s ease, border 0.2s ease;
+  }
+
+  .teacher-search-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .teacher-search-input:focus {
+    background: rgba(255, 255, 255, 0.28);
+    border-color: rgba(255, 255, 255, 0.45);
+  }
+
+  .teacher-content-container {
+    padding: 14px 14px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Quote Card */
+  .teacher-quote-card {
+    background: linear-gradient(135deg, #ECFDF5 0%, #F0FDFA 100%);
+    border: 1px solid #A7F3D0;
+    border-radius: 18px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.08);
+  }
+
+  .quote-icon-mark {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: 800;
+    color: #059669;
+    line-height: 1;
+    opacity: 0.85;
+    flex-shrink: 0;
+  }
+
+  .quote-content-body {
+    flex: 1;
+    z-index: 2;
+  }
+
+  .quote-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #065F46;
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .quote-author {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #047857;
+    margin-top: 4px;
+  }
+
+  .quote-badge-art {
+    color: rgba(5, 150, 105, 0.25);
+    flex-shrink: 0;
+  }
+
+  /* Classes Carousel */
+  .teacher-classes-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .teacher-classes-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .class-card {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 14px;
+    border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .class-card:active {
+    transform: scale(0.98);
+  }
+
+  .class-card-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .class-subject-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: #FFFFFF;
+    flex-shrink: 0;
+  }
+
+  .icon-green { background: linear-gradient(135deg, #10B981 0%, #059669 100%); }
+  .icon-blue  { background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); }
+  .icon-purple{ background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); }
+  .icon-orange{ background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); }
+  .icon-teal  { background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%); }
+  .icon-red   { background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%); }
+  .icon-amber { background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); }
+
+  .class-title-group {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .class-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1E293B;
+    margin: 0;
+  }
+
+  .class-sub {
+    font-size: 11px;
+    color: #64748B;
+    font-weight: 500;
+  }
+
+  .class-menu-btn {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    padding: 4px;
+    cursor: pointer;
+  }
+
+  .class-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px dashed #F1F5F9;
+  }
+
+  .class-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .class-stat-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: #F1F5F9;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .class-stat-val {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1;
+  }
+
+  .class-stat-lbl {
+    font-size: 10px;
+    color: #64748B;
+  }
+
+  .class-gauge-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .class-ring {
+    transform: rotate(-90deg);
+  }
+
+  .ring-bg {
+    fill: none;
+    stroke: #E2E8F0;
+    stroke-width: 3.2;
+  }
+
+  .ring-fill {
+    fill: none;
+    stroke-width: 3.5;
+    stroke-linecap: round;
+  }
+
+  .fill-green { stroke: #10B981; }
+  .fill-blue  { stroke: #3B82F6; }
+  .fill-purple{ stroke: #8B5CF6; }
+  .fill-orange{ stroke: #F59E0B; }
+
+  .ring-text-stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ring-val {
+    font-size: 12px;
+    font-weight: 800;
+    color: #0F172A;
+  }
+
+  .ring-lbl {
+    font-size: 9.5px;
+    color: #64748B;
+  }
+
+  /* Quick Actions Grid (4 Columns Outline Style) */
+  .teacher-quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  @media (max-width: 360px) {
+    .teacher-quick-actions-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .teacher-act-tile {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 14px 6px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  }
+
+  .teacher-act-tile:active {
+    transform: scale(0.95);
+    background: #F1F5F9;
+  }
+
+  .act-tile-icon-outline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0D9488;
+  }
+
+  .act-tile-icon-outline svg {
+    stroke-width: 2px;
+  }
+
+  .act-tile-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1E293B;
+    line-height: 1.25;
+  }
+
+  [data-theme="dark"] .teacher-act-tile {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+  [data-theme="dark"] .teacher-act-tile .act-tile-label {
+    color: var(--ink);
+  }
+  [data-theme="dark"] .act-tile-icon-outline {
+    color: #2DD4BF;
+  }
+
+  /* Days in the Term Card */
+  .term-days-card {
+    padding: 16px;
+    border-radius: 20px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+  }
+
+  .term-days-head {
+    margin-bottom: 12px;
+  }
+
+  .term-days-title-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .term-days-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+  }
+
+  .info-icon-btn {
+    background: transparent;
+    border: none;
+    color: #94A3B8;
+    cursor: pointer;
+  }
+
+  .term-days-body {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .term-gauge-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .term-main-ring {
+    transform: rotate(-90deg);
+  }
+
+  .term-ring-bg {
+    fill: none;
+    stroke: #E2E8F0;
+    stroke-width: 3.5;
+  }
+
+  .term-ring-fill {
+    fill: none;
+    stroke: #10B981;
+    stroke-width: 3.8;
+    stroke-linecap: round;
+  }
+
+  .term-gauge-center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .term-gauge-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1;
+  }
+
+  .term-gauge-lbl {
+    font-size: 9.5px;
+    color: #64748B;
+    font-weight: 600;
+  }
+
+  .term-breakdown-grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .term-stat-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-radius: 10px;
+  }
+
+  .pill-green { background: #ECFDF5; }
+  .pill-green .term-stat-num { color: #059669; }
+
+  .pill-neutral { background: #F8FAFC; }
+  .pill-neutral .term-stat-num { color: #334155; }
+
+  .pill-blue { background: #EFF6FF; }
+  .pill-blue .term-stat-num { color: #2563EB; }
+
+  .term-stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .term-stat-desc {
+    font-size: 11px;
+    color: #64748B;
+    font-weight: 600;
+  }
+
+  .term-days-footer {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px dashed #E2E8F0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .term-ends-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 99px;
+  }
+
+  /* Teaching Engagement Chart */
+  .engagement-card {
+    padding: 16px;
+    border-radius: 20px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+  }
+
+  .engagement-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0F172A;
+    margin: 0;
+  }
+
+  .engagement-title .sub-tag {
+    font-size: 11.5px;
+    color: #64748B;
+    font-weight: 500;
+  }
+
+  .chart-legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0 14px;
+  }
+
+  .legend-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #475569;
+  }
+
+  .chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot-green { background: #10B981; }
+  .dot-purple{ background: #8B5CF6; }
+  .dot-blue  { background: #3B82F6; }
+  .dot-orange{ background: #F59E0B; }
+
+  .engagement-chart-wrap {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .engagement-chart {
+    width: 100%;
+    height: 150px;
+  }
+
+  .chart-axis-lbl {
+    font-size: 10px;
+    fill: #94A3B8;
+  }
+
+  .chart-class-lbl {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #334155;
+  }
+
+  .engagement-banner-pill {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 12px;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #1E40AF;
+  }
+
+  /* Activity Log Feed */
+  .activity-log-card {
+    padding: 12px;
+    border-radius: 20px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+  }
+
+  .activity-feed-list {
+    display: flex;
+    flex-direction: column;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+  }
+  .activity-feed-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  .activity-feed-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .activity-feed-list::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+  }
+
+  .log-row-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 2px;
+    border-bottom: 1px solid #F1F5F9;
+  }
+
+  .log-row-item:last-child {
+    border-bottom: none;
+  }
+
+  .log-emoji-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+    line-height: 1;
+  }
+
+  .log-emoji-teal   { background: #E0F5F0; }
+  .log-emoji-purple { background: #EEE9F8; }
+  .log-emoji-peach  { background: #FEF3E7; }
+  .log-emoji-blue   { background: #EAF0FB; }
+  .log-emoji-green  { background: #D6F5E3; }
+  .log-emoji-pink   { background: #FDE8E8; }
+  .log-emoji-amber  { background: #FEF3DC; }
+
+  .log-details-block {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .log-title-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .log-title-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1E293B;
+    line-height: 1.38;
+    font-family: 'Sora', sans-serif;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .log-sub-text {
+    display: block;
+    font-size: 11.5px;
+    color: #64748B;
+    font-weight: 500;
+  }
+
+  .log-time-badge {
+    font-size: 11px;
+    font-weight: 500;
+    color: #94A3B8;
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+
+  /* Key Metrics Grid */
+  .teacher-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .metric-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    padding: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: transform 0.18s ease;
+  }
+
+  .metric-card:active {
+    transform: scale(0.97);
+  }
+
+  .metric-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .metric-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .metric-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #0F172A;
+    line-height: 1.1;
+    display: block;
+  }
+
+  .metric-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .metric-sub {
+    font-size: 9.5px;
+    color: #64748B;
+    display: block;
+  }
+
+  .metric-trend {
+    font-size: 9.5px;
+    font-weight: 700;
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  .trend-up { color: #059669; }
+  .trend-down { color: #DC2626; }
+
+  /* Dark Mode for Teacher Dashboard */
+  [data-theme="dark"] #mainPageTeacher {
+    background: var(--bg);
+  }
+
+  [data-theme="dark"] .teacher-quote-card {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(20, 184, 166, 0.08) 100%);
+    border-color: rgba(16, 185, 129, 0.25);
+  }
+
+  [data-theme="dark"] .quote-text { color: #A7F3D0; }
+  [data-theme="dark"] .quote-author { color: #6EE7B7; }
+
+  [data-theme="dark"] .class-card {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+
+  [data-theme="dark"] .class-name { color: var(--ink); }
+  [data-theme="dark"] .class-sub { color: var(--ink-3); }
+  [data-theme="dark"] .class-stat-val { color: var(--ink); }
+  [data-theme="dark"] .ring-val { color: var(--ink); }
+
+  [data-theme="dark"] .teacher-act-tile {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+
+  [data-theme="dark"] .act-tile-label { color: var(--ink-2); }
+
+  [data-theme="dark"] .term-days-card,
+  [data-theme="dark"] .engagement-card,
+  [data-theme="dark"] .activity-log-card,
+  [data-theme="dark"] .metric-card {
+    background: var(--surface);
+    border-color: var(--line);
+  }
+
+  [data-theme="dark"] .term-days-title,
+  [data-theme="dark"] .term-gauge-num,
+  [data-theme="dark"] .engagement-title,
+  [data-theme="dark"] .metric-num { color: var(--ink); }
+
+  [data-theme="dark"] .log-title-text { color: var(--ink-2); }
+  [data-theme="dark"] .log-title-text strong { color: var(--ink); }
+  [data-theme="dark"] .log-row-item { border-bottom-color: var(--line); }
+  [data-theme="dark"] .metric-title { color: var(--ink-2); }
 
   /* ========================================================
      BURSAR SCHOOL FINANCIAL DASHBOARD (PLUS BUTTON VIEW)
@@ -5272,7 +6160,7 @@
           <div class="home-card-surface activity-logs-card">
             <div class="activity-logs-header">
               <h2 class="activity-logs-title">Activity Logs</h2>
-              <button type="button" class="view-all-btn" onclick="showToast('All activity logs')">View All</button>
+              
             </div>
 
             <div class="activity-log-items-list">
@@ -5335,6 +6223,782 @@
 
         </div><!-- /home-content-container -->
       </div><!-- /mainPageHome -->
+
+      <!-- ============ TEACHER DASHBOARD (MOBILE VERSION) ============ -->
+      <div class="main-page-view" id="mainPageTeacher" style="display:none;">
+        
+        <!-- Teacher Header Bar -->
+        <div class="teacher-hero-header">
+          <div class="hero-mesh"></div>
+          
+          <!-- Status Bar -->
+          <div class="home-statusbar">
+            <span class="home-status-time">9:41</span>
+            <div class="home-status-notch"></div>
+            <div class="home-status-right">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="currentColor"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C10 2.5 12 3.5 13.7 5.3L12.3 6.7C10.9 5.3 9.3 4.5 7.5 4.5C5.7 4.5 4.1 5.3 2.7 6.7L1.3 5.3C3 3.5 5 2.5 7.5 2.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.4" fill="currentColor"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 24" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="16" height="7" rx="1.2" fill="currentColor"/><rect x="21.5" y="3.5" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+
+          <!-- Top Row: School Branding (Left) + Theme/Notif Buttons (Right) -->
+          <div class="teacher-top-row">
+            <div class="teacher-school-branding">
+              <div class="teacher-school-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              </div>
+              <div class="teacher-school-info">
+                <div class="teacher-school-name">Metropolitan College Municipals</div>
+                <div class="teacher-school-sub">Government Arms Roads</div>
+              </div>
+            </div>
+
+            <div class="home-top-right">
+              <button type="button" class="home-icon-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+              </button>
+              <button type="button" class="home-icon-btn" onclick="showToast('5 unread notifications')" aria-label="Notifications">
+                <span class="home-notif-dot">5</span>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              </button>
+              <div class="home-avatar-circle" onclick="switchMainView('teacherProfile')" style="width:36px; height:36px; cursor:pointer;" title="View Profile">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&auto=format&fit=crop&q=80" alt="Mr. John" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\' viewBox=\'0 0 40 40\'><circle cx=\'20\' cy=\'20\' r=\'20\' fill=\'%2310B981\'/><text x=\'50%\' y=\'56%\' font-size=\'14\' font-weight=\'bold\' fill=\'%23FFFFFF\' text-anchor=\'middle\' dominant-baseline=\'middle\'>MJ</text></svg>'">
+              </div>
+            </div>
+          </div>
+
+          <!-- Session & Term Pill -->
+          <div class="home-session-pill" style="margin-top:10px; width:fit-content;" onclick="showToast('2025/2026 First Term · Week 11')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>2025/2026 First Term &nbsp;·&nbsp; Week 11</span>
+          </div>
+
+        </div><!-- /teacher-hero-header -->
+
+        <div class="teacher-content-container">
+
+          <!-- My Classes Overview Section -->
+          <div class="teacher-section">
+            <div class="home-section-head">
+              <h2 class="home-section-title">My Classes Overview</h2>
+            
+            </div>
+
+            <!-- Classes Carousel / Horizontal Scroll -->
+            <div class="teacher-classes-scroll">
+              
+              <!-- Class Card 1: SS2A -->
+              <div class="class-card card-green" onclick="openClassDetailModal('SS2A', 'Mathematics', 32, 93)">
+                <div class="class-card-head">
+                  <div class="class-subject-icon icon-green">
+                    <span>√x</span>
+                  </div>
+                  <div class="class-title-group">
+                    <h3 class="class-name">SS2A</h3>
+                    <span class="class-sub">Mathematics</span>
+                  </div>
+                  <button type="button" class="class-menu-btn" onclick="event.stopPropagation(); showToast('SS2A options menu');">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                  </button>
+                </div>
+                <div class="class-card-body">
+                  <div class="class-stat-item">
+                    <div class="class-stat-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                      <span class="class-stat-val">32</span>
+                      <span class="class-stat-lbl">Students</span>
+                    </div>
+                  </div>
+                  <div class="class-gauge-wrap">
+                    <svg class="class-ring" width="46" height="46" viewBox="0 0 36 36">
+                      <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <path class="ring-fill fill-green" stroke-dasharray="93, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="ring-text-stack">
+                      <span class="ring-val">93%</span>
+                      <span class="ring-lbl">Attendance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Class Card 2: SS2B -->
+              <div class="class-card card-blue" onclick="openClassDetailModal('SS2B', 'Mathematics', 30, 90)">
+                <div class="class-card-head">
+                  <div class="class-subject-icon icon-blue">
+                    <span>x²</span>
+                  </div>
+                  <div class="class-title-group">
+                    <h3 class="class-name">SS2B</h3>
+                    <span class="class-sub">Mathematics</span>
+                  </div>
+                  <button type="button" class="class-menu-btn" onclick="event.stopPropagation(); showToast('SS2B options menu');">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                  </button>
+                </div>
+                <div class="class-card-body">
+                  <div class="class-stat-item">
+                    <div class="class-stat-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                      <span class="class-stat-val">30</span>
+                      <span class="class-stat-lbl">Students</span>
+                    </div>
+                  </div>
+                  <div class="class-gauge-wrap">
+                    <svg class="class-ring" width="46" height="46" viewBox="0 0 36 36">
+                      <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <path class="ring-fill fill-blue" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="ring-text-stack">
+                      <span class="ring-val">90%</span>
+                      <span class="ring-lbl">Attendance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Class Card 3: SS1C -->
+              <div class="class-card card-purple" onclick="openClassDetailModal('SS1C', 'Mathematics', 33, 91)">
+                <div class="class-card-head">
+                  <div class="class-subject-icon icon-purple">
+                    <span>f(x)</span>
+                  </div>
+                  <div class="class-title-group">
+                    <h3 class="class-name">SS1C</h3>
+                    <span class="class-sub">Mathematics</span>
+                  </div>
+                  <button type="button" class="class-menu-btn" onclick="event.stopPropagation(); showToast('SS1C options menu');">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                  </button>
+                </div>
+                <div class="class-card-body">
+                  <div class="class-stat-item">
+                    <div class="class-stat-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                      <span class="class-stat-val">33</span>
+                      <span class="class-stat-lbl">Students</span>
+                    </div>
+                  </div>
+                  <div class="class-gauge-wrap">
+                    <svg class="class-ring" width="46" height="46" viewBox="0 0 36 36">
+                      <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <path class="ring-fill fill-purple" stroke-dasharray="91, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="ring-text-stack">
+                      <span class="ring-val">91%</span>
+                      <span class="ring-lbl">Attendance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Class Card 4: SS1A -->
+              <div class="class-card card-orange" onclick="openClassDetailModal('SS1A', 'Mathematics', 33, 94)">
+                <div class="class-card-head">
+                  <div class="class-subject-icon icon-orange">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                  </div>
+                  <div class="class-title-group">
+                    <h3 class="class-name">SS1A</h3>
+                    <span class="class-sub">Mathematics</span>
+                  </div>
+                  <button type="button" class="class-menu-btn" onclick="event.stopPropagation(); showToast('SS1A options menu');">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+                  </button>
+                </div>
+                <div class="class-card-body">
+                  <div class="class-stat-item">
+                    <div class="class-stat-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div>
+                      <span class="class-stat-val">33</span>
+                      <span class="class-stat-lbl">Students</span>
+                    </div>
+                  </div>
+                  <div class="class-gauge-wrap">
+                    <svg class="class-ring" width="46" height="46" viewBox="0 0 36 36">
+                      <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                      <path class="ring-fill fill-orange" stroke-dasharray="94, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    </svg>
+                    <div class="ring-text-stack">
+                      <span class="ring-val">94%</span>
+                      <span class="ring-lbl">Attendance</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /teacher-classes-scroll -->
+          </div><!-- /My Classes Overview -->
+
+          <!-- Teaching Engagement (This Term) Chart Section -->
+          <div class="teacher-section">
+            <div class="home-card-surface engagement-card">
+              <div class="engagement-head">
+                <h3 class="engagement-title">Teaching Engagement <span class="sub-tag">(This Term)</span></h3>
+              </div>
+
+              <!-- Color Legend -->
+              <div class="chart-legend-row">
+                <div class="legend-chip"><span class="chip-dot dot-green"></span>Assignments</div>
+                <div class="legend-chip"><span class="chip-dot dot-purple"></span>Quizzes</div>
+                <div class="legend-chip"><span class="chip-dot dot-blue"></span>Resources</div>
+                <div class="legend-chip"><span class="chip-dot dot-orange"></span>Tests</div>
+              </div>
+
+              <!-- Responsive SVG Bar Chart -->
+              <div class="engagement-chart-wrap">
+                <svg class="engagement-chart" viewBox="0 0 340 160" preserveAspectRatio="none">
+                  <!-- Grid Lines -->
+                  <line x1="30" y1="20" x2="330" y2="20" stroke="#EEF2F6" stroke-dasharray="3,3"/>
+                  <line x1="30" y1="55" x2="330" y2="55" stroke="#EEF2F6" stroke-dasharray="3,3"/>
+                  <line x1="30" y1="90" x2="330" y2="90" stroke="#EEF2F6" stroke-dasharray="3,3"/>
+                  <line x1="30" y1="125" x2="330" y2="125" stroke="#EEF2F6"/>
+
+                  <!-- Y-Axis Labels -->
+                  <text x="22" y="24" class="chart-axis-lbl">40</text>
+                  <text x="22" y="59" class="chart-axis-lbl">30</text>
+                  <text x="22" y="94" class="chart-axis-lbl">20</text>
+                  <text x="22" y="129" class="chart-axis-lbl">0</text>
+
+                  <!-- Group 1: SS2A -->
+                  <g transform="translate(45, 0)">
+                    <rect x="0" y="42" width="10" height="83" rx="3" fill="#10B981"/>
+                    <rect x="12" y="71" width="10" height="54" rx="3" fill="#8B5CF6"/>
+                    <rect x="24" y="59" width="10" height="66" rx="3" fill="#3B82F6"/>
+                    <rect x="36" y="89" width="10" height="36" rx="3" fill="#F59E0B"/>
+                    <text x="23" y="145" text-anchor="middle" class="chart-class-lbl">SS2A</text>
+                  </g>
+
+                  <!-- Group 2: SS2B -->
+                  <g transform="translate(115, 0)">
+                    <rect x="0" y="47" width="10" height="78" rx="3" fill="#10B981"/>
+                    <rect x="12" y="77" width="10" height="48" rx="3" fill="#8B5CF6"/>
+                    <rect x="24" y="65" width="10" height="60" rx="3" fill="#3B82F6"/>
+                    <rect x="36" y="83" width="10" height="42" rx="3" fill="#F59E0B"/>
+                    <text x="23" y="145" text-anchor="middle" class="chart-class-lbl">SS2B</text>
+                  </g>
+
+                  <!-- Group 3: SS1C -->
+                  <g transform="translate(185, 0)">
+                    <rect x="0" y="36" width="10" height="89" rx="3" fill="#10B981"/>
+                    <rect x="12" y="65" width="10" height="60" rx="3" fill="#8B5CF6"/>
+                    <rect x="24" y="53" width="10" height="72" rx="3" fill="#3B82F6"/>
+                    <rect x="36" y="80" width="10" height="45" rx="3" fill="#F59E0B"/>
+                    <text x="23" y="145" text-anchor="middle" class="chart-class-lbl">SS1C</text>
+                  </g>
+
+                  <!-- Group 4: SS1A -->
+                  <g transform="translate(255, 0)">
+                    <rect x="0" y="44" width="10" height="81" rx="3" fill="#10B981"/>
+                    <rect x="12" y="74" width="10" height="51" rx="3" fill="#8B5CF6"/>
+                    <rect x="24" y="62" width="10" height="63" rx="3" fill="#3B82F6"/>
+                    <rect x="36" y="86" width="10" height="39" rx="3" fill="#F59E0B"/>
+                    <text x="23" y="145" text-anchor="middle" class="chart-class-lbl">SS1A</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="engagement-banner-pill">
+                <span class="banner-sparkle">💡</span>
+                <span>Great job! You've been very active this term.</span>
+              </div>
+            </div>
+          </div><!-- /Teaching Engagement -->
+
+          <!-- Days in the Term Section -->
+          <div class="teacher-section">
+            <div class="home-card-surface term-days-card">
+              <div class="term-days-head">
+                <div class="term-days-title-wrap">
+                  <h3 class="term-days-title">Days in the Term</h3>
+                  <button type="button" class="info-icon-btn" onclick="showToast('Academic term progress tracker')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="term-days-body">
+                <!-- Large Donut Progress -->
+                <div class="term-gauge-container">
+                  <svg class="term-main-ring" width="100" height="100" viewBox="0 0 36 36">
+                    <path class="term-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                    <path class="term-ring-fill" stroke-dasharray="68, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+                  </svg>
+                  <div class="term-gauge-center">
+                    <span class="term-gauge-num">68%</span>
+                    <span class="term-gauge-lbl">Completed</span>
+                  </div>
+                </div>
+
+                <!-- Breakdown Stats Grid -->
+                <div class="term-breakdown-grid">
+                  <div class="term-stat-pill pill-green">
+                    <span class="term-stat-num">68</span>
+                    <span class="term-stat-desc">Days Passed</span>
+                  </div>
+                  <div class="term-stat-pill pill-neutral">
+                    <span class="term-stat-num">47</span>
+                    <span class="term-stat-desc">School Days</span>
+                  </div>
+                  <div class="term-stat-pill pill-blue">
+                    <span class="term-stat-num">21</span>
+                    <span class="term-stat-desc">Days Remaining</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="term-days-footer">
+                <div class="term-ends-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Term Ends: 30th July, 2026</span>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /Days in the Term -->
+
+          <!-- Quick Actions Section -->
+          <div class="teacher-section">
+            <h2 class="home-section-title" style="margin-bottom:12px;">Quick Actions</h2>
+            
+            <div class="teacher-quick-actions-grid">
+              
+              <!-- Take Attendance -->
+              <div class="teacher-act-tile" onclick="tapNavByData('attendance');">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="m9 14 2 2 4-4"/></svg>
+                </div>
+                <span class="act-tile-label">Take Attendance</span>
+              </div>
+
+              <!-- Create Assignment -->
+              <div class="teacher-act-tile" onclick="openTeacherModal('assignment')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M10.4 12.6a2 2 0 1 1 2.8 2.8L9 19l-3 1 1-3 4.4-4.4z"/></svg>
+                </div>
+                <span class="act-tile-label">Create Assignment</span>
+              </div>
+
+              <!-- Create Quiz -->
+              <div class="teacher-act-tile" onclick="openTeacherModal('quiz')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <span class="act-tile-label">Create Quiz</span>
+              </div>
+
+              <!-- Upload Resource -->
+              <div class="teacher-act-tile" onclick="openTeacherModal('resource')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+                </div>
+                <span class="act-tile-label">Upload Resource</span>
+              </div>
+
+              <!-- View Timetable -->
+              <div class="teacher-act-tile" onclick="openTeacherModal('timetable')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>
+                </div>
+                <span class="act-tile-label">View Timetable</span>
+              </div>
+
+              <!-- Announce -->
+              <div class="teacher-act-tile" onclick="showToast('Broadcast School Announcement')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                </div>
+                <span class="act-tile-label">Announce</span>
+              </div>
+
+              <!-- Grade Book -->
+              <div class="teacher-act-tile" onclick="showToast('Open Grade Book & Results')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </div>
+                <span class="act-tile-label">Grade Book</span>
+              </div>
+
+              <!-- Class Chat -->
+              <div class="teacher-act-tile" onclick="showToast('Open Teacher-Student Chat')">
+                <div class="act-tile-icon-outline">
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                </div>
+                <span class="act-tile-label">Class Chat</span>
+              </div>
+
+            </div>
+          </div><!-- /Quick Actions -->
+
+          <!-- Key Metrics Performance Grid -->
+          <div class="teacher-section">
+            <h2 class="home-section-title" style="margin-bottom:12px;">Key Performance Metrics</h2>
+            
+            <div class="teacher-metrics-grid">
+              
+              <!-- Metric 1: Total Students -->
+              <div class="metric-card" onclick="showToast('Total Students: 128')">
+                <div class="metric-icon-wrap icon-green">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">128</span>
+                  <span class="metric-title">Total Students</span>
+                  <span class="metric-sub">Across all classes ›</span>
+                </div>
+              </div>
+
+              <!-- Metric 2: Assignments Pending -->
+              <div class="metric-card" onclick="showToast('Assignments Pending: 12')">
+                <div class="metric-icon-wrap icon-purple">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">12</span>
+                  <span class="metric-title">Assignments</span>
+                  <span class="metric-sub">Pending grading ›</span>
+                </div>
+              </div>
+
+              <!-- Metric 3: Quizzes Scheduled -->
+              <div class="metric-card" onclick="showToast('Quizzes Scheduled: 5')">
+                <div class="metric-icon-wrap icon-blue">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">5</span>
+                  <span class="metric-title">Quizzes</span>
+                  <span class="metric-sub">Scheduled ›</span>
+                </div>
+              </div>
+
+              <!-- Metric 4: Overall Attendance -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-teal">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">92%</span>
+                  <span class="metric-title">Overall Attendance</span>
+                  <span class="metric-trend trend-up">This Term ↑ 5.2%</span>
+                </div>
+              </div>
+
+              <!-- Metric 5: Average Score -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-orange">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">74%</span>
+                  <span class="metric-title">Average Score</span>
+                  <span class="metric-trend trend-up">This Term ↑ 6.4%</span>
+                </div>
+              </div>
+
+              <!-- Metric 6: Underperforming Students -->
+              <div class="metric-card">
+                <div class="metric-icon-wrap icon-red">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div class="metric-body">
+                  <span class="metric-num">7</span>
+                  <span class="metric-title">Underperforming</span>
+                  <span class="metric-trend trend-down">Students ↓ 1</span>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /Key Metrics Grid -->
+
+          <!-- Activity Log Section -->
+          <div class="teacher-section">
+            <div class="home-section-head">
+              <h2 class="home-section-title">Activity Log</h2>
+            
+            </div>
+
+            <div class="home-card-surface activity-log-card">
+              <div class="activity-feed-list">
+
+                <!-- Activity Item 1 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-teal">📄</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Uploaded document "Probability Notes"</span>
+                      <span class="log-time-badge">10:45 AM</span>
+                    </div>
+                    <span class="log-sub-text">Resource</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 2 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-purple">📋</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Created assignment "Quadratic Equations"</span>
+                      <span class="log-time-badge">09:30 AM</span>
+                    </div>
+                    <span class="log-sub-text">SS2A Mathematics</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 3 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-peach">👥</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Taken attendance for SS2B</span>
+                      <span class="log-time-badge">08:15 AM</span>
+                    </div>
+                    <span class="log-sub-text">32 students present</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 4 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-blue">☁️</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Uploaded resource "Past Questions Set 2"</span>
+                      <span class="log-time-badge">Yesterday</span>
+                    </div>
+                    <span class="log-sub-text">SS1C Mathematics</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 5 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-green">✅</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Entered scores for Quiz 3</span>
+                      <span class="log-time-badge">Yesterday</span>
+                    </div>
+                    <span class="log-sub-text">SS1A Mathematics</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 6 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-amber">📝</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Created quiz "Algebra Basics Quiz"</span>
+                      <span class="log-time-badge">Yesterday</span>
+                    </div>
+                    <span class="log-sub-text">SS2A Mathematics</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 7 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-purple">📅</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Updated lesson plan for SS1C Mathematics</span>
+                      <span class="log-time-badge">Yesterday</span>
+                    </div>
+                    <span class="log-sub-text">Lesson Plan</span>
+                  </div>
+                </div>
+
+                <!-- Activity Item 8 -->
+                <div class="log-row-item">
+                  <div class="log-emoji-icon log-emoji-pink">📣</div>
+                  <div class="log-details-block">
+                    <div class="log-title-row">
+                      <span class="log-title-text">Sent announcement "Mid-term Exams Schedule"</span>
+                      <span class="log-time-badge">2d ago</span>
+                    </div>
+                    <span class="log-sub-text">Announcement</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div><!-- /Activity Log -->
+
+        </div><!-- /teacher-content-container -->
+      </div><!-- /mainPageTeacher -->
+
+      <!-- ============ TEACHER PROFILE PAGE ============ -->
+      <div class="main-page-view" id="mainPageTeacherProfile" style="display:none;">
+        
+        <!-- Header Bar -->
+        <div class="teacher-hero-header">
+          <div class="hero-mesh"></div>
+          
+          <!-- Status Bar -->
+          <div class="home-statusbar">
+            <span class="home-status-time">9:41</span>
+            <div class="home-status-notch"></div>
+            <div class="home-status-right">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="currentColor"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C10 2.5 12 3.5 13.7 5.3L12.3 6.7C10.9 5.3 9.3 4.5 7.5 4.5C5.7 4.5 4.1 5.3 2.7 6.7L1.3 5.3C3 3.5 5 2.5 7.5 2.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.4" fill="currentColor"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="16" height="7" rx="1.2" fill="currentColor"/><rect x="21.5" y="3.5" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+
+          <!-- Top Navigation Row -->
+          <div class="teacher-top-row" style="align-items: center; padding: 4px 0 12px;">
+            <button type="button" class="home-icon-btn" onclick="switchMainView('teacher')" aria-label="Back to Dashboard" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <span style="font-family:'Sora', sans-serif; font-size:16px; font-weight:700; color:#FFFFFF;">Teacher Profile</span>
+            <button type="button" class="home-icon-btn" onclick="showToast('Edit profile settings')" aria-label="Edit Profile" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.3);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+          </div>
+
+          <!-- Profile Hero Avatar Card -->
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; padding: 8px 0 12px; color:#FFFFFF;">
+            <div style="position:relative; margin-bottom:10px;">
+              <div style="width:84px; height:84px; border-radius:50%; border:3px solid rgba(255,255,255,0.5); overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,0.2); background:rgba(255,255,255,0.2);">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80" alt="Mr. John Adewale" style="width:100%; height:100%; object-fit:cover;">
+              </div>
+              <span style="position:absolute; bottom:2px; right:4px; width:16px; height:16px; border-radius:50%; background:#10B981; border:2px solid #0F766E;"></span>
+            </div>
+            <h3 style="font-family:'Sora', sans-serif; font-size:20px; font-weight:700; margin:0 0 4px; color:#FFFFFF;">Mr. John Adewale</h3>
+            <span style="font-size:12.5px; font-weight:600; background:rgba(255,255,255,0.22); backdrop-filter:blur(8px); padding:3px 12px; border-radius:99px; color:#FFFFFF; margin-bottom:6px;">Senior Mathematics Educator</span>
+            <span style="font-size:11.5px; opacity:0.9; color:rgba(255,255,255,0.85);">Staff ID: TCH-2024-8842 &nbsp;·&nbsp; Metropolitan College</span>
+          </div>
+
+        </div><!-- /teacher-hero-header -->
+
+        <div class="teacher-content-container" style="padding-top:16px;">
+          
+          <!-- Key Metrics Grid -->
+          <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; margin-bottom:16px;">
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow-sm);">
+              <div style="font-size:11px; font-weight:600; color:var(--subtle); text-transform:uppercase; letter-spacing:0.5px;">Active Classes</div>
+              <div style="font-family:'Sora', sans-serif; font-size:22px; font-weight:700; color:var(--ink); margin-top:2px;">4 Classes</div>
+              <span style="font-size:11px; color:#10B981; font-weight:500;">SS2A, SS3B, JS3C, SS1A</span>
+            </div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow-sm);">
+              <div style="font-size:11px; font-weight:600; color:var(--subtle); text-transform:uppercase; letter-spacing:0.5px;">Total Students</div>
+              <div style="font-family:'Sora', sans-serif; font-size:22px; font-weight:700; color:var(--ink); margin-top:2px;">142</div>
+              <span style="font-size:11px; color:var(--subtle);">Across 4 arms</span>
+            </div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow-sm);">
+              <div style="font-size:11px; font-weight:600; color:var(--subtle); text-transform:uppercase; letter-spacing:0.5px;">Pending Grading</div>
+              <div style="font-family:'Sora', sans-serif; font-size:22px; font-weight:700; color:#F59E0B; margin-top:2px;">12 Tasks</div>
+              <span style="font-size:11px; color:var(--subtle);">Assignments & Quizzes</span>
+            </div>
+            <div style="background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow-sm);">
+              <div style="font-size:11px; font-weight:600; color:var(--subtle); text-transform:uppercase; letter-spacing:0.5px;">Avg. Attendance</div>
+              <div style="font-family:'Sora', sans-serif; font-size:22px; font-weight:700; color:#10B981; margin-top:2px;">94.8%</div>
+              <span style="font-size:11px; color:#10B981; font-weight:500;">+2.4% vs last term</span>
+            </div>
+          </div>
+
+          <!-- Personal Information Card -->
+          <div style="background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:var(--shadow-sm);">
+            <h4 style="font-family:'Sora', sans-serif; font-size:15px; font-weight:700; color:var(--ink); margin:0 0 14px; display:flex; align-items:center; gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span>Personal Information</span>
+            </h4>
+
+            <div style="display:flex; flex-direction:column; gap:12px; font-size:13px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Full Name</span>
+                <span style="font-weight:600; color:var(--ink);">Mr. John Olusegun Adewale</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Email Address</span>
+                <span style="font-weight:600; color:var(--ink);">j.adewale@metropolitan.edu.ng</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Phone Number</span>
+                <span style="font-weight:600; color:var(--ink);">+234 803 456 7890</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Department</span>
+                <span style="font-weight:600; color:var(--ink);">Science & Mathematics</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Highest Degree</span>
+                <span style="font-weight:600; color:var(--ink);">M.Sc. Mathematics Ed.</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:8px; border-bottom:1px solid var(--line);">
+                <span style="color:var(--subtle);">Joined Date</span>
+                <span style="font-weight:600; color:var(--ink);">September 15, 2016</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="color:var(--subtle);">Office Location</span>
+                <span style="font-weight:600; color:var(--ink);">Science Wing, Room 204</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Assigned Classes List -->
+          <div style="background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:var(--shadow-sm);">
+            <h4 style="font-family:'Sora', sans-serif; font-size:15px; font-weight:700; color:var(--ink); margin:0 0 12px; display:flex; align-items:center; gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              <span>Assigned Subjects & Classes</span>
+            </h4>
+
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--surface-alt, rgba(0,0,0,0.02)); border-radius:12px; border:1px solid var(--line);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:rgba(16,185,129,0.15); color:#10B981; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px;">SS2</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13.5px; color:var(--ink);">SS2A — General Mathematics</div>
+                    <div style="font-size:11.5px; color:var(--subtle);">32 Students · Room 12B · Mon/Wed/Fri</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; font-weight:600; color:#10B981; background:rgba(16,185,129,0.12); padding:2px 8px; border-radius:99px;">Primary</span>
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--surface-alt, rgba(0,0,0,0.02)); border-radius:12px; border:1px solid var(--line);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:rgba(59,130,246,0.15); color:#3B82F6; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px;">SS3</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13.5px; color:var(--ink);">SS3B — Further Mathematics</div>
+                    <div style="font-size:11.5px; color:var(--subtle);">28 Students · Room 18A · Tue/Thu</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; font-weight:600; color:#3B82F6; background:rgba(59,130,246,0.12); padding:2px 8px; border-radius:99px;">Advanced</span>
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 12px; background:var(--surface-alt, rgba(0,0,0,0.02)); border-radius:12px; border:1px solid var(--line);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:rgba(139,92,246,0.15); color:#8B5CF6; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px;">JS3</div>
+                  <div>
+                    <div style="font-weight:700; font-size:13.5px; color:var(--ink);">JS3C — Basic Mathematics</div>
+                    <div style="font-size:11.5px; color:var(--subtle);">45 Students · Room 04C · Mon/Tue/Thu</div>
+                  </div>
+                </div>
+                <span style="font-size:11px; font-weight:600; color:#8B5CF6; background:rgba(139,92,246,0.12); padding:2px 8px; border-radius:99px;">Core</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Account & Preferences Actions -->
+          <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:24px;">
+            <button type="button" class="btn outline" style="width:100%; justify-content:center; gap:8px; border-color:var(--line); color:var(--ink); height:44px; border-radius:12px;" onclick="showToast('Downloading Teacher ID Badge PDF...')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Digital ID Badge</span>
+            </button>
+            <button type="button" class="btn primary" style="width:100%; justify-content:center; gap:8px; height:44px; border-radius:12px;" onclick="switchMainView('teacher')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Return to Teacher Dashboard</span>
+            </button>
+          </div>
+
+        </div><!-- /teacher-content-container -->
+      </div><!-- /mainPageTeacherProfile -->
 
       <!-- ============ BURSAR SCHOOL FINANCIAL DASHBOARD (PLUS BUTTON VIEW) ============ -->
       <div class="main-page-view" id="mainPageBursar" style="display:none;">
@@ -6902,6 +8566,17 @@
         <span class="nav-label">Parent</span>
       </button>
 
+      <!-- Teacher Tab (shows Teacher Dashboard) -->
+      <button type="button" class="nav-item" data-nav="teacher" onclick="tapNav(this)">
+        <span class="nav-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Teacher</span>
+      </button>
+
       <!-- Center FAB -->
       <div class="nav-fab-wrap">
         <button type="button" class="nav-fab ripple-host" data-nav="new" onclick="spawnRipple(event); showToast('Quick action menu...');" aria-label="Quick Actions">
@@ -8225,6 +9900,8 @@
 
   function switchMainView(targetNav){
     var homeView = document.getElementById('mainPageHome');
+    var teacherView = document.getElementById('mainPageTeacher');
+    var teacherProfileView = document.getElementById('mainPageTeacherProfile');
     var bursarView = document.getElementById('mainPageBursar');
     var payView = document.getElementById('mainPagePay');
     var attView = document.getElementById('mainPageAttendance');
@@ -8233,6 +9910,8 @@
     // Helper: hide all views
     function hideAll(){
       if(homeView)   { homeView.style.display = 'none'; homeView.classList.remove('active'); }
+      if(teacherView){ teacherView.style.display = 'none'; teacherView.classList.remove('active'); }
+      if(teacherProfileView){ teacherProfileView.style.display = 'none'; teacherProfileView.classList.remove('active'); }
       if(bursarView) { bursarView.style.display = 'none'; bursarView.classList.remove('active'); }
       if(payView)    { payView.style.display = 'none'; payView.classList.remove('active'); }
       if(attView)    { attView.style.display = 'none'; attView.classList.remove('active'); }
@@ -8242,6 +9921,18 @@
       // Parent tab -> show Parent Dashboard (mainPageHome)
       hideAll();
       if(homeView){ homeView.style.display = 'block'; homeView.classList.add('active'); }
+      if(mobileHero) mobileHero.style.display = 'none';
+
+    } else if(targetNav === 'teacher'){
+      // Teacher tab -> show Teacher Dashboard (mainPageTeacher)
+      hideAll();
+      if(teacherView){ teacherView.style.display = 'block'; teacherView.classList.add('active'); }
+      if(mobileHero) mobileHero.style.display = 'none';
+
+    } else if(targetNav === 'teacherProfile' || targetNav === 'profile'){
+      // Teacher Profile -> show Teacher Profile Page (mainPageTeacherProfile)
+      hideAll();
+      if(teacherProfileView){ teacherProfileView.style.display = 'block'; teacherProfileView.classList.add('active'); }
       if(mobileHero) mobileHero.style.display = 'none';
 
     } else if(targetNav === 'home' || targetNav === 'pay'){
@@ -8273,6 +9964,155 @@
 
     var scrollEl = document.getElementById('bodyScroll');
     if (scrollEl) scrollEl.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  // ==========================================
+  // TEACHER DASHBOARD INTERACTIVE HANDLERS
+  // ==========================================
+  function openTeacherModal(type){
+    var titleEl = document.getElementById('teacherModalTitle');
+    var bodyEl = document.getElementById('teacherModalBody');
+    var overlay = document.getElementById('teacherModalOverlay');
+    if(!overlay) return;
+
+    if(type === 'assignment'){
+      if(titleEl) titleEl.innerText = 'Create Assignment';
+      if(bodyEl) bodyEl.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:12px; padding:10px 0;">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Select Class</label>
+            <select class="field-control" style="width:100%;">
+              <option>SS2A — Mathematics</option>
+              <option>SS2B — Mathematics</option>
+              <option>SS1C — Mathematics</option>
+              <option>SS1A — Mathematics</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Assignment Title</label>
+            <input type="text" class="field-control" placeholder="e.g., Quadratic Equations & Graphs" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Due Date</label>
+            <input type="date" class="field-control" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Instructions / Description</label>
+            <textarea class="field-control" rows="3" placeholder="Enter assignment instructions for students..." style="width:100%; resize:none;"></textarea>
+          </div>
+          <button type="button" class="btn primary" style="width:100%; margin-top:8px;" onclick="closeSheet(event,'teacherModalOverlay'); showToast('Assignment created successfully! 🎉');">Publish Assignment</button>
+        </div>
+      `;
+    } else if(type === 'quiz'){
+      if(titleEl) titleEl.innerText = 'Create Quiz';
+      if(bodyEl) bodyEl.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:12px; padding:10px 0;">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Select Class</label>
+            <select class="field-control" style="width:100%;">
+              <option>SS2A — Mathematics</option>
+              <option>SS2B — Mathematics</option>
+              <option>SS1C — Mathematics</option>
+              <option>SS1A — Mathematics</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Quiz Title</label>
+            <input type="text" class="field-control" placeholder="e.g., Algebra Basics & Formulas Quiz" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Duration (Minutes)</label>
+            <input type="number" class="field-control" value="30" style="width:100%;">
+          </div>
+          <button type="button" class="btn primary" style="width:100%; margin-top:8px;" onclick="closeSheet(event,'teacherModalOverlay'); showToast('Quiz published to class! 📝');">Publish Quiz</button>
+        </div>
+      `;
+    } else if(type === 'resource'){
+      if(titleEl) titleEl.innerText = 'Upload Learning Resource';
+      if(bodyEl) bodyEl.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:12px; padding:10px 0;">
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Target Subject / Class</label>
+            <select class="field-control" style="width:100%;">
+              <option>All Mathematics Classes</option>
+              <option>SS2A — Mathematics</option>
+              <option>SS2B — Mathematics</option>
+              <option>SS1C — Mathematics</option>
+              <option>SS1A — Mathematics</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:600; color:var(--ink-2); display:block; margin-bottom:4px;">Resource Document Name</label>
+            <input type="text" class="field-control" placeholder="e.g., Probability & Statistics Study Notes.pdf" style="width:100%;">
+          </div>
+          <div style="border:2px dashed var(--line); border-radius:14px; padding:20px; text-align:center; background:var(--surface-alt); cursor:pointer;" onclick="showToast('File selected: Study Notes.pdf')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div style="font-size:12px; font-weight:600; color:var(--ink); margin-top:6px;">Tap to select file (PDF, DOCX, PPTX)</div>
+            <div style="font-size:10px; color:var(--ink-3);">Max file size: 25MB</div>
+          </div>
+          <button type="button" class="btn primary" style="width:100%; margin-top:8px;" onclick="closeSheet(event,'teacherModalOverlay'); showToast('Resource uploaded & shared! ☁️');">Upload File</button>
+        </div>
+      `;
+    } else if(type === 'timetable'){
+      if(titleEl) titleEl.innerText = 'Teacher Timetable — Mathematics';
+      if(bodyEl) bodyEl.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:10px; padding:10px 0;">
+          <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+            <div><strong style="color:var(--ink); font-size:13px;">08:00 AM – 08:45 AM</strong><div style="font-size:11px; color:var(--ink-3);">SS2A Mathematics (Room 12B)</div></div>
+            <span style="background:#ECFDF5; color:#059669; font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px;">Completed</span>
+          </div>
+          <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+            <div><strong style="color:var(--ink); font-size:13px;">09:00 AM – 09:45 AM</strong><div style="font-size:11px; color:var(--ink-3);">SS2B Mathematics (Room 14A)</div></div>
+            <span style="background:#ECFDF5; color:#059669; font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px;">Completed</span>
+          </div>
+          <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+            <div><strong style="color:var(--ink); font-size:13px;">11:15 AM – 12:00 PM</strong><div style="font-size:11px; color:var(--ink-3);">SS1C Mathematics (Lab 2)</div></div>
+            <span style="background:#EFF6FF; color:#2563EB; font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px;">Next Class</span>
+          </div>
+          <div style="background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px 12px; display:flex; align-items:center; justify-content:space-between;">
+            <div><strong style="color:var(--ink); font-size:13px;">01:30 PM – 02:15 PM</strong><div style="font-size:11px; color:var(--ink-3);">SS1A Mathematics (Room 10C)</div></div>
+            <span style="background:var(--surface); color:var(--ink-3); font-size:10px; font-weight:700; padding:3px 8px; border-radius:99px;">Upcoming</span>
+          </div>
+        </div>
+      `;
+    }
+    overlay.classList.add('open');
+  }
+
+  function openClassDetailModal(className, subject, students, att){
+    var titleEl = document.getElementById('teacherModalTitle');
+    var bodyEl = document.getElementById('teacherModalBody');
+    var overlay = document.getElementById('teacherModalOverlay');
+    if(!overlay) return;
+
+    if(titleEl) titleEl.innerText = className + ' — ' + subject;
+    if(bodyEl) bodyEl.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:12px; padding:10px 0;">
+        <div style="display:flex; gap:10px;">
+          <div style="flex:1; background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center;">
+            <div style="font-size:18px; font-weight:800; color:var(--ink);">${students}</div>
+            <div style="font-size:10px; color:var(--ink-3); font-weight:600;">Total Students</div>
+          </div>
+          <div style="flex:1; background:var(--surface-alt); border:1px solid var(--line); border-radius:12px; padding:10px; text-align:center;">
+            <div style="font-size:18px; font-weight:800; color:#10B981;">${att}%</div>
+            <div style="font-size:10px; color:var(--ink-3); font-weight:600;">Avg Attendance</div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <button type="button" class="btn primary" style="width:100%;" onclick="closeSheet(event,'teacherModalOverlay'); tapNavByData('attendance');">Take Class Attendance</button>
+          <button type="button" class="btn outline" style="width:100%; border-color:var(--line); color:var(--ink);" onclick="closeSheet(event,'teacherModalOverlay'); openTeacherModal('assignment');">Create Class Assignment</button>
+          <button type="button" class="btn outline" style="width:100%; border-color:var(--line); color:var(--ink);" onclick="closeSheet(event,'teacherModalOverlay'); openTeacherModal('quiz');">Create Class Quiz</button>
+        </div>
+      </div>
+    `;
+    overlay.classList.add('open');
+  }
+
+  function handleTeacherSearch(q){
+    if(q.trim().length > 0){
+      showToast('Searching for: "' + q + '"...');
+    }
   }
 
   // ==========================================
