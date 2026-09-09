@@ -1977,9 +1977,9 @@
   .bottom-nav{
     flex-shrink:0;
     display:flex; justify-content:space-between; align-items:center;
-    gap:2px;
-    padding:8px 12px;
-    margin:0 16px max(12px, env(safe-area-inset-bottom));
+    gap:1px;
+    padding:6px 10px;
+    margin:0 10px max(12px, env(safe-area-inset-bottom));
     background:var(--surface);
     border:1px solid rgba(231,234,238,.9);
     box-shadow:0 4px 24px -6px rgba(16,23,32,.14), 0 12px 36px -12px rgba(16,23,32,.1);
@@ -1987,7 +1987,7 @@
     position:absolute; bottom:0; left:0; right:0; z-index:40;
   }
   .nav-item{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px;
     color:var(--ink-3); flex:1; min-width:0; padding:2px 0; border:none; background:transparent;
     cursor:pointer; font-family:'Inter',sans-serif;
     transition:transform .18s var(--spring), color .2s ease;
@@ -1995,7 +1995,7 @@
   .nav-item:active{transform:scale(.92);}
   .nav-item.active{color:var(--teal-deep);}
   .nav-item .nav-icon-wrap{
-    width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
     border-radius:50%; color:inherit;
     transition:background .22s var(--ease-out);
   }
@@ -2003,19 +2003,19 @@
     background:var(--teal-bg);
   }
   .nav-item .nav-label{
-    font-size:10px; font-weight:600; letter-spacing:.01em; line-height:1;
-    color:inherit;
+    font-size:9px; font-weight:600; letter-spacing:.01em; line-height:1;
+    color:inherit; white-space:nowrap;
   }
   .nav-fab-wrap{
     flex:0 0 auto; display:flex; align-items:center; justify-content:center;
-    padding:0 6px;
+    padding:0 3px;
   }
   .nav-fab{
-    width:48px; height:48px; border-radius:14px; border:none; cursor:pointer;
+    width:42px; height:42px; border-radius:12px; border:none; cursor:pointer;
     background:var(--teal);
     color:#fff; display:flex; align-items:center; justify-content:center;
-    box-shadow:0 8px 22px -4px rgba(14,110,86,.55);
-    transform:translateY(-10px);
+    box-shadow:0 6px 18px -4px rgba(14,110,86,.55);
+    transform:translateY(-8px);
     transition:transform .22s var(--spring), box-shadow .22s ease, background .2s ease;
   }
   .nav-fab:active{transform:translateY(-10px) scale(.94); box-shadow:0 4px 14px -4px rgba(14,110,86,.45);}
@@ -4230,147 +4230,158 @@
     color: #2DD4BF;
   }
 
-  /* Days in the Term Card */
-  .term-days-card {
-    padding: 16px;
-    border-radius: 20px;
+  /* Days in the Term Card - Modern Design Matching Spec */
+  .term-days-card,
+  .student-days-card {
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
+    border-radius: 28px;
+    padding: 22px 20px 18px 20px;
+    border: 1px solid #F0F2F6;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .term-days-head {
-    margin-bottom: 12px;
+  .term-days-card-title {
+    font-family: 'Sora', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    color: #1E1B4B;
+    margin: 0 0 16px 0;
   }
 
-  .term-days-title-wrap {
+  .term-days-body-v2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 20px;
+    width: 100%;
   }
 
-  .term-days-title {
-    font-family: 'Sora', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    color: #0F172A;
-    margin: 0;
-  }
-
-  .info-icon-btn {
-    background: transparent;
-    border: none;
-    color: #94A3B8;
-    cursor: pointer;
-  }
-
-  .term-days-body {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .term-gauge-container {
+  /* Donut Gauge Ring */
+  .term-donut-wrap-v2 {
     position: relative;
-    width: 100px;
-    height: 100px;
+    width: 116px;
+    height: 116px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
-  .term-main-ring {
+  .term-donut-svg-v2 {
     transform: rotate(-90deg);
+    width: 116px;
+    height: 116px;
   }
 
-  .term-ring-bg {
+  .term-donut-track-v2 {
     fill: none;
-    stroke: #E2E8F0;
-    stroke-width: 3.5;
+    stroke: #ECEFF6;
+    stroke-width: 12;
   }
 
-  .term-ring-fill {
+  .term-donut-progress-v2 {
     fill: none;
-    stroke: #10B981;
-    stroke-width: 3.8;
+    stroke: #00A78E;
+    stroke-width: 12;
     stroke-linecap: round;
+    transition: stroke-dashoffset 0.6s ease;
   }
 
-  .term-gauge-center {
+  .term-donut-center-v2 {
     position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  .term-gauge-num {
-    font-family: 'Sora', sans-serif;
-    font-size: 20px;
-    font-weight: 800;
-    color: #0F172A;
+    justify-content: center;
+    text-align: center;
     line-height: 1;
   }
 
-  .term-gauge-lbl {
-    font-size: 9.5px;
-    color: #64748B;
-    font-weight: 600;
+  .term-donut-pct-v2 {
+    font-family: 'Sora', system-ui, sans-serif;
+    font-size: 27px;
+    font-weight: 800;
+    color: #1E1B4B;
+    letter-spacing: -0.5px;
+    margin-bottom: 2px;
   }
 
-  .term-breakdown-grid {
+  .term-donut-label-v2 {
+    font-size: 11px;
+    font-weight: 700;
+    color: #6E6D8A;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* Stats Breakdown List */
+  .term-stats-list-v2 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    width: 100%;
   }
 
-  .term-stat-pill {
+  .term-stat-row-v2 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 6px 12px;
-    border-radius: 10px;
+    padding: 8px 0;
+    border-bottom: 1.5px dashed #E2E4F0;
   }
 
-  .pill-green { background: #ECFDF5; }
-  .pill-green .term-stat-num { color: #059669; }
+  .term-stat-row-v2:last-child {
+    border-bottom: none;
+  }
 
-  .pill-neutral { background: #F8FAFC; }
-  .pill-neutral .term-stat-num { color: #334155; }
+  .term-stat-name-v2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #262545;
+  }
 
-  .pill-blue { background: #EFF6FF; }
-  .pill-blue .term-stat-num { color: #2563EB; }
-
-  .term-stat-num {
-    font-family: 'Sora', sans-serif;
-    font-size: 14px;
+  .term-stat-val-v2 {
+    font-family: 'Sora', system-ui, sans-serif;
+    font-size: 17px;
     font-weight: 800;
+    color: #1D1B3A;
   }
 
-  .term-stat-desc {
-    font-size: 11px;
-    color: #64748B;
-    font-weight: 600;
+  .term-val-blue-v2 {
+    color: #3B49DF;
   }
 
-  .term-days-footer {
-    margin-top: 12px;
-    padding-top: 10px;
-    border-top: 1px dashed #E2E8F0;
+  /* Term Ends Banner Box */
+  .term-end-banner-v2 {
+    margin-top: 18px;
+    background: #ECEEFE;
+    border-radius: 16px;
+    padding: 13px 18px;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .term-ends-badge {
+  .term-banner-icon-v2 {
+    font-size: 18px;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    background: #F1F5F9;
-    color: #475569;
-    font-size: 11.5px;
-    font-weight: 600;
-    padding: 5px 12px;
-    border-radius: 99px;
+    justify-content: center;
+    line-height: 1;
+  }
+
+  .term-banner-text-v2 {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2D2B70;
   }
 
   /* Teaching Engagement Chart */
@@ -4666,6 +4677,8 @@
     background: var(--surface);
     border-color: var(--line);
   }
+
+  [data-theme="dark"] .term-days-card-title { color: #F8FAFC; }
 
   [data-theme="dark"] .term-days-title,
   [data-theme="dark"] .term-gauge-num,
@@ -5477,6 +5490,1353 @@
     font-weight: 800;
     color: #0F172A;
     letter-spacing: -0.02em;
+  }
+
+  /* =========================================================
+     STUDENT DASHBOARD (SAMUEL SS2 - MOBILE VERSION) STYLES
+     ========================================================= */
+  #mainPageStudent {
+    padding-bottom: calc(var(--dock-h) + 40px + env(safe-area-inset-bottom));
+    background: #F4F6FB;
+    min-height: 100%;
+  }
+
+  /* Student Hero Header */
+  .student-hero-header {
+    background: linear-gradient(165deg, var(--teal-deep) 0%, var(--teal) 42%, #12856A 100%);
+    padding: max(10px, env(safe-area-inset-top)) 16px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    overflow: hidden;
+    box-shadow: 0 4px 24px -6px rgba(7, 60, 48, 0.45);
+    transition: padding .32s cubic-bezier(.32,.72,0,1), box-shadow .32s ease, background .3s ease;
+  }
+
+  .student-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+    gap: 8px;
+  }
+  .student-top-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+  }
+  .student-school-badge {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-deep) 100%);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    color: #FFFFFF;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  }
+  .student-school-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .student-school-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    white-space: normal;
+    line-height: 1.25;
+    display: block;
+  }
+  .student-school-sub {
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.72);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .student-top-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .student-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.18s ease;
+  }
+  .student-icon-btn:active {
+    transform: scale(0.94);
+    background: rgba(255, 255, 255, 0.25);
+  }
+  .student-notif-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    min-width: 15px;
+    height: 15px;
+    border-radius: 999px;
+    background: #EF4444;
+    border: 1.5px solid var(--teal-deep);
+    color: #FFFFFF;
+    font-size: 9px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+  }
+  .student-avatar-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .student-avatar-circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Session & Role Pill Row */
+  .student-header-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 8px;
+  }
+  .student-term-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+  .student-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #FFFFFF;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+  }
+
+  /* Main Scroll Content */
+  .student-content-container {
+    padding: 14px 14px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* 1. Greeting & Motivational Banner */
+  .student-greeting-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .student-greeting-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .student-greeting-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .student-greeting-sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748B;
+    margin: 4px 0 0;
+    line-height: 1.4;
+  }
+  .student-class-chip {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    background: var(--teal-bg);
+    border: 1px solid rgba(14, 110, 86, 0.2);
+    padding: 3px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .student-quote-box {
+    background: linear-gradient(135deg, #FFFDF5 0%, #FEFCE8 100%);
+    border: 1px solid #FDE68A;
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .student-quote-trophy {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #FEF08A, #F59E0B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.25);
+  }
+  .student-quote-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .student-quote-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #854D0E;
+    line-height: 1.35;
+    font-style: italic;
+  }
+  .student-quote-author {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #B45309;
+  }
+
+  /* 2. Key Metrics Side-Scrolling Row */
+  .student-kpi-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding-bottom: 6px;
+    padding-top: 2px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  .student-kpi-grid::-webkit-scrollbar {
+    display: none; /* Chrome/Safari/Opera */
+  }
+  .student-kpi-card {
+    flex: 0 0 160px;
+    min-width: 160px;
+    scroll-snap-align: start;
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 13px 12px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 106px;
+    box-sizing: border-box;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .student-kpi-card:active {
+    transform: scale(0.98);
+  }
+  .student-kpi-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .student-kpi-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .student-kpi-icon.blue { background: #EFF6FF; color: #2563EB; }
+  .student-kpi-icon.green { background: #F0FDF4; color: #16A34A; }
+  .student-kpi-icon.amber { background: #FFFBEB; color: #D97706; }
+  .student-kpi-icon.purple { background: #FAF5FF; color: #8B5CF6; }
+
+  .student-kpi-badge {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .student-kpi-badge.up {
+    background: #DCFCE7;
+    color: #15803D;
+  }
+  .student-kpi-badge.warn {
+    background: #FEF3C7;
+    color: #B45309;
+  }
+  .student-kpi-badge.purple {
+    background: #F3E8FF;
+    color: #7E22CE;
+  }
+
+  .student-kpi-body {
+    margin-top: 8px;
+  }
+  .student-kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    display: block;
+  }
+  .student-kpi-val {
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #1E255E;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+  .student-kpi-sub {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #94A3B8;
+    margin-top: 2px;
+  }
+
+  /* 3. My Wallet Account Card */
+  .student-wallet-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    position: relative;
+    overflow: hidden;
+  }
+  .student-wallet-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #E03A3A, #F59E0B);
+  }
+  .student-wallet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .student-wallet-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .student-wallet-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #1E255E;
+  }
+  .student-verified-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #DCFCE7;
+    color: #15803D;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+  .student-wallet-bank-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .student-bank-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .student-gtbank-logo {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #E03A3A;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 8.5px;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(224, 58, 58, 0.35);
+  }
+  .student-bank-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .student-bank-name {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1E255E;
+  }
+  .student-acct-number-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 1px;
+  }
+  .student-acct-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .student-acct-number {
+    font-family: 'Sora', sans-serif;
+    font-size: 13.5px;
+    font-weight: 800;
+    color: #0F172A;
+    letter-spacing: 0.04em;
+  }
+  .student-copy-acct-btn {
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    color: #2563EB;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    transition: all 0.15s ease;
+  }
+  .student-copy-acct-btn:active {
+    background: #DBEAFE;
+    transform: scale(0.96);
+  }
+  .student-pay-btn {
+    width: 100%;
+    height: 44px;
+    background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 100%);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(7, 60, 48, 0.35);
+    transition: all 0.18s ease;
+  }
+  .student-pay-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 8px rgba(7, 60, 48, 0.25);
+  }
+
+  /* 4. Academic Performance Card (Bar Chart) */
+  .student-perf-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .student-perf-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .student-perf-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .student-perf-sub {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #64748B;
+    margin: 3px 0 0;
+  }
+  .student-perf-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .student-filter-select {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: #F8FAFC;
+    border: 1px solid #CBD5E1;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1E255E;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    transition: all 0.15s ease;
+  }
+  .student-filter-select:hover {
+    background: #F1F5F9;
+    border-color: #94A3B8;
+  }
+  .student-view-toggle {
+    display: flex;
+    background: #F1F5F9;
+    padding: 2px;
+    border-radius: 8px;
+    gap: 2px;
+  }
+  .student-toggle-btn {
+    border: none;
+    background: transparent;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #64748B;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .student-toggle-btn.active {
+    background: #FFFFFF;
+    color: #1E255E;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* Mobile Bar Chart Container */
+  .student-barchart-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+  }
+  .student-chart-area {
+    position: relative;
+    height: 160px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 28px 28px;
+    border-bottom: 1px solid #E2E8F0;
+  }
+  .student-chart-y-axis {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 28px;
+    width: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 9px;
+    font-weight: 600;
+    color: #94A3B8;
+    text-align: right;
+  }
+  .student-chart-y-grid {
+    position: absolute;
+    left: 28px;
+    right: 0;
+    top: 0;
+    bottom: 28px;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .student-chart-y-grid line,
+  .student-grid-line {
+    width: 100%;
+    height: 1px;
+    background: #F1F5F9;
+  }
+
+  .student-bars-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+    padding: 0 4px;
+  }
+  .student-bar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    justify-content: flex-end;
+    position: relative;
+    cursor: pointer;
+  }
+  .student-bar-pct-tip {
+    font-size: 9px;
+    font-weight: 700;
+    color: #1E255E;
+    margin-bottom: 3px;
+    font-family: 'Sora', sans-serif;
+  }
+  .student-bar-pillar {
+    width: 14px;
+    border-radius: 6px 6px 0 0;
+    transition: height 0.6s cubic-bezier(0.34, 1.4, 0.64, 1), transform 0.15s ease;
+  }
+  .student-bar-col:active .student-bar-pillar {
+    transform: scaleY(1.04);
+  }
+  .student-bar-label-box {
+    position: absolute;
+    bottom: -26px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  .student-bar-icon {
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .student-bar-code {
+    font-size: 8px;
+    font-weight: 700;
+    color: #64748B;
+    white-space: nowrap;
+  }
+
+  /* Bar Colors */
+  .bar-math { background: linear-gradient(180deg, #10B981 0%, #059669 100%); }
+  .bar-eng { background: linear-gradient(180deg, #3B82F6 0%, #2563EB 100%); }
+  .bar-phy { background: linear-gradient(180deg, #6366F1 0%, #4F46E5 100%); }
+  .bar-chem { background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%); }
+  .bar-bio { background: linear-gradient(180deg, #06B6D4 0%, #0891B2 100%); }
+  .bar-fmath { background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%); }
+  .bar-civic { background: linear-gradient(180deg, #22C55E 0%, #16A34A 100%); }
+  .bar-ict { background: linear-gradient(180deg, #0EA5E9 0%, #0284C7 100%); }
+
+  /* Subject List Alternative View */
+  .student-subject-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .student-subject-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: #F8FAFC;
+    border-radius: 10px;
+    border: 1px solid #E2E8F0;
+  }
+  .student-sub-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+  .student-sub-icon-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .student-sub-name-wrap {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+  }
+  .student-sub-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1E255E;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .student-sub-bar-bg {
+    width: 100%;
+    max-width: 120px;
+    height: 5px;
+    background: #E2E8F0;
+    border-radius: 999px;
+    margin-top: 4px;
+    overflow: hidden;
+  }
+  .student-sub-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+  }
+  .student-sub-score-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .student-sub-score {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1E255E;
+  }
+  .student-sub-grade {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 5px;
+    background: #DCFCE7;
+    color: #15803D;
+  }
+
+  .student-perf-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--teal);
+    text-decoration: none;
+    margin-top: 4px;
+    cursor: pointer;
+  }
+
+  /* 5. Days in the Term Card */
+  .student-days-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .student-days-head {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .student-days-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .student-donut-wrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .student-donut-svg {
+    transform: rotate(-90deg);
+  }
+  .student-donut-center {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+  }
+  .student-donut-pct {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: #0F172A;
+  }
+  .student-donut-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748B;
+    margin-top: 2px;
+  }
+  .student-days-stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    width: 100%;
+    text-align: center;
+    background: #F8FAFC;
+    border-radius: 12px;
+    padding: 10px 6px;
+    border: 1px solid #E2E8F0;
+  }
+  .student-day-stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .student-day-stat-val {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #1E255E;
+  }
+  .student-day-stat-lbl {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .student-term-end-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: #15803D;
+    background: #F0FDF4;
+    border: 1px solid #DCFCE7;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+
+  /* 6. Academic Overview Card */
+  .student-overview-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .student-overview-head {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .student-overview-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .student-overview-sub {
+    font-size: 11.5px;
+    font-weight: 500;
+    color: #64748B;
+    margin: 0;
+  }
+
+  .student-overview-mini-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .student-mini-metric-box {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .student-mini-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .student-mini-text-wrap {
+    display: flex;
+    flex-direction: column;
+  }
+  .student-mini-title {
+    font-size: 10px;
+    font-weight: 600;
+    color: #64748B;
+    line-height: 1.2;
+  }
+  .student-mini-val {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #1E255E;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  /* Progress Bars List */
+  .student-prog-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 4px 0;
+  }
+  .student-prog-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .student-prog-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+  }
+  .student-prog-label-stack {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .student-prog-label {
+    font-weight: 700;
+    color: #1E255E;
+  }
+  .student-prog-sub {
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #94A3B8;
+  }
+  .student-prog-pct {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    color: #1E255E;
+  }
+  .student-prog-bar-track {
+    height: 6px;
+    background: #EEF2F6;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .student-prog-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    transition: width 0.6s ease;
+  }
+
+  /* Subject Strength & Class Standing */
+  .student-highlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .student-highlight-card {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .student-highlight-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #1E255E;
+  }
+  .student-hl-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .student-hl-icon {
+    font-size: 13px;
+    line-height: 1;
+    margin-top: 1px;
+  }
+  .student-hl-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .student-hl-tag {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .student-hl-val {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0F172A;
+    line-height: 1.2;
+  }
+  .student-hl-val.green { color: #16A34A; }
+  .student-hl-val.orange { color: #D97706; }
+
+  .student-standing-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    color: #7E22CE;
+    background: #FAF5FF;
+    border: 1px solid #F3E8FF;
+    padding: 3px 8px;
+    border-radius: 6px;
+    width: fit-content;
+  }
+  .student-standing-sub {
+    font-size: 10px;
+    font-weight: 600;
+    color: #64748B;
+  }
+  .student-standing-avatars {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    margin-top: 2px;
+  }
+  .student-standing-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #CBD5E1;
+  }
+  .student-standing-dot.highlight {
+    background: #7E22CE;
+  }
+
+  /* 7. Activity Log Card */
+  .student-activity-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .student-activity-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .student-activity-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .student-activity-link {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--teal);
+    cursor: pointer;
+  }
+  .student-activity-scroll-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 320px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #CBD5E1 transparent;
+  }
+  .student-activity-scroll-list::-webkit-scrollbar {
+    width: 4px;
+  }
+  .student-activity-scroll-list::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .student-activity-scroll-list::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 4px;
+  }
+  .student-activity-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    transition: background 0.15s ease;
+    cursor: pointer;
+  }
+  .student-activity-item:active {
+    background: #F1F5F9;
+  }
+  .student-act-icon-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .student-act-icon-box.purple { background: #FAF5FF; color: #7E22CE; }
+  .student-act-icon-box.amber { background: #FFFBEB; color: #D97706; }
+  .student-act-icon-box.red { background: #FEF2F2; color: #DC2626; }
+  .student-act-icon-box.blue { background: #EFF6FF; color: #2563EB; }
+  .student-act-icon-box.cyan { background: #ECFEFF; color: #0891B2; }
+  .student-act-icon-box.green { background: #F0FDF4; color: #16A34A; }
+
+  .student-act-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 1px;
+  }
+  .student-act-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1E255E;
+    line-height: 1.25;
+  }
+  .student-act-desc {
+    font-size: 11px;
+    font-weight: 500;
+    color: #64748B;
+    line-height: 1.25;
+  }
+  .student-act-time {
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #94A3B8;
+    white-space: nowrap;
+    margin-top: 1px;
+  }
+
+  /* 8. Quick Actions Card */
+  .student-actions-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .student-actions-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .student-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .student-action-tile {
+    background: #F8FAFC;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 10px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+  .student-action-tile:active {
+    transform: scale(0.96);
+    background: #F1F5F9;
+    border-color: #CBD5E1;
+  }
+  .student-action-icon-wrap {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--teal);
+    transition: all 0.15s ease;
+  }
+  .student-action-tile:active .student-action-icon-wrap {
+    background: var(--teal);
+    color: #FFFFFF;
+  }
+  .student-action-name {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #1E255E;
+    line-height: 1.2;
+  }
+
+  /* =========================================================
+     DARK MODE SUPPORT FOR STUDENT DASHBOARD
+     ========================================================= */
+  [data-theme="dark"] #mainPageStudent {
+    background: var(--bg);
+  }
+  [data-theme="dark"] .student-greeting-card,
+  [data-theme="dark"] .student-kpi-card,
+  [data-theme="dark"] .student-wallet-card,
+  [data-theme="dark"] .student-perf-card,
+  [data-theme="dark"] .student-days-card,
+  [data-theme="dark"] .student-overview-card,
+  [data-theme="dark"] .student-activity-card,
+  [data-theme="dark"] .student-actions-card {
+    background: var(--surface);
+    border-color: var(--line);
+    box-shadow: none;
+  }
+  [data-theme="dark"] .student-greeting-title,
+  [data-theme="dark"] .student-kpi-val,
+  [data-theme="dark"] .student-wallet-title,
+  [data-theme="dark"] .student-bank-name,
+  [data-theme="dark"] .student-acct-number,
+  [data-theme="dark"] .student-perf-title,
+  [data-theme="dark"] .student-days-head,
+  [data-theme="dark"] .student-donut-pct,
+  [data-theme="dark"] .student-day-stat-val,
+  [data-theme="dark"] .student-overview-title,
+  [data-theme="dark"] .student-mini-val,
+  [data-theme="dark"] .student-prog-label,
+  [data-theme="dark"] .student-prog-pct,
+  [data-theme="dark"] .student-highlight-title,
+  [data-theme="dark"] .student-hl-val,
+  [data-theme="dark"] .student-activity-title,
+  [data-theme="dark"] .student-act-title,
+  [data-theme="dark"] .student-actions-title,
+  [data-theme="dark"] .student-action-name,
+  [data-theme="dark"] .student-sub-name,
+  [data-theme="dark"] .student-sub-score,
+  [data-theme="dark"] .student-filter-select {
+    color: var(--ink);
+  }
+  [data-theme="dark"] .student-wallet-bank-box,
+  [data-theme="dark"] .student-days-stats-row,
+  [data-theme="dark"] .student-mini-metric-box,
+  [data-theme="dark"] .student-highlight-card,
+  [data-theme="dark"] .student-activity-item,
+  [data-theme="dark"] .student-action-tile,
+  [data-theme="dark"] .student-subject-item,
+  [data-theme="dark"] .student-filter-select {
+    background: var(--surface-alt);
+    border-color: var(--line);
+  }
+  [data-theme="dark"] .student-action-icon-wrap {
+    background: var(--surface);
+    border-color: var(--line);
+    color: #818CF8;
+  }
+  [data-theme="dark"] .student-quote-box {
+    background: rgba(245, 158, 11, 0.12);
+    border-color: rgba(245, 158, 11, 0.3);
+  }
+  [data-theme="dark"] .student-quote-text {
+    color: #FDE047;
+  }
+  [data-theme="dark"] .student-quote-author {
+    color: #FBBF24;
+  }
+  [data-theme="dark"] .student-view-toggle {
+    background: var(--surface-alt);
+  }
+  [data-theme="dark"] .student-toggle-btn.active {
+    background: var(--surface);
+    color: #818CF8;
+  }
+  [data-theme="dark"] .student-chart-area {
+    border-bottom-color: var(--line);
+  }
+  [data-theme="dark"] .student-grid-line {
+    background: var(--line);
+  }
+  [data-theme="dark"] .student-sub-bar-bg,
+  [data-theme="dark"] .student-prog-bar-track {
+    background: var(--line);
   }
 </style>
 </head>
@@ -6516,53 +7876,43 @@
 
           <!-- Days in the Term Section -->
           <div class="teacher-section">
-            <div class="home-card-surface term-days-card">
-              <div class="term-days-head">
-                <div class="term-days-title-wrap">
-                  <h3 class="term-days-title">Days in the Term</h3>
-                  <button type="button" class="info-icon-btn" onclick="showToast('Academic term progress tracker')">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                  </button>
-                </div>
-              </div>
-
-              <div class="term-days-body">
-                <!-- Large Donut Progress -->
-                <div class="term-gauge-container">
-                  <svg class="term-main-ring" width="100" height="100" viewBox="0 0 36 36">
-                    <path class="term-ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                    <path class="term-ring-fill" stroke-dasharray="68, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+            <div class="term-days-card">
+              <h2 class="term-days-card-title">Days in the Term</h2>
+              <div class="term-days-body-v2">
+                <!-- Circular Donut Ring Gauge -->
+                <div class="term-donut-wrap-v2">
+                  <svg class="term-donut-svg-v2" width="116" height="116" viewBox="0 0 116 116">
+                    <circle class="term-donut-track-v2" cx="58" cy="58" r="48" />
+                    <circle class="term-donut-progress-v2" cx="58" cy="58" r="48" stroke-dasharray="301.59" stroke-dashoffset="96.5" />
                   </svg>
-                  <div class="term-gauge-center">
-                    <span class="term-gauge-num">68%</span>
-                    <span class="term-gauge-lbl">Completed</span>
+                  <div class="term-donut-center-v2">
+                    <span class="term-donut-pct-v2">68%</span>
+                    <span class="term-donut-label-v2">COMPLETED</span>
                   </div>
                 </div>
 
-                <!-- Breakdown Stats Grid -->
-                <div class="term-breakdown-grid">
-                  <div class="term-stat-pill pill-green">
-                    <span class="term-stat-num">68</span>
-                    <span class="term-stat-desc">Days Passed</span>
+                <!-- Breakdown Stats List -->
+                <div class="term-stats-list-v2">
+                  <div class="term-stat-row-v2">
+                    <span class="term-stat-name-v2">Days passed</span>
+                    <span class="term-stat-val-v2">68</span>
                   </div>
-                  <div class="term-stat-pill pill-neutral">
-                    <span class="term-stat-num">47</span>
-                    <span class="term-stat-desc">School Days</span>
+                  <div class="term-stat-row-v2">
+                    <span class="term-stat-name-v2">School days</span>
+                    <span class="term-stat-val-v2">47</span>
                   </div>
-                  <div class="term-stat-pill pill-blue">
-                    <span class="term-stat-num">21</span>
-                    <span class="term-stat-desc">Days Remaining</span>
+                  <div class="term-stat-row-v2">
+                    <span class="term-stat-name-v2">Days remaining</span>
+                    <span class="term-stat-val-v2 term-val-blue-v2">21</span>
                   </div>
-                </div>
-              </div>
-
-              <div class="term-days-footer">
-                <div class="term-ends-badge">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  <span>Term Ends: 30th July, 2026</span>
                 </div>
               </div>
 
+              <!-- Term Ends Banner Box -->
+              <div class="term-end-banner-v2">
+                <span class="term-banner-icon-v2">📅</span>
+                <span class="term-banner-text-v2">Term ends July 30, 2026</span>
+              </div>
             </div>
           </div><!-- /Days in the Term -->
 
@@ -6999,6 +8349,768 @@
 
         </div><!-- /teacher-content-container -->
       </div><!-- /mainPageTeacherProfile -->
+
+      <!-- ============ STUDENT DASHBOARD (SAMUEL SS2 - MOBILE VERSION) ============ -->
+      <div class="main-page-view" id="mainPageStudent" style="display:none;">
+        
+        <!-- Student Hero Header Bar (Native Mobile Header — Deep Indigo Gradient & Animated Mesh) -->
+        <div class="student-hero-header">
+          <div class="hero-mesh"></div>
+          
+          <!-- iOS Status Bar -->
+          <div class="home-statusbar" style="color:#FFFFFF; opacity:0.9;">
+            <span class="home-status-time" style="color:#FFFFFF;">9:41</span>
+            <div class="home-status-notch"></div>
+            <div class="home-status-right" style="color:#FFFFFF;">
+              <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="0.5" fill="currentColor"/></svg>
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><path d="M7.5 2.5C10 2.5 12 3.5 13.7 5.3L12.3 6.7C10.9 5.3 9.3 4.5 7.5 4.5C5.7 4.5 4.1 5.3 2.7 6.7L1.3 5.3C3 3.5 5 2.5 7.5 2.5Z" fill="currentColor"/><circle cx="7.5" cy="9" r="1.4" fill="currentColor"/></svg>
+              <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="16" height="7" rx="1.2" fill="currentColor"/><rect x="21.5" y="3.5" width="1.6" height="4" rx="0.8" fill="currentColor"/></svg>
+            </div>
+          </div>
+
+          <!-- Top App Bar -->
+          <div class="student-top-bar">
+            <div class="student-top-left">
+              <div class="student-school-badge" title="Metropolitan College">MC</div>
+              <div class="student-school-info">
+                <div class="student-school-name" onclick="showToast('Metropolitan College Municipals')">
+                  <span>Metropolitan College Municipals</span>
+                </div>
+                <div class="student-school-sub">Govt. Arms Rd. · SS2 (Science)</div>
+              </div>
+            </div>
+
+            <div class="student-top-right">
+              <!-- Dark/Light Theme Toggle -->
+              <button type="button" class="student-icon-btn" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle Theme">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+              </button>
+              <!-- Notification Bell with badge 3 -->
+              <button type="button" class="student-icon-btn" onclick="showToast('3 unread student notifications')" aria-label="Notifications">
+                <span class="student-notif-dot">3</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+              </button>
+              <!-- Samuel Avatar Circle -->
+              <div class="student-avatar-circle" onclick="showToast('Samuel Adeleke · SS2 (Science)')" title="Profile Details">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Samuel" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'38\' height=\'38\' viewBox=\'0 0 38 38\'><circle cx=\'19\' cy=\'19\' r=\'19\' fill=\'%230E6E56\'/><text x=\'50%\' y=\'56%\' font-size=\'13\' font-weight=\'bold\' fill=\'%23FFFFFF\' text-anchor=\'middle\' dominant-baseline=\'middle\'>SA</text></svg>'" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+              </div>
+            </div>
+          </div>
+
+          <!-- Session Pill & Role Row -->
+          <div class="student-header-meta-row">
+            <div class="student-term-pill" onclick="showToast('Current Session: 2025/2026 First Term')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>2025/2026 First Term</span>
+            </div>
+            <div class="student-role-badge">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              <span>Student Portal</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Scrollable Body Content -->
+        <div class="student-content-container">
+
+          <!-- 1. Greeting & Motivational Banner -->
+          <div class="student-greeting-card">
+            <div class="student-greeting-head">
+              <div>
+                <h1 class="student-greeting-title">Good morning, Samuel! 👋</h1>
+                <p class="student-greeting-sub">Keep up the great work. Every day is a step closer to your goals.</p>
+              </div>
+              <span class="student-class-chip">SS2 · Science</span>
+            </div>
+
+            <!-- Robert Collier Quote Widget with Golden Trophy -->
+            <div class="student-quote-box">
+              <div class="student-quote-trophy">🏆</div>
+              <div class="student-quote-text-wrap">
+                <div class="student-quote-text">“Success is the sum of small efforts, repeated day in and day out.”</div>
+                <div class="student-quote-author">— Robert Collier</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Side-Scrolling Key Metric Cards Carousel -->
+          <div class="student-kpi-grid">
+            
+            <!-- Average Score Card -->
+            <div class="student-kpi-card" onclick="showToast('Average Score: 78% this term (+8.5%)')">
+              <div class="student-kpi-top">
+                <div class="student-kpi-icon blue">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                </div>
+                <span class="student-kpi-badge up">↑ 8.5%</span>
+              </div>
+              <div class="student-kpi-body">
+                <span class="student-kpi-label">Average Score</span>
+                <div class="student-kpi-val">78%</div>
+                <div class="student-kpi-sub">This Term</div>
+              </div>
+            </div>
+
+            <!-- Attendance Card -->
+            <div class="student-kpi-card" onclick="showToast('Attendance: 92% this term (+5.2%)')">
+              <div class="student-kpi-top">
+                <div class="student-kpi-icon green">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M9 16l2 2 4-4"/></svg>
+                </div>
+                <span class="student-kpi-badge up">↑ 5.2%</span>
+              </div>
+              <div class="student-kpi-body">
+                <span class="student-kpi-label">Attendance</span>
+                <div class="student-kpi-val">92%</div>
+                <div class="student-kpi-sub">This Term</div>
+              </div>
+            </div>
+
+            <!-- Pending Payment Card -->
+            <div class="student-kpi-card" onclick="showToast('Pending Payment: ₦15,000 for 2 invoices')">
+              <div class="student-kpi-top">
+                <div class="student-kpi-icon amber">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+                </div>
+                <span class="student-kpi-badge warn">Due</span>
+              </div>
+              <div class="student-kpi-body">
+                <span class="student-kpi-label">Pending Payment</span>
+                <div class="student-kpi-val">₦15,000</div>
+                <div class="student-kpi-sub">2 invoices</div>
+              </div>
+            </div>
+
+            <!-- Class Standing Card -->
+            <div class="student-kpi-card" onclick="showToast('Class Standing: Top 15% out of 120 learners')">
+              <div class="student-kpi-top">
+                <div class="student-kpi-icon purple">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                </div>
+                <span class="student-kpi-badge purple">Rank</span>
+              </div>
+              <div class="student-kpi-body">
+                <span class="student-kpi-label">Class Standing</span>
+                <div class="student-kpi-val">Top 15%</div>
+                <div class="student-kpi-sub">Out of 120 students</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3. My Wallet Account Card -->
+          <div class="student-wallet-card">
+            <div class="student-wallet-head">
+              <div class="student-wallet-title-row">
+                <span class="student-wallet-title">My Wallet Account</span>
+                <span class="student-verified-pill">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  Verified
+                </span>
+              </div>
+              <button type="button" class="home-icon-btn" style="width:26px; height:26px; border:none; background:transparent; color:#94A3B8;" onclick="showToast('Wallet Options')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+              </button>
+            </div>
+
+            <!-- GTBank Account Container -->
+            <div class="student-wallet-bank-box">
+              <div class="student-bank-left">
+                <div class="student-gtbank-logo">GTBank</div>
+                <div class="student-bank-details">
+                  <span class="student-bank-name">Guaranty Trust Bank (GTBank)</span>
+                  <div class="student-acct-number-row">
+                    <span class="student-acct-label">Acct:</span>
+                    <span class="student-acct-number" id="stdAcctNum">0123456789</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Copy Account Button -->
+              <button type="button" class="student-copy-acct-btn" onclick="copyStdAccount()" title="Copy Account Number">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <!-- Make Payment Primary Button -->
+            <button type="button" class="student-pay-btn" onclick="openFundModal('Samuel Adeleke (Student)', '0123456789', 'GTBank')">
+              <span>Make Payment</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </button>
+          </div>
+
+          <!-- 4. Academic Performance Card (Mobile Interactive Bar Chart) -->
+          <div class="student-perf-card">
+            <div class="student-perf-head">
+              <div>
+                <h2 class="student-perf-title">Academic Performance</h2>
+                <div class="student-perf-sub">Your performance across all subjects</div>
+              </div>
+              <div class="student-perf-controls">
+                <button type="button" class="student-filter-select" onclick="showToast('Filter: This Term')">
+                  <span>This Term</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Mobile Bar Chart -->
+            <div class="student-barchart-wrap" id="stdChartWrap">
+              <div class="student-chart-area">
+                <!-- Y-Axis Labels -->
+                <div class="student-chart-y-axis">
+                  <span>100%</span>
+                  <span>75%</span>
+                  <span>50%</span>
+                  <span>25%</span>
+                  <span>0%</span>
+                </div>
+                <!-- Grid Lines -->
+                <div class="student-chart-y-grid">
+                  <div class="student-grid-line"></div>
+                  <div class="student-grid-line"></div>
+                  <div class="student-grid-line"></div>
+                  <div class="student-grid-line"></div>
+                  <div class="student-grid-line"></div>
+                </div>
+
+                <!-- Subject Bars Row -->
+                <div class="student-bars-row">
+                  <!-- Math: 82% -->
+                  <div class="student-bar-col" onclick="showToast('Mathematics: 82% (Grade: A1)')" title="Mathematics: 82%">
+                    <span class="student-bar-pct-tip">82%</span>
+                    <div class="student-bar-pillar bar-math" style="height: 82%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">📐</span>
+                      <span class="student-bar-code">Math</span>
+                    </div>
+                  </div>
+
+                  <!-- English: 74% -->
+                  <div class="student-bar-col" onclick="showToast('English Language: 74% (Grade: B2)')" title="English: 74%">
+                    <span class="student-bar-pct-tip">74%</span>
+                    <div class="student-bar-pillar bar-eng" style="height: 74%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">📖</span>
+                      <span class="student-bar-code">Eng</span>
+                    </div>
+                  </div>
+
+                  <!-- Physics: 88% -->
+                  <div class="student-bar-col" onclick="showToast('Physics: 88% (Grade: A1)')" title="Physics: 88%">
+                    <span class="student-bar-pct-tip">88%</span>
+                    <div class="student-bar-pillar bar-phy" style="height: 88%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">⚛️</span>
+                      <span class="student-bar-code">Phy</span>
+                    </div>
+                  </div>
+
+                  <!-- Chemistry: 71% -->
+                  <div class="student-bar-col" onclick="showToast('Chemistry: 71% (Grade: B3)')" title="Chemistry: 71%">
+                    <span class="student-bar-pct-tip">71%</span>
+                    <div class="student-bar-pillar bar-chem" style="height: 71%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">🧪</span>
+                      <span class="student-bar-code">Chem</span>
+                    </div>
+                  </div>
+
+                  <!-- Biology: 85% -->
+                  <div class="student-bar-col" onclick="showToast('Biology: 85% (Grade: A1)')" title="Biology: 85%">
+                    <span class="student-bar-pct-tip">85%</span>
+                    <div class="student-bar-pillar bar-bio" style="height: 85%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">🧬</span>
+                      <span class="student-bar-code">Bio</span>
+                    </div>
+                  </div>
+
+                  <!-- Further Math: 65% -->
+                  <div class="student-bar-col" onclick="showToast('Further Math: 65% (Grade: C4)')" title="Further Math: 65%">
+                    <span class="student-bar-pct-tip">65%</span>
+                    <div class="student-bar-pillar bar-fmath" style="height: 65%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">∑</span>
+                      <span class="student-bar-code">F.Math</span>
+                    </div>
+                  </div>
+
+                  <!-- Civic Edu: 90% -->
+                  <div class="student-bar-col" onclick="showToast('Civic Education: 90% (Grade: A1)')" title="Civic Edu: 90%">
+                    <span class="student-bar-pct-tip">90%</span>
+                    <div class="student-bar-pillar bar-civic" style="height: 90%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">🏛️</span>
+                      <span class="student-bar-code">Civic</span>
+                    </div>
+                  </div>
+
+                  <!-- ICT: 78% -->
+                  <div class="student-bar-col" onclick="showToast('ICT: 78% (Grade: B2)')" title="ICT: 78%">
+                    <span class="student-bar-pct-tip">78%</span>
+                    <div class="student-bar-pillar bar-ict" style="height: 78%;"></div>
+                    <div class="student-bar-label-box">
+                      <span class="student-bar-icon">💻</span>
+                      <span class="student-bar-code">ICT</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Alternative View: Subject List (Hidden by default, toggleable) -->
+            <div class="student-subject-list" id="stdListWrap" style="display:none;">
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#ECFDF5; color:#10B981;">📐</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Mathematics</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-math" style="width:82%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">82%</span>
+                  <span class="student-sub-grade">A1</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#EFF6FF; color:#3B82F6;">📖</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">English Language</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-eng" style="width:74%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">74%</span>
+                  <span class="student-sub-grade" style="background:#EFF6FF; color:#2563EB;">B2</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#EEF2FF; color:#6366F1;">⚛️</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Physics</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-phy" style="width:88%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">88%</span>
+                  <span class="student-sub-grade">A1</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#FFFBEB; color:#F59E0B;">🧪</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Chemistry</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-chem" style="width:71%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">71%</span>
+                  <span class="student-sub-grade" style="background:#FFFBEB; color:#D97706;">B3</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#ECFEFF; color:#06B6D4;">🧬</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Biology</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-bio" style="width:85%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">85%</span>
+                  <span class="student-sub-grade">A1</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#FEF2F2; color:#EF4444;">∑</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Further Mathematics</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-fmath" style="width:65%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">65%</span>
+                  <span class="student-sub-grade" style="background:#FEF2F2; color:#DC2626;">C4</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#F0FDF4; color:#22C55E;">🏛️</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">Civic Education</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-civic" style="width:90%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">90%</span>
+                  <span class="student-sub-grade">A1</span>
+                </div>
+              </div>
+
+              <div class="student-subject-item">
+                <div class="student-sub-left">
+                  <div class="student-sub-icon-badge" style="background:#F0F9FF; color:#0EA5E9;">💻</div>
+                  <div class="student-sub-name-wrap">
+                    <span class="student-sub-name">ICT</span>
+                    <div class="student-sub-bar-bg"><div class="student-sub-bar-fill bar-ict" style="width:78%;"></div></div>
+                  </div>
+                </div>
+                <div class="student-sub-score-wrap">
+                  <span class="student-sub-score">78%</span>
+                  <span class="student-sub-grade" style="background:#F0F9FF; color:#0284C7;">B2</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- View Detailed Results Link -->
+            <a href="javascript:void(0)" class="student-perf-link" onclick="showToast('Loading detailed academic report...')">
+              <span>View detailed results</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+
+          <!-- 5. Days in the Term Card -->
+          <div class="student-days-card">
+            <h2 class="term-days-card-title">Days in the Term</h2>
+            <div class="term-days-body-v2">
+              <!-- Circular Donut Ring Gauge -->
+              <div class="term-donut-wrap-v2">
+                <svg class="term-donut-svg-v2" width="116" height="116" viewBox="0 0 116 116">
+                  <circle class="term-donut-track-v2" cx="58" cy="58" r="48" />
+                  <circle class="term-donut-progress-v2" cx="58" cy="58" r="48" stroke-dasharray="301.59" stroke-dashoffset="96.5" />
+                </svg>
+                <div class="term-donut-center-v2">
+                  <span class="term-donut-pct-v2">68%</span>
+                  <span class="term-donut-label-v2">COMPLETED</span>
+                </div>
+              </div>
+
+              <!-- Breakdown Stats List -->
+              <div class="term-stats-list-v2">
+                <div class="term-stat-row-v2">
+                  <span class="term-stat-name-v2">Days passed</span>
+                  <span class="term-stat-val-v2">68</span>
+                </div>
+                <div class="term-stat-row-v2">
+                  <span class="term-stat-name-v2">School days</span>
+                  <span class="term-stat-val-v2">47</span>
+                </div>
+                <div class="term-stat-row-v2">
+                  <span class="term-stat-name-v2">Days remaining</span>
+                  <span class="term-stat-val-v2 term-val-blue-v2">21</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Term Ends Banner Box -->
+            <div class="term-end-banner-v2">
+              <span class="term-banner-icon-v2">📅</span>
+              <span class="term-banner-text-v2">Term ends July 30, 2026</span>
+            </div>
+          </div>
+
+          <!-- 6. Academic Overview Card -->
+          <div class="student-overview-card">
+            <div class="student-overview-head">
+              <h2 class="student-overview-title">Academic Overview</h2>
+              <p class="student-overview-sub">Overview of your academic activities this term</p>
+            </div>
+
+            <!-- 2x2 Mini Metric Cards Grid -->
+            <div class="student-overview-mini-grid">
+              
+              <!-- Assignments Submitted -->
+              <div class="student-mini-metric-box">
+                <div class="student-mini-icon" style="background:#ECFDF5; color:#10B981;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 12 19 19 12"/></svg>
+                </div>
+                <div class="student-mini-text-wrap">
+                  <span class="student-mini-title">Assignments Submitted</span>
+                  <span class="student-mini-val">24</span>
+                </div>
+              </div>
+
+              <!-- Quizzes Taken -->
+              <div class="student-mini-metric-box">
+                <div class="student-mini-icon" style="background:#FFFBEB; color:#F59E0B;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div class="student-mini-text-wrap">
+                  <span class="student-mini-title">Quizzes Taken</span>
+                  <span class="student-mini-val">18</span>
+                </div>
+              </div>
+
+              <!-- Tests / Exams Taken -->
+              <div class="student-mini-metric-box">
+                <div class="student-mini-icon" style="background:#EFF6FF; color:#3B82F6;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div class="student-mini-text-wrap">
+                  <span class="student-mini-title">Tests / Exams Taken</span>
+                  <span class="student-mini-val">4</span>
+                </div>
+              </div>
+
+              <!-- Resources Accessed -->
+              <div class="student-mini-metric-box">
+                <div class="student-mini-icon" style="background:#FAF5FF; color:#8B5CF6;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <div class="student-mini-text-wrap">
+                  <span class="student-mini-title">Resources Accessed</span>
+                  <span class="student-mini-val">32</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Progress Bars List -->
+            <div class="student-prog-list">
+              <!-- Submission Rate -->
+              <div class="student-prog-item">
+                <div class="student-prog-top">
+                  <div class="student-prog-label-stack">
+                    <span class="student-prog-label">Submission Rate</span>
+                    <span class="student-prog-sub">On-time submissions</span>
+                  </div>
+                  <span class="student-prog-pct" style="color:#10B981;">92%</span>
+                </div>
+                <div class="student-prog-bar-track">
+                  <div class="student-prog-bar-fill" style="width: 92%; background: #10B981;"></div>
+                </div>
+              </div>
+
+              <!-- Quiz Average Score -->
+              <div class="student-prog-item">
+                <div class="student-prog-top">
+                  <div class="student-prog-label-stack">
+                    <span class="student-prog-label">Quiz Average Score</span>
+                    <span class="student-prog-sub">Across all quizzes</span>
+                  </div>
+                  <span class="student-prog-pct" style="color:#3B82F6;">84%</span>
+                </div>
+                <div class="student-prog-bar-track">
+                  <div class="student-prog-bar-fill" style="width: 84%; background: #3B82F6;"></div>
+                </div>
+              </div>
+
+              <!-- Overall Average Score -->
+              <div class="student-prog-item">
+                <div class="student-prog-top">
+                  <div class="student-prog-label-stack">
+                    <span class="student-prog-label">Overall Average Score</span>
+                    <span class="student-prog-sub">Across all subjects</span>
+                  </div>
+                  <span class="student-prog-pct" style="color:#6366F1;">78%</span>
+                </div>
+                <div class="student-prog-bar-track">
+                  <div class="student-prog-bar-fill" style="width: 78%; background: #6366F1;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Subject Strength & Class Standing Row -->
+            <div class="student-highlight-grid">
+              <!-- Subject Strength -->
+              <div class="student-highlight-card">
+                <span class="student-highlight-title">Subject Strength</span>
+                <div class="student-hl-row">
+                  <span class="student-hl-icon">🛡️</span>
+                  <div class="student-hl-text-wrap">
+                    <span class="student-hl-tag">Strongest Subject</span>
+                    <span class="student-hl-val green">Civic Edu. (90%)</span>
+                  </div>
+                </div>
+                <div class="student-hl-row" style="margin-top:2px;">
+                  <span class="student-hl-icon">⚠️</span>
+                  <div class="student-hl-text-wrap">
+                    <span class="student-hl-tag">Needs Improvement</span>
+                    <span class="student-hl-val orange">Further Math (65%)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Class Standing -->
+              <div class="student-highlight-card">
+                <span class="student-highlight-title">Class Standing</span>
+                <div class="student-standing-pill">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                  <span>Top 15%</span>
+                </div>
+                <span class="student-standing-sub">Out of 120 students</span>
+                <div class="student-standing-avatars" title="Rank: Top 15%">
+                  <div class="student-standing-dot highlight"></div>
+                  <div class="student-standing-dot highlight"></div>
+                  <div class="student-standing-dot"></div>
+                  <div class="student-standing-dot"></div>
+                  <div class="student-standing-dot"></div>
+                  <div class="student-standing-dot"></div>
+                  <div class="student-standing-dot"></div>
+                  <div class="student-standing-dot"></div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 7. Activity Log Card (With Smooth Internal Scroll) -->
+          <div class="student-activity-card">
+            <div class="student-activity-head">
+              <h2 class="student-activity-title">Activity Log</h2>
+              <a href="javascript:void(0)" class="student-activity-link" onclick="showToast('Loading full activity log...')">View all logs</a>
+            </div>
+
+            <!-- Scrollable Activity List Container -->
+            <div class="student-activity-scroll-list">
+              
+              <!-- Item 1: New Assignment -->
+              <div class="student-activity-item" onclick="showToast('Physics: Wave Theory Assignment due Friday')">
+                <div class="student-act-icon-box blue">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">New assignment posted</span>
+                  <span class="student-act-desc">Physics: Wave Theory Assignment</span>
+                  <span class="student-act-time">30 mins ago</span>
+                </div>
+              </div>
+
+              <!-- Item 2: Upcoming Quiz -->
+              <div class="student-activity-item" onclick="showToast('English Language Quiz starts tomorrow at 9:00 AM')">
+                <div class="student-act-icon-box amber">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">Upcoming Quiz</span>
+                  <span class="student-act-desc">English Language Quiz</span>
+                  <span class="student-act-time">Tomorrow, 9:00 AM</span>
+                </div>
+              </div>
+
+              <!-- Item 3: Fee Payment Reminder -->
+              <div class="student-activity-item" onclick="showToast('Outstanding balance: ₦15,000')">
+                <div class="student-act-icon-box red">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">Fee Payment Reminder</span>
+                  <span class="student-act-desc">You have outstanding fees</span>
+                  <span class="student-act-time">2 hours ago</span>
+                </div>
+              </div>
+
+              <!-- Item 4: Exam Timetable Released -->
+              <div class="student-activity-item" onclick="showToast('Viewing First Term Exam Timetable...')">
+                <div class="student-act-icon-box purple">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">Exam Timetable Released</span>
+                  <span class="student-act-desc">Check your exam schedule</span>
+                  <span class="student-act-time">1 day ago</span>
+                </div>
+              </div>
+
+              <!-- Item 5: Library Book Issued -->
+              <div class="student-activity-item" onclick="showToast('Book: Mathematics Textbook (Return in 14 days)')">
+                <div class="student-act-icon-box cyan">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">Library Book Issued</span>
+                  <span class="student-act-desc">Mathematics Textbook</span>
+                  <span class="student-act-time">2 days ago</span>
+                </div>
+              </div>
+
+              <!-- Item 6: Attendance Marked -->
+              <div class="student-activity-item" onclick="showToast('Present for Mathematics class on Monday')">
+                <div class="student-act-icon-box green">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <div class="student-act-content">
+                  <span class="student-act-title">Attendance Marked</span>
+                  <span class="student-act-desc">Present for Mathematics class</span>
+                  <span class="student-act-time">3 days ago</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 8. Quick Actions Card (Clean Outline Icons) -->
+          <div class="student-actions-card">
+            <h2 class="student-actions-title">Quick Actions</h2>
+
+            <div class="student-actions-grid">
+              
+              <!-- 1. View Timetable -->
+              <div class="student-action-tile" onclick="showToast('Opening Student Timetable...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <span class="student-action-name">View Timetable</span>
+              </div>
+
+              <!-- 2. Download Notes -->
+              <div class="student-action-tile" onclick="showToast('Downloading Lesson Notes & Slides...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+                <span class="student-action-name">Download Notes</span>
+              </div>
+
+              <!-- 3. Ask Question -->
+              <div class="student-action-tile" onclick="showToast('Opening Ask Teacher Q&A panel...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                </div>
+                <span class="student-action-name">Ask Question</span>
+              </div>
+
+              <!-- 4. Library -->
+              <div class="student-action-tile" onclick="showToast('Browsing School Digital Library...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                </div>
+                <span class="student-action-name">Library</span>
+              </div>
+
+              <!-- 5. My Achievements -->
+              <div class="student-action-tile" onclick="showToast('Viewing Badges & Achievements...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H8c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-1c0-.55-.45-1-1-1h-1c-.55 0-1-.45-1-1v-2.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                </div>
+                <span class="student-action-name">Achievements</span>
+              </div>
+
+              <!-- 6. Contact Teacher -->
+              <div class="student-action-tile" onclick="showToast('Messaging Class Teacher...')">
+                <div class="student-action-icon-wrap">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <span class="student-action-name">Contact Teacher</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div><!-- /student-content-container -->
+      </div><!-- /mainPageStudent -->
 
       <!-- ============ BURSAR SCHOOL FINANCIAL DASHBOARD (PLUS BUTTON VIEW) ============ -->
       <div class="main-page-view" id="mainPageBursar" style="display:none;">
@@ -8553,6 +10665,17 @@
         <span class="nav-label">Home</span>
       </button>
 
+      <!-- Student Tab (Samuel's Dashboard) -->
+      <button type="button" class="nav-item" data-nav="student" onclick="tapNav(this)">
+        <span class="nav-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+          </svg>
+        </span>
+        <span class="nav-label">Student</span>
+      </button>
+
       <!-- Parent Tab (shows Parent Dashboard) -->
       <button type="button" class="nav-item" data-nav="parent" onclick="tapNav(this)">
         <span class="nav-icon-wrap">
@@ -8566,23 +10689,23 @@
         <span class="nav-label">Parent</span>
       </button>
 
-      <!-- Teacher Tab (shows Teacher Dashboard) -->
-      <button type="button" class="nav-item" data-nav="teacher" onclick="tapNav(this)">
-        <span class="nav-icon-wrap">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-          </svg>
-        </span>
-        <span class="nav-label">Teacher</span>
-      </button>
-
-      <!-- Center FAB -->
+      <!-- Center FAB (In between 3 left tabs & 3 right tabs) -->
       <div class="nav-fab-wrap">
         <button type="button" class="nav-fab ripple-host" data-nav="new" onclick="spawnRipple(event); showToast('Quick action menu...');" aria-label="Quick Actions">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         </button>
       </div>
+
+      <!-- Teacher Tab (shows Teacher Dashboard) -->
+      <button type="button" class="nav-item" data-nav="teacher" onclick="tapNav(this)">
+        <span class="nav-icon-wrap">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+        </span>
+        <span class="nav-label">Teacher</span>
+      </button>
 
       <!-- Bursar Tab -->
       <button type="button" class="nav-item" data-nav="bursar" onclick="tapNav(this)">
@@ -8596,7 +10719,7 @@
         <span class="nav-label">Bursar</span>
       </button>
 
-      <!-- Attendance Tab (replaces More) -->
+      <!-- Attendance Tab -->
       <button type="button" class="nav-item" data-nav="attendance" onclick="tapNav(this)">
         <span class="nav-icon-wrap">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">
@@ -9902,6 +12025,7 @@
     var homeView = document.getElementById('mainPageHome');
     var teacherView = document.getElementById('mainPageTeacher');
     var teacherProfileView = document.getElementById('mainPageTeacherProfile');
+    var studentView = document.getElementById('mainPageStudent');
     var bursarView = document.getElementById('mainPageBursar');
     var payView = document.getElementById('mainPagePay');
     var attView = document.getElementById('mainPageAttendance');
@@ -9912,12 +12036,26 @@
       if(homeView)   { homeView.style.display = 'none'; homeView.classList.remove('active'); }
       if(teacherView){ teacherView.style.display = 'none'; teacherView.classList.remove('active'); }
       if(teacherProfileView){ teacherProfileView.style.display = 'none'; teacherProfileView.classList.remove('active'); }
+      if(studentView){ studentView.style.display = 'none'; studentView.classList.remove('active'); }
       if(bursarView) { bursarView.style.display = 'none'; bursarView.classList.remove('active'); }
       if(payView)    { payView.style.display = 'none'; payView.classList.remove('active'); }
       if(attView)    { attView.style.display = 'none'; attView.classList.remove('active'); }
     }
 
-    if(targetNav === 'parent'){
+    if(targetNav === 'home' || targetNav === 'pay'){
+      // Home tab -> show Pay / Transactions page (mainPagePay)
+      hideAll();
+      if(payView){ payView.style.display = 'block'; payView.classList.add('active'); }
+      if(mobileHero) mobileHero.style.display = 'block';
+      if(typeof switchTab === 'function') switchTab('transactions');
+
+    } else if(targetNav === 'student'){
+      // Student tab -> show Samuel's Student Dashboard (mainPageStudent)
+      hideAll();
+      if(studentView){ studentView.style.display = 'block'; studentView.classList.add('active'); }
+      if(mobileHero) mobileHero.style.display = 'none';
+
+    } else if(targetNav === 'parent'){
       // Parent tab -> show Parent Dashboard (mainPageHome)
       hideAll();
       if(homeView){ homeView.style.display = 'block'; homeView.classList.add('active'); }
@@ -9935,13 +12073,6 @@
       if(teacherProfileView){ teacherProfileView.style.display = 'block'; teacherProfileView.classList.add('active'); }
       if(mobileHero) mobileHero.style.display = 'none';
 
-    } else if(targetNav === 'home' || targetNav === 'pay'){
-      // Home tab -> show Pay / Transactions page (mainPagePay)
-      hideAll();
-      if(payView){ payView.style.display = 'block'; payView.classList.add('active'); }
-      if(mobileHero) mobileHero.style.display = 'block';
-      if(typeof switchTab === 'function') switchTab('transactions');
-
     } else if(targetNav === 'bursar'){
       hideAll();
       if(bursarView){ bursarView.style.display = 'block'; bursarView.classList.add('active'); }
@@ -9956,14 +12087,48 @@
       }
 
     } else {
-      // Fallback -> Pay / Transactions page
+      // Fallback -> Home dashboard
       hideAll();
-      if(payView){ payView.style.display = 'block'; payView.classList.add('active'); }
-      if(mobileHero) mobileHero.style.display = 'block';
+      if(homeView){ homeView.style.display = 'block'; homeView.classList.add('active'); }
+      if(mobileHero) mobileHero.style.display = 'none';
     }
 
     var scrollEl = document.getElementById('bodyScroll');
     if (scrollEl) scrollEl.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* Student Helper Functions */
+  function copyStdAccount(){
+    var acct = '0123456789';
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(acct).then(function(){
+        showToast('GTBank Account (0123456789) copied to clipboard!');
+      }).catch(function(){
+        showToast('Account Number: 0123456789');
+      });
+    } else {
+      showToast('Account Number: 0123456789');
+    }
+  }
+
+  function toggleStdView(mode){
+    var chartWrap = document.getElementById('stdChartWrap');
+    var listWrap = document.getElementById('stdListWrap');
+    var btnChart = document.getElementById('btnStdChart');
+    var btnList = document.getElementById('btnStdList');
+    if(!chartWrap || !listWrap) return;
+    
+    if(mode === 'chart'){
+      chartWrap.style.display = 'block';
+      listWrap.style.display = 'none';
+      if(btnChart) btnChart.classList.add('active');
+      if(btnList) btnList.classList.remove('active');
+    } else {
+      chartWrap.style.display = 'none';
+      listWrap.style.display = 'flex';
+      if(btnChart) btnChart.classList.remove('active');
+      if(btnList) btnList.classList.add('active');
+    }
   }
 
   // ==========================================
@@ -10743,6 +12908,7 @@
   window.addEventListener('load', function(){
     renderReconBankList();
     renderAttendanceList();
+    switchMainView('home');
     moveStatusIndicator(document.querySelector('.status-tab.active'));
     scrollTabIntoView(document.querySelector('.module-chip.active'), 1);
     updateCarouselState();
