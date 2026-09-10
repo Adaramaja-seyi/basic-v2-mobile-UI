@@ -5260,6 +5260,33 @@
   [data-theme="dark"] .log-row-item { border-bottom-color: var(--line); }
   [data-theme="dark"] .metric-title { color: var(--ink-2); }
 
+  /* Teacher page - missing dark overrides */
+  [data-theme="dark"] #mainPageTeacher {
+    background: var(--bg);
+  }
+  [data-theme="dark"] .teacher-greeting-card {
+    background: var(--surface);
+    border-color: var(--line);
+    box-shadow: none;
+  }
+  [data-theme="dark"] .teacher-greeting-title { color: var(--ink); }
+  [data-theme="dark"] .teacher-greeting-sub { color: var(--ink-3); }
+  [data-theme="dark"] .teacher-quote-box-new {
+    background: rgba(245, 158, 11, 0.10);
+    border-color: rgba(245, 158, 11, 0.28);
+  }
+  [data-theme="dark"] .teacher-quote-box-new .tq-text { color: #FDE047; }
+  [data-theme="dark"] .teacher-quote-box-new .tq-author { color: #FBBF24; }
+  [data-theme="dark"] .log-sub-text { color: var(--ink-3); }
+  [data-theme="dark"] .log-time-badge { color: var(--ink-3); }
+  [data-theme="dark"] .log-emoji-teal   { background: rgba(16,185,129,0.14); }
+  [data-theme="dark"] .log-emoji-purple { background: rgba(139,92,246,0.14); }
+  [data-theme="dark"] .log-emoji-peach  { background: rgba(251,146,60,0.14); }
+  [data-theme="dark"] .log-emoji-blue   { background: rgba(37,99,235,0.14); }
+  [data-theme="dark"] .log-emoji-green  { background: rgba(22,163,74,0.14); }
+  [data-theme="dark"] .log-emoji-pink   { background: rgba(236,72,153,0.14); }
+  [data-theme="dark"] .log-emoji-amber  { background: rgba(245,158,11,0.14); }
+
   /* ========================================================
      BURSAR SCHOOL FINANCIAL DASHBOARD (PLUS BUTTON VIEW)
      ======================================================== */
@@ -7408,6 +7435,75 @@
   [data-theme="dark"] .student-prog-bar-track {
     background: var(--line);
   }
+
+  /* Student page - missing dark overrides */
+  [data-theme="dark"] .student-greeting-sub { color: var(--ink-3); }
+  [data-theme="dark"] .student-kpi-label { color: var(--ink-3); }
+  [data-theme="dark"] .student-kpi-sub { color: var(--ink-3); }
+  [data-theme="dark"] .student-kpi-badge.up { background: #052E16; color: #86EFAC; }
+  [data-theme="dark"] .student-kpi-badge.warn { background: #422006; color: #FDE68A; }
+  [data-theme="dark"] .student-kpi-badge.purple { background: #2E1065; color: #C4B5FD; }
+  [data-theme="dark"] .student-kpi-icon.blue { background: rgba(37,99,235,0.15); }
+  [data-theme="dark"] .student-kpi-icon.green { background: rgba(22,163,74,0.15); }
+  [data-theme="dark"] .student-kpi-icon.amber { background: rgba(217,119,6,0.15); }
+  [data-theme="dark"] .student-kpi-icon.purple { background: rgba(139,92,246,0.15); }
+  [data-theme="dark"] .student-mini-title { color: var(--ink-3); }
+  [data-theme="dark"] .student-overview-sub { color: var(--ink-3); }
+  [data-theme="dark"] .student-prog-sub { color: var(--ink-3); }
+  [data-theme="dark"] .student-hl-tag { color: var(--ink-3); }
+  [data-theme="dark"] .student-hl-val { color: var(--ink); }
+  [data-theme="dark"] .student-standing-pill {
+    background: rgba(139,92,246,0.15);
+    border-color: rgba(139,92,246,0.25);
+    color: #C4B5FD;
+  }
+  [data-theme="dark"] .student-standing-sub { color: var(--ink-3); }
+  [data-theme="dark"] .student-standing-dot { background: var(--line); }
+  [data-theme="dark"] .student-act-desc { color: var(--ink-3); }
+  [data-theme="dark"] .student-act-time { color: var(--ink-3); }
+  [data-theme="dark"] .student-act-icon-box.purple { background: rgba(139,92,246,0.15); }
+  [data-theme="dark"] .student-act-icon-box.amber  { background: rgba(217,119,6,0.15); }
+  [data-theme="dark"] .student-act-icon-box.red    { background: rgba(220,38,38,0.15); }
+  [data-theme="dark"] .student-act-icon-box.blue   { background: rgba(37,99,235,0.15); }
+  [data-theme="dark"] .student-act-icon-box.cyan   { background: rgba(8,145,178,0.15); }
+  [data-theme="dark"] .student-act-icon-box.green  { background: rgba(22,163,74,0.15); }
+  [data-theme="dark"] .student-activity-scroll-list::-webkit-scrollbar-thumb { background: var(--line); }
+  [data-theme="dark"] .student-action-tile:active { background: var(--surface-alt); border-color: var(--line); }
+
+  /* Attendance page - dark mode */
+  [data-theme="dark"] #mainPageAttendance { background: var(--bg); }
+  [data-theme="dark"] .weekday-circle {
+    background: var(--surface-alt);
+  }
+  [data-theme="dark"] .weekday-item.active .weekday-circle {
+    background: var(--teal-deep);
+    box-shadow: 0 2px 8px rgba(11,88,68,.4);
+  }
+  [data-theme="dark"] .weekday-label { color: var(--ink-3); }
+  [data-theme="dark"] .weekday-item.active .weekday-label { color: var(--ink); }
+  [data-theme="dark"] .att-funnel-btn {
+    background: var(--surface-alt);
+    border-color: var(--line);
+    color: var(--ink-3);
+  }
+  [data-theme="dark"] .att-funnel-btn:hover,
+  [data-theme="dark"] .att-funnel-btn:active {
+    background: var(--surface);
+    border-color: var(--teal);
+    color: var(--ink);
+  }
+  [data-theme="dark"] .att-icon-badge.red    { background: rgba(220,38,38,0.18); color: #FCA5A5; border-color: #EF4444; }
+  [data-theme="dark"] .att-icon-badge.green  { background: rgba(22,163,74,0.18); color: #86EFAC; border-color: #22C55E; }
+  [data-theme="dark"] .att-icon-badge.yellow { background: rgba(234,179,8,0.18); color: #FDE047; border-color: #EAB308; }
+  [data-theme="dark"] .att-icon-badge.gray   { background: var(--surface-alt); color: var(--ink-3); border-color: var(--line); }
+  [data-theme="dark"] .btn-submit-attendance {
+    background: var(--teal-deep);
+    box-shadow: 0 4px 16px rgba(11,88,68,.35);
+  }
+  [data-theme="dark"] .btn-submit-attendance:active {
+    background: #0D4A38;
+  }
+
 </style>
 </head>
 <body>
