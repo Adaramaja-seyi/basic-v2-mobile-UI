@@ -157,6 +157,147 @@
     transition:transform .18s ease, background .18s ease;
   }
   .theme-toggle:active{transform:scale(.9); background:rgba(255,255,255,.24);}
+
+  /* ========================================================
+     UNIFIED STANDARDIZED HERO HEADERS (EXACT PADDING & SPACING ACROSS ALL PAGES)
+     ======================================================== */
+  .mobile-hero,
+  .home-hero-header,
+  .teacher-hero-header,
+  .student-hero-header,
+  .bursar-hero-header {
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: max(10px, env(safe-area-inset-top)) 18px 18px !important;
+    background: linear-gradient(165deg, var(--teal-deep) 0%, var(--teal) 42%, #12856A 100%);
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: padding .32s cubic-bezier(.32,.72,0,1), box-shadow .32s ease, background .3s ease;
+  }
+
+  .statusbar,
+  .home-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 2px 10px !important;
+    font: 600 13px/1 'Inter', sans-serif;
+    color: rgba(255, 255, 255, 0.92);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-top,
+  .home-top-bar,
+  .teacher-top-row,
+  .student-top-bar,
+  .bursar-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 11px !important;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 10px !important;
+    margin-top: 0 !important;
+  }
+
+  .school-badge,
+  .home-avatar-circle,
+  .teacher-school-icon,
+  .student-school-badge,
+  .student-avatar-circle,
+  .bursar-avatar-circle {
+    width: 42px !important;
+    height: 42px !important;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.35);
+  }
+
+  .school-badge,
+  .teacher-school-icon,
+  .student-school-badge {
+    border-radius: 14px !important;
+  }
+
+  .home-avatar-circle,
+  .student-avatar-circle,
+  .bursar-avatar-circle {
+    border-radius: 50% !important;
+  }
+
+  .appbar-actions,
+  .home-top-right,
+  .student-top-right,
+  .bursar-top-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px !important;
+  }
+
+  .icon-btn,
+  .theme-toggle,
+  .home-icon-btn,
+  .student-icon-btn,
+  .bursar-icon-btn {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    cursor: pointer;
+    transition: transform .18s ease, background .18s ease;
+  }
+
+  .icon-btn:active,
+  .theme-toggle:active,
+  .home-icon-btn:active,
+  .student-icon-btn:active,
+  .bursar-icon-btn:active {
+    transform: scale(0.9) !important;
+    background: rgba(255, 255, 255, 0.24) !important;
+  }
+
+  .term-pill,
+  .home-session-pill,
+  .student-term-pill,
+  .bursar-session-pill {
+    position: relative;
+    z-index: 2;
+    margin: 10px 0 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+    border-radius: 999px !important;
+    padding: 8px 16px 8px 12px !important;
+    font-size: 11.5px !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+    font-weight: 500 !important;
+    box-shadow: 0 4px 16px -6px rgba(0, 0, 0, 0.2) !important;
+    width: fit-content;
+  }
   .module-rail-wrap{
     flex-shrink:0; position:sticky; top:0; z-index:25;
     padding:12px 0 10px;
@@ -1486,7 +1627,8 @@
   [data-theme="dark"] .mobile-hero,
   [data-theme="dark"] .home-hero-header,
   [data-theme="dark"] .bursar-hero-header,
-  [data-theme="dark"] .teacher-hero-header{
+  [data-theme="dark"] .teacher-hero-header,
+  [data-theme="dark"] .student-hero-header{
     background:linear-gradient(165deg, #070D15 0%, #0F1722 55%, #0B121B 100%) !important;
     border-bottom:1px solid rgba(255,255,255,.08);
   }
@@ -2254,16 +2396,16 @@
   /* Attendance Toolbar & Funnel Filter - EXACT FROM IMAGE */
   .att-toolbar-row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 12px;
+    gap: 8px;
     margin-bottom: 16px;
   }
   .att-funnel-btn {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
-    border-radius: 16px;
+    border-radius: 10px;
     background: #F9FAFB;
     border: 1px solid #E5E7EB;
     color: #6B7280;
@@ -2278,10 +2420,11 @@
     align-items: center;
     justify-content: center;
     padding: 0;
+    box-sizing: border-box;
   }
   .att-funnel-btn svg {
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
   }
   .att-funnel-btn:hover, .att-funnel-btn:active {
     background: #F3F4F6;
@@ -2364,25 +2507,80 @@
   /* Weekday Circles (Mon - Fri from Image 2) - EXACT DESIGN */
   .weekday-picker {
     display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: clamp(4px, 1.4vw, 7px);
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* Morning / Afternoon inline toggle — compact, sits inside toolbar row */
+  .att-shift-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: #F0F1F3;
+    border-radius: 999px;
+    padding: 2px;
+    gap: 2px;
+    flex-shrink: 0;
+    height: 32px;
+    box-sizing: border-box;
+  }
+  .att-shift-tab {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-left: 12;
-    gap: 10px;
-    flex: 1;
+    gap: 4px;
+    height: 28px;
+    padding: 0 7px;
+    border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    color: #6B7280;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    transition: background .2s ease, box-shadow .2s ease, color .2s ease, transform .15s ease;
+    user-select: none;
+    line-height: 1;
+    white-space: nowrap;
+    box-sizing: border-box;
   }
+  .att-shift-tab .att-shift-ico {
+    font-size: 11px;
+    line-height: 1;
+  }
+  .att-shift-tab .att-shift-lbl {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .att-shift-tab.active {
+    background: #FFFFFF;
+    color: #111827;
+    box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  }
+  .att-shift-tab:active { transform: scale(.95); }
+  [data-theme="dark"] .att-shift-toggle { background: #1E2A22; }
+  [data-theme="dark"] .att-shift-tab { color: #9CA3AF; }
+  [data-theme="dark"] .att-shift-tab.active { background: #2A3D30; color: #E5E7EB; }
+
   .weekday-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     cursor: pointer;
     user-select: none;
     transition: transform .18s var(--spring);
+    flex-shrink: 0;
   }
   .weekday-item:active { transform: scale(.94); }
   .weekday-circle {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     border: none;
     background: #F3F4F6;
@@ -2391,12 +2589,13 @@
     justify-content: center;
     transition: background .22s ease, box-shadow .22s ease, transform .2s var(--spring);
     position: relative;
+    box-sizing: border-box;
   }
   .weekday-circle::after {
     content: '';
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
     background: transparent;
     transition: background .22s ease;
@@ -2423,7 +2622,7 @@
   /* Table Header from Image 2 */
   .attendance-header-row {
     display: grid;
-    grid-template-columns: 36px 1fr 120px;
+    grid-template-columns: 32px 1fr 108px;
     align-items: center;
     padding: 10px 8px 12px;
     border-bottom: 1px solid var(--line);
@@ -2455,19 +2654,19 @@
   .att-mark-icons {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     margin-left: 6px;
   }
   .att-icon-badge {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
-    border: 1.5px solid transparent;
+    border: 1px solid transparent;
     cursor: pointer;
     user-select: none;
     transition: transform .15s ease, box-shadow .15s ease;
@@ -2475,7 +2674,8 @@
   .att-icon-badge:active { transform: scale(.88); }
   .att-icon-badge.red { background: #FEE2E2; color: #DC2626; border-color: #FCA5A5; }
   .att-icon-badge.green { background: #DCFCE7; color: #16A34A; border-color: #86EFAC; }
-  .att-icon-badge.purple { background: #F3E8FF; color: #9333EA; border-color: #D8B4FE; }
+  .att-icon-badge.yellow { background: #FEF9C3; color: #B45309; border-color: #FDE047; }
+  .att-icon-badge.gray { background: #F3F4F6; color: #6B7280; border-color: #D1D5DB; }
 
   /* Student Rows Container - Scrollable under Learner header */
   .learner-list-wrap {
@@ -2502,9 +2702,9 @@
   }
   .learner-row-item {
     display: grid;
-    grid-template-columns: 36px 1fr 120px;
+    grid-template-columns: 32px 1fr 108px;
     align-items: center;
-    padding: 12px 10px;
+    padding: 10px 10px;
     border-radius: 14px;
     background: var(--surface);
     border: 1px solid var(--line);
@@ -2514,26 +2714,26 @@
   .learner-row-item:active { transform: scale(.99); }
   .learner-num {
     font-family: 'Sora', sans-serif;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 700;
     color: var(--ink-3);
   }
   .learner-name-col {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     min-width: 0;
   }
   .learner-avatar {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: var(--teal-bg);
     color: var(--teal-deep);
     border: 1px solid rgba(14,110,86,.2);
     font-family: 'Sora', sans-serif;
     font-weight: 700;
-    font-size: 12px;
+    font-size: 11.5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2547,39 +2747,52 @@
   .learner-full-name {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--ink);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .learner-roll {
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--ink-3);
     font-weight: 500;
   }
 
-  /* Status Option Buttons */
+  /* Status Option Buttons — reduced size, yellow late, gray clear */
   .mark-actions-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+  }
+  .mark-btns-row {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 6px;
+    gap: 5px;
   }
   .mark-radio-btn {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 1.5px solid var(--line);
     background: var(--surface-alt);
     color: var(--ink-3);
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 12.5px;
+    font-size: 11px;
     font-weight: 700;
     cursor: pointer;
     transition: transform .15s var(--spring), background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1;
+  }
+  .mark-radio-btn svg {
+    pointer-events: none;
+    display: block;
   }
   .mark-radio-btn:active { transform: scale(.88); }
   
@@ -2587,19 +2800,294 @@
     background: #FEE2E2;
     border-color: #EF4444;
     color: #DC2626;
-    box-shadow: 0 2px 8px rgba(239,68,68,.25);
+    box-shadow: 0 2px 6px rgba(239,68,68,.25);
   }
   .mark-radio-btn.btn-present.active {
     background: #DCFCE7;
     border-color: #22C55E;
     color: #15803D;
-    box-shadow: 0 2px 8px rgba(34,197,94,.25);
+    box-shadow: 0 2px 6px rgba(34,197,94,.25);
   }
   .mark-radio-btn.btn-late.active {
-    background: #F3E8FF;
-    border-color: #A855F7;
-    color: #7E22CE;
-    box-shadow: 0 2px 8px rgba(168,85,247,.25);
+    background: #FEF9C3;
+    border-color: #EAB308;
+    color: #B45309;
+    box-shadow: 0 2px 6px rgba(234,179,8,.3);
+  }
+  .mark-radio-btn.btn-clear.active {
+    background: #F3F4F6;
+    border-color: #9CA3AF;
+    color: #4B5563;
+    box-shadow: 0 2px 6px rgba(107,114,128,.2);
+  }
+
+  [data-theme="dark"] .mark-radio-btn.btn-absent.active {
+    background: #450A0A;
+    border-color: #EF4444;
+    color: #FCA5A5;
+  }
+  [data-theme="dark"] .mark-radio-btn.btn-present.active {
+    background: #052E16;
+    border-color: #22C55E;
+    color: #86EFAC;
+  }
+  [data-theme="dark"] .mark-radio-btn.btn-late.active {
+    background: #422006;
+    border-color: #EAB308;
+    color: #FDE047;
+  }
+  [data-theme="dark"] .mark-radio-btn.btn-clear.active {
+    background: #1F2937;
+    border-color: #6B7280;
+    color: #D1D5DB;
+  }
+
+  /* Excused Absence Checkbox under Absent mark (EXACT FROM IMAGE 1) */
+  .mark-excuse-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+    padding: 1px 1px 0 0;
+    transition: opacity .15s ease;
+  }
+  .mark-excuse-row:active {
+    transform: scale(.95);
+  }
+  .excuse-check-box {
+    width: 14px;
+    height: 14px;
+    border-radius: 3.5px;
+    border: 1.5px solid #9CA3AF;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+    box-sizing: border-box;
+    flex-shrink: 0;
+  }
+  .excuse-check-box svg {
+    display: none;
+  }
+  .excuse-check-box.checked {
+    background: var(--teal);
+    border-color: var(--teal);
+    box-shadow: 0 1px 3px rgba(14, 110, 86, .25);
+  }
+  .excuse-check-box.checked svg {
+    display: block;
+  }
+  .excuse-check-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: #4B5563;
+    line-height: 1;
+    letter-spacing: -0.1px;
+  }
+  .excuse-check-box.checked + .excuse-check-label {
+    color: #1F2937;
+    font-weight: 600;
+  }
+  [data-theme="dark"] .excuse-check-box {
+    background: #1E2530;
+    border-color: #4B5563;
+  }
+  [data-theme="dark"] .excuse-check-box.checked {
+    background: #14B8A6;
+    border-color: #14B8A6;
+  }
+  [data-theme="dark"] .excuse-check-label {
+    color: #9CA3AF;
+  }
+  [data-theme="dark"] .excuse-check-box.checked + .excuse-check-label {
+    color: #F3F4F6;
+  }
+
+  /* Excuse This Absence Modal Dialog */
+  .excuse-modal-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 20px 18px 18px;
+    max-width: 320px;
+    width: 82%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.28);
+    position: relative;
+    box-sizing: border-box;
+    animation: excuseModalIn .22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes excuseModalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(6px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .excuse-modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .excuse-modal-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #111827;
+  }
+  .excuse-modal-close {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #6B7280;
+    transition: background .15s ease, color .15s ease;
+  }
+  .excuse-modal-close:hover {
+    background: #F3F4F6;
+    color: #111827;
+  }
+  .excuse-modal-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.45;
+    color: #6B7280;
+    margin-bottom: 16px;
+  }
+  .excuse-input-container {
+    position: relative;
+    margin-bottom: 16px;
+  }
+  .excuse-input-floating-label {
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    background: #FFFFFF;
+    padding: 0 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.1px;
+    z-index: 2;
+  }
+  .excuse-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid var(--teal);
+    border-radius: 8px;
+    padding: 12px 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: #111827;
+    background: transparent;
+    outline: none;
+    resize: none;
+    min-height: 76px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .excuse-textarea::placeholder {
+    color: #9CA3AF;
+    font-size: 12px;
+  }
+  .excuse-textarea:focus {
+    box-shadow: 0 0 0 3px rgba(14, 110, 86, .18);
+  }
+  .excuse-modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .btn-excuse-cancel {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    background: #FFFFFF;
+    color: #374151;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .btn-excuse-cancel:hover, .btn-excuse-cancel:active {
+    background: #F3F4F6;
+  }
+  .btn-excuse-submit {
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    background: var(--teal);
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(14, 110, 86, .28);
+    transition: background .15s ease, transform .12s ease;
+  }
+  .btn-excuse-submit:hover {
+    background: var(--teal-deep);
+  }
+  .btn-excuse-submit:active {
+    transform: scale(0.97);
+  }
+  .btn-excuse-remove {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #FCA5A5;
+    background: #FEF2F2;
+    color: #DC2626;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .btn-excuse-remove:hover {
+    background: #FEE2E2;
+  }
+
+  [data-theme="dark"] .excuse-modal-card {
+    background: #18202A;
+  }
+  [data-theme="dark"] .excuse-modal-title {
+    color: #F9FAFB;
+  }
+  [data-theme="dark"] .excuse-modal-sub {
+    color: #9CA3AF;
+  }
+  [data-theme="dark"] .excuse-modal-close {
+    color: #9CA3AF;
+  }
+  [data-theme="dark"] .excuse-modal-close:hover {
+    background: #242E3D;
+    color: #FFFFFF;
+  }
+  [data-theme="dark"] .excuse-input-floating-label {
+    background: #18202A;
+    color: #5EEAD4;
+  }
+  [data-theme="dark"] .excuse-textarea {
+    border-color: #14B8A6;
+    color: #F3F4F6;
+  }
+  [data-theme="dark"] .btn-excuse-cancel {
+    background: #242E3D;
+    border-color: #374151;
+    color: #D1D5DB;
+  }
+  [data-theme="dark"] .btn-excuse-cancel:hover {
+    background: #2F3B4D;
+  }
+  [data-theme="dark"] .btn-excuse-submit {
+    background: #0E6E56;
+  }
+  [data-theme="dark"] .btn-excuse-submit:hover {
+    background: #115E4A;
   }
 
   /* Submit Attendance Action Button (from Image 2) */
@@ -2670,7 +3158,7 @@
   }
   .att-progress-fill-present { background: #1C9564; transition: width .3s ease; }
   .att-progress-fill-absent { background: #DC2626; transition: width .3s ease; }
-  .att-progress-fill-late { background: #9333EA; transition: width .3s ease; }
+  .att-progress-fill-late { background: #EAB308; transition: width .3s ease; }
 
   /* =========================================================
      HOME DASHBOARD (PARENT PORTAL) STYLES
@@ -3948,6 +4436,88 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  /* ===== TEACHER GREETING CARD ===== */
+  .teacher-greeting-card {
+    background: #FFFFFF;
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #E8EEF5;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .teacher-greeting-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .teacher-greeting-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    color: #1E255E;
+    margin: 0;
+  }
+  .teacher-greeting-sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: #64748B;
+    margin: 4px 0 0;
+    line-height: 1.4;
+  }
+  .teacher-role-chip {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--teal);
+    background: var(--teal-bg);
+    border: 1px solid rgba(14, 110, 86, 0.2);
+    padding: 3px 8px;
+    border-radius: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .teacher-quote-box-new {
+    background: linear-gradient(135deg, #FFFDF5 0%, #FEFCE8 100%);
+    border: 1px solid #FDE68A;
+    border-radius: 14px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .teacher-quote-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #FEF08A, #F59E0B);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(245, 158, 11, 0.25);
+  }
+  .teacher-quote-text-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .teacher-quote-text-body .tq-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: #78350F;
+    font-style: italic;
+    line-height: 1.45;
+  }
+  .teacher-quote-text-body .tq-author {
+    font-size: 11px;
+    font-weight: 700;
+    color: #B45309;
   }
 
   /* Quote Card */
@@ -7638,6 +8208,26 @@
 
         <div class="teacher-content-container">
 
+          <!-- Teacher Greeting Card -->
+          <div class="teacher-greeting-card">
+            <div class="teacher-greeting-head">
+              <div>
+                <h1 class="teacher-greeting-title">Good morning, Mr. John! 👋</h1>
+                <p class="teacher-greeting-sub">You have 4 classes today with 12 assignments pending.</p>
+              </div>
+              <span class="teacher-role-chip">Mathematics</span>
+            </div>
+
+            <!-- Inspirational Quote for Teacher -->
+            <div class="teacher-quote-box-new">
+              <div class="teacher-quote-icon-wrap">🎓</div>
+              <div class="teacher-quote-text-body">
+                <div class="tq-text">"A good teacher can inspire hope, ignite the imagination, and instill a love of learning."</div>
+                <div class="tq-author">— Brad Henry</div>
+              </div>
+            </div>
+          </div>
+
           <!-- My Classes Overview Section -->
           <div class="teacher-section">
             <div class="home-section-head">
@@ -10580,7 +11170,19 @@
               </div>
             </div>
 
-            <!-- Funnel Filter Button (Square icon button matching image) -->
+            <!-- Morning / Afternoon Toggle Tab (inline, between days and filter) -->
+            <div class="att-shift-toggle" id="attShiftToggleRow">
+              <button type="button" class="att-shift-tab active" id="attTabMorning" onclick="switchAttShift('morning', this)">
+                <span class="att-shift-ico">☀️</span>
+                <span class="att-shift-lbl">Morning</span>
+              </button>
+              <button type="button" class="att-shift-tab" id="attTabAfternoon" onclick="switchAttShift('afternoon', this)">
+                <span class="att-shift-ico">🌙</span>
+                <span class="att-shift-lbl">Afternoon</span>
+              </button>
+            </div>
+
+            <!-- Funnel Filter Button -->
             <button type="button" class="att-funnel-btn" onclick="openSheet('attFilterSideModal')" title="Filter attendance" aria-label="Open filters">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>
@@ -10589,35 +11191,34 @@
           </div>
 
 
-
           <!-- Live Summary Stats Card -->
           <div class="attendance-stat-banner">
             <div class="att-stat-item">
               <span class="att-stat-label">TOTAL</span>
-              <span class="att-stat-val" id="attTotalCount">10</span>
+              <span class="att-stat-val" id="attTotalCount">16</span>
             </div>
             <div style="width:1px; height:24px; background:var(--line);"></div>
             <div class="att-stat-item" onclick="markAll('present')" style="cursor:pointer;" title="Click to Mark All Present">
               <span class="att-stat-label" style="color:var(--green);">PRESENT</span>
-              <span class="att-stat-val" style="color:var(--green);" id="attPresentCount">7</span>
+              <span class="att-stat-val" style="color:var(--green);" id="attPresentCount">11</span>
             </div>
             <div style="width:1px; height:24px; background:var(--line);"></div>
             <div class="att-stat-item" onclick="markAll('absent')" style="cursor:pointer;" title="Click to Mark All Absent">
               <span class="att-stat-label" style="color:var(--red);">ABSENT</span>
-              <span class="att-stat-val" style="color:var(--red);" id="attAbsentCount">2</span>
+              <span class="att-stat-val" style="color:var(--red);" id="attAbsentCount">3</span>
             </div>
             <div style="width:1px; height:24px; background:var(--line);"></div>
-            <div class="att-stat-item" onclick="markAll('clear')" style="cursor:pointer;" title="Click to Clear All Marks">
-              <span class="att-stat-label" style="color:var(--purple);">CLEAR</span>
-              <span class="att-stat-val" style="color:var(--purple);" id="attClearCount">0</span>
+            <div class="att-stat-item" onclick="markAll('late')" style="cursor:pointer;" title="Click to Mark All Late">
+              <span class="att-stat-label" style="color:#D97706;">LATE</span>
+              <span class="att-stat-val" style="color:#D97706;" id="attLateCount">2</span>
             </div>
           </div>
 
           <!-- Attendance Ratio Progress Bar (Clickable segments to mark all) -->
           <div class="att-progress-track" style="margin-bottom:16px; cursor:pointer;" title="Click bar segment to mark all students">
-            <div class="att-progress-fill-present" id="attBarPresent" style="width: 70%;" onclick="markAll('present')" title="Mark All Present"></div>
-            <div class="att-progress-fill-absent" id="attBarAbsent" style="width: 20%;" onclick="markAll('absent')" title="Mark All Absent"></div>
-            <div class="att-progress-fill-late" id="attBarClear" style="width: 10%;" onclick="markAll('clear')" title="Clear All Marks"></div>
+            <div class="att-progress-fill-present" id="attBarPresent" style="width: 68.75%;" onclick="markAll('present')" title="Mark All Present"></div>
+            <div class="att-progress-fill-absent" id="attBarAbsent" style="width: 18.75%;" onclick="markAll('absent')" title="Mark All Absent"></div>
+            <div class="att-progress-fill-late" id="attBarLate" style="width: 12.5%;" onclick="markAll('late')" title="Mark All Late"></div>
           </div>
 
           <!-- Table Header -->
@@ -10634,9 +11235,12 @@
               <span class="att-col-accent"></span>
               <span>Mark</span>
               <div class="att-mark-icons">
-                <span class="att-icon-badge red" onclick="markAll('absent')" title="Mark All Absent">✕</span>
                 <span class="att-icon-badge green" onclick="markAll('present')" title="Mark All Present">✓</span>
-                <span class="att-icon-badge purple" onclick="markAll('clear')" title="Clear All Marks">–</span>
+                <span class="att-icon-badge yellow" onclick="markAll('late')" title="Mark All Late" style="display:inline-flex;align-items:center;justify-content:center;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.8"/><circle cx="12" cy="12" r="4.8" fill="currentColor"/></svg>
+                </span>
+                <span class="att-icon-badge red" onclick="markAll('absent')" title="Mark All Absent">✕</span>
+                <span class="att-icon-badge gray" onclick="markAll('clear')" title="Clear All Marks">–</span>
               </div>
             </div>
           </div>
@@ -10914,36 +11518,15 @@
         <div class="side-modal-head">
           <div>
             <div class="side-modal-title">Attendance Filters</div>
-            <div style="font-size:12px; font-weight:500; color:var(--ink-3); margin-top:2px;">Filter class, week, shift and session</div>
+            <div style="font-size:12px; font-weight:500; color:var(--ink-3); margin-top:2px;">Filter by week, class and class arm</div>
           </div>
           <div class="side-modal-close" onclick="closeSheet(event,'attFilterSideModal')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
           </div>
         </div>
         <div class="side-modal-body">
-          
-          <!-- Class Card Accordion -->
-          <div class="side-modal-accordion" id="attClassAcc">
-            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
-              <div>
-                <div class="side-modal-acc-title">Class</div>
-                <div class="side-modal-acc-meta" id="attClassFilterDisplay">JSS 1 Gold</div>
-              </div>
-              <div class="side-modal-acc-arrow">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-            </div>
-            <div class="side-modal-acc-body">
-              <div class="sheet-list" id="attClassFilterList" style="margin-top:8px;">
-                <div class="sheet-row-opt active" data-val="JSS 1 Gold" onclick="selectAttClassFilter(event,'JSS 1 Gold')">JSS 1 Gold<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-                <div class="sheet-row-opt" data-val="JSS 2 Silver" onclick="selectAttClassFilter(event,'JSS 2 Silver')">JSS 2 Silver<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-                <div class="sheet-row-opt" data-val="SSS 1 Science" onclick="selectAttClassFilter(event,'SSS 1 Science')">SSS 1 Science<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-                <div class="sheet-row-opt" data-val="SSS 3 Arts" onclick="selectAttClassFilter(event,'SSS 3 Arts')">SSS 3 Arts<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Week Card Accordion -->
+          <!-- Week Accordion -->
           <div class="side-modal-accordion" id="attWeekAcc">
             <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
               <div>
@@ -10964,30 +11547,81 @@
             </div>
           </div>
 
-          <!-- Shift / Session Card Accordion -->
-          <div class="side-modal-accordion" id="attShiftAcc">
+          <!-- Class Accordion -->
+          <div class="side-modal-accordion" id="attClassAcc">
             <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
               <div>
-                <div class="side-modal-acc-title">Shift</div>
-                <div class="side-modal-acc-meta" id="attShiftFilterDisplay">Morning</div>
+                <div class="side-modal-acc-title">Class</div>
+                <div class="side-modal-acc-meta" id="attClassFilterDisplay">JSS 1</div>
               </div>
               <div class="side-modal-acc-arrow">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
               </div>
             </div>
             <div class="side-modal-acc-body">
-              <div class="sheet-list" id="attShiftFilterList" style="margin-top:8px;">
-                <div class="sheet-row-opt active" data-val="morning" onclick="selectAttShiftFilter(event,'morning')">Morning ☀️<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
-                <div class="sheet-row-opt" data-val="afternoon" onclick="selectAttShiftFilter(event,'afternoon')">Afternoon 🌙<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              <div class="sheet-list" id="attClassFilterList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="JSS 1" onclick="selectAttClassFilter(event,'JSS 1')">JSS 1<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="JSS 2" onclick="selectAttClassFilter(event,'JSS 2')">JSS 2<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="SSS 1" onclick="selectAttClassFilter(event,'SSS 1')">SSS 1<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="SSS 2" onclick="selectAttClassFilter(event,'SSS 2')">SSS 2<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="SSS 3" onclick="selectAttClassFilter(event,'SSS 3')">SSS 3<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
               </div>
             </div>
           </div>
 
+          <!-- Class Arm Accordion -->
+          <div class="side-modal-accordion" id="attClassArmAcc">
+            <div class="side-modal-acc-head" onclick="toggleAccordion(this)">
+              <div>
+                <div class="side-modal-acc-title">Class Arm</div>
+                <div class="side-modal-acc-meta" id="attClassArmFilterDisplay">Gold</div>
+              </div>
+              <div class="side-modal-acc-arrow">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+              </div>
+            </div>
+            <div class="side-modal-acc-body">
+              <div class="sheet-list" id="attClassArmFilterList" style="margin-top:8px;">
+                <div class="sheet-row-opt active" data-val="Gold" onclick="selectAttClassArmFilter(event,'Gold')">Gold<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Silver" onclick="selectAttClassArmFilter(event,'Silver')">Silver<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Bronze" onclick="selectAttClassArmFilter(event,'Bronze')">Bronze<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+                <div class="sheet-row-opt" data-val="Diamond" onclick="selectAttClassArmFilter(event,'Diamond')">Diamond<svg class="chk" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reset & Apply Buttons -->
           <div style="display:flex; gap:10px; margin-top:20px;">
             <button class="btn secondary" style="flex:1; height:46px; border-radius:14px; font-weight:600; font-size:13.5px; font-family:'Sora';" onclick="resetAttFilters()">Reset</button>
             <button class="btn primary filter-sheet-apply" style="flex:2; height:46px; border-radius:14px; font-weight:600; font-size:13.5px; font-family:'Sora';" onclick="applyAttFilters()">Apply filters</button>
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <!-- Excuse Absence Modal Overlay (EXACT FROM IMAGE 2) -->
+    <div class="sheet-overlay" id="excuseAbsenceModalOverlay" onclick="closeExcuseModal(event)" style="align-items:center; justify-content:center; z-index:250;">
+      <div class="excuse-modal-card" onclick="event.stopPropagation()">
+        <div class="excuse-modal-head">
+          <div class="excuse-modal-title">Excuse This Absence</div>
+          <div class="excuse-modal-close" onclick="closeExcuseModal(event)" title="Close modal" aria-label="Close modal">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </div>
+        </div>
+        <div class="excuse-modal-sub">
+          An excused absence doesn't count against the attendance rate. Enter the reason below.
+        </div>
+        <div class="excuse-input-container">
+          <label class="excuse-input-floating-label">Reason</label>
+          <textarea id="excuseReasonInput" class="excuse-textarea" rows="3" placeholder="e.g. Medical appointment, family emergency..."></textarea>
+        </div>
+        <div class="excuse-modal-actions">
+          <button type="button" class="btn-excuse-remove" id="btnExcuseRemove" style="display:none;" onclick="removeExcuse()">Remove Excuse</button>
+          <div style="display:flex; gap:10px; margin-left:auto;">
+            <button type="button" class="btn-excuse-cancel" onclick="closeExcuseModal(event)">Cancel</button>
+            <button type="button" class="btn-excuse-submit" onclick="submitExcuseModal()">Submit</button>
+          </div>
         </div>
       </div>
     </div>
@@ -11688,26 +12322,28 @@
   var attendanceData = [
     { id: 1, name: 'Adeboye Samuel', roll: 'ADM-2024-001', mark: 'present' },
     { id: 2, name: 'Chioma Okonjo', roll: 'ADM-2024-002', mark: 'present' },
-    { id: 3, name: 'Fatima Abubakar', roll: 'ADM-2024-003', mark: 'absent' },
+    { id: 3, name: 'Fatima Abubakar', roll: 'ADM-2024-003', mark: 'absent', excused: true, excuseReason: 'Medical appointment' },
     { id: 4, name: 'David Mensah', roll: 'ADM-2024-004', mark: 'present' },
-    { id: 5, name: 'Zainab Bello', roll: 'ADM-2024-005', mark: 'clear' },
+    { id: 5, name: 'Zainab Bello', roll: 'ADM-2024-005', mark: 'late' },
     { id: 6, name: 'Emmanuel Eze', roll: 'ADM-2024-006', mark: 'present' },
     { id: 7, name: 'Blessing Williams', roll: 'ADM-2024-007', mark: 'present' },
-    { id: 8, name: 'Olumide Johnson', roll: 'ADM-2024-008', mark: 'absent' },
+    { id: 8, name: 'Olumide Johnson', roll: 'ADM-2024-008', mark: 'absent', excused: false },
     { id: 9, name: 'Hauwa Umar', roll: 'ADM-2024-009', mark: 'present' },
     { id: 10, name: 'Tarik Danjuma', roll: 'ADM-2024-010', mark: 'present' },
     { id: 11, name: 'Aisha Dahiru', roll: 'ADM-2024-011', mark: 'present' },
-    { id: 12, name: 'Kelechi Nnamdi', roll: 'ADM-2024-012', mark: 'clear' },
+    { id: 12, name: 'Kelechi Nnamdi', roll: 'ADM-2024-012', mark: 'late' },
     { id: 13, name: 'Chiamaka Okeke', roll: 'ADM-2024-013', mark: 'present' },
     { id: 14, name: 'Samuel Adeleke', roll: 'ADM-2024-014', mark: 'present' },
-    { id: 15, name: 'Grace Bassey', roll: 'ADM-2024-015', mark: 'absent' },
+    { id: 15, name: 'Grace Bassey', roll: 'ADM-2024-015', mark: 'absent', excused: false },
     { id: 16, name: 'Victor Kalu', roll: 'ADM-2024-016', mark: 'present' }
   ];
 
   var currentSession = 'morning';
   var currentDay = 'Mon';
-  var currentClassFilter = 'JSS 1 Gold';
+  var currentClassFilter = 'JSS 1';
+  var currentClassArmFilter = 'Gold';
   var currentWeekFilter = 'Week 8';
+  var activeExcuseStudentId = null;
 
   function renderAttendanceList(filterText) {
     var container = document.getElementById('attendanceLearnerList');
@@ -11736,14 +12372,79 @@
           '</div>' +
         '</div>' +
         '<div class="mark-actions-cell">' +
-          '<button type="button" class="mark-radio-btn btn-absent ' + (item.mark === 'absent' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'absent\')" title="Mark Absent">✕</button>' +
-          '<button type="button" class="mark-radio-btn btn-present ' + (item.mark === 'present' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'present\')" title="Mark Present">✓</button>' +
-          '<button type="button" class="mark-radio-btn btn-late ' + (item.mark === 'clear' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'clear\')" title="Clear mark">–</button>' +
+          '<div class="mark-btns-row">' +
+            '<button type="button" class="mark-radio-btn btn-present ' + (item.mark === 'present' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'present\')" title="Mark Present" aria-label="Mark Present">✓</button>' +
+            '<button type="button" class="mark-radio-btn btn-late ' + (item.mark === 'late' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'late\')" title="Mark Late" aria-label="Mark Late">' +
+              '<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.8"/><circle cx="12" cy="12" r="4.8" fill="currentColor"/></svg>' +
+            '</button>' +
+            '<button type="button" class="mark-radio-btn btn-absent ' + (item.mark === 'absent' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'absent\')" title="Mark Absent" aria-label="Mark Absent">✕</button>' +
+            '<button type="button" class="mark-radio-btn btn-clear ' + (item.mark === 'clear' ? 'active' : '') + '" onclick="setLearnerMark(' + item.id + ', \'clear\')" title="Clear Mark" aria-label="Clear Mark">–</button>' +
+          '</div>' +
+          (item.mark === 'absent' ? (
+            '<div class="mark-excuse-row" onclick="openExcuseModal(' + item.id + ', event)" title="' + (item.excused ? 'Excused: ' + (item.excuseReason || 'No reason specified') + ' (Click to edit)' : 'Click to excuse absence') + '">' +
+              '<div class="excuse-check-box ' + (item.excused ? 'checked' : '') + '">' +
+                '<svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+              '</div>' +
+              '<span class="excuse-check-label">Excused</span>' +
+            '</div>'
+          ) : '') +
         '</div>' +
       '</div>';
     });
     container.innerHTML = html;
     updateAttendanceStats();
+  }
+
+  function openExcuseModal(id, e) {
+    if (e) e.stopPropagation();
+    activeExcuseStudentId = id;
+    var student = attendanceData.find(function(l){ return l.id === id; });
+    var input = document.getElementById('excuseReasonInput');
+    var btnRemove = document.getElementById('btnExcuseRemove');
+    if (input) {
+      input.value = (student && student.excuseReason) ? student.excuseReason : '';
+    }
+    if (btnRemove) {
+      btnRemove.style.display = (student && student.excused) ? 'inline-block' : 'none';
+    }
+    openSheet('excuseAbsenceModalOverlay');
+    if (input) {
+      setTimeout(function(){ input.focus(); }, 120);
+    }
+  }
+
+  function closeExcuseModal(e) {
+    if (e) e.stopPropagation();
+    closeSheet(null, 'excuseAbsenceModalOverlay');
+    activeExcuseStudentId = null;
+  }
+
+  function submitExcuseModal() {
+    if (activeExcuseStudentId == null) return;
+    var student = attendanceData.find(function(l){ return l.id === activeExcuseStudentId; });
+    var input = document.getElementById('excuseReasonInput');
+    var reason = input ? input.value.trim() : '';
+    if (student) {
+      student.excused = true;
+      student.excuseReason = reason;
+      hapticPulse();
+      renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
+      showToast('Absence excused for ' + student.name);
+    }
+    closeExcuseModal();
+  }
+
+  function removeExcuse() {
+    if (activeExcuseStudentId == null) return;
+    var student = attendanceData.find(function(l){ return l.id === activeExcuseStudentId; });
+    if (student) {
+      student.excused = false;
+      student.excuseReason = '';
+      hapticPulse();
+      renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
+      showToast('Excuse removed for ' + student.name);
+    }
+    closeExcuseModal();
   }
 
   function setLearnerMark(id, status) {
@@ -11760,7 +12461,7 @@
     attendanceData.forEach(function(l){ l.mark = status; });
     hapticPulse();
     renderAttendanceList(document.getElementById('attSearchInput') ? document.getElementById('attSearchInput').value : '');
-    var label = status === 'absent' ? 'Absent' : (status === 'present' ? 'Present' : 'Cleared');
+    var label = status === 'absent' ? 'Absent' : (status === 'present' ? 'Present' : (status === 'late' ? 'Late' : 'Cleared'));
     showToast(status === 'clear' ? 'Cleared all learner marks' : 'All learners marked as ' + label);
   }
   function markAllPresent() { markAll('present'); }
@@ -11769,26 +12470,26 @@
     var total = attendanceData.length;
     var present = attendanceData.filter(function(l){ return l.mark === 'present'; }).length;
     var absent = attendanceData.filter(function(l){ return l.mark === 'absent'; }).length;
-    var clearMarks = attendanceData.filter(function(l){ return l.mark === 'clear' || !l.mark; }).length;
+    var late = attendanceData.filter(function(l){ return l.mark === 'late'; }).length;
 
     var elTotal = document.getElementById('attTotalCount');
     var elPresent = document.getElementById('attPresentCount');
     var elAbsent = document.getElementById('attAbsentCount');
-    var elClear = document.getElementById('attClearCount');
+    var elLate = document.getElementById('attLateCount');
 
     if (elTotal) elTotal.textContent = total;
     if (elPresent) elPresent.textContent = present;
     if (elAbsent) elAbsent.textContent = absent;
-    if (elClear) elClear.textContent = clearMarks;
+    if (elLate) elLate.textContent = late;
 
     var barPresent = document.getElementById('attBarPresent');
     var barAbsent = document.getElementById('attBarAbsent');
-    var barClear = document.getElementById('attBarClear');
+    var barLate = document.getElementById('attBarLate');
 
-    if (barPresent && barAbsent && barClear && total > 0) {
+    if (barPresent && barAbsent && barLate && total > 0) {
       barPresent.style.width = ((present / total) * 100) + '%';
       barAbsent.style.width = ((absent / total) * 100) + '%';
-      barClear.style.width = ((clearMarks / total) * 100) + '%';
+      barLate.style.width = ((late / total) * 100) + '%';
     }
   }
 
@@ -11810,6 +12511,13 @@
     showToast('Viewing attendance for ' + day);
   }
 
+  function switchAttShift(val, btn) {
+    var tab = (btn && btn.closest) ? (btn.closest('.att-shift-tab') || btn) : btn;
+    document.querySelectorAll('.att-shift-tab').forEach(function(t){ t.classList.remove('active'); });
+    if (tab) tab.classList.add('active');
+    showToast('Showing ' + (val === 'morning' ? 'Morning ☀️' : 'Afternoon 🌙') + ' session');
+  }
+
   function selectAttClassFilter(e, val) {
     document.querySelectorAll('#attClassFilterList .sheet-row-opt').forEach(function(o){
       o.classList.toggle('active', o.dataset.val === val);
@@ -11826,19 +12534,18 @@
     if (el) el.textContent = val;
   }
 
-  function selectAttShiftFilter(e, val) {
-    document.querySelectorAll('#attShiftFilterList .sheet-row-opt').forEach(function(o){
+  function selectAttClassArmFilter(e, val) {
+    document.querySelectorAll('#attClassArmFilterList .sheet-row-opt').forEach(function(o){
       o.classList.toggle('active', o.dataset.val === val);
     });
-    var el = document.getElementById('attShiftFilterDisplay');
-    if (el) el.textContent = val === 'morning' ? 'Morning' : 'Afternoon';
+    var el = document.getElementById('attClassArmFilterDisplay');
+    if (el) el.textContent = val;
   }
 
   function applyAttFilters() {
     var activeClass = document.querySelector('#attClassFilterList .sheet-row-opt.active');
     var activeWeek = document.querySelector('#attWeekFilterList .sheet-row-opt.active');
-    var activeShift = document.querySelector('#attShiftFilterList .sheet-row-opt.active');
-
+    var activeArm = document.querySelector('#attClassArmFilterList .sheet-row-opt.active');
     if (activeClass) {
       currentClassFilter = activeClass.dataset.val;
       var el = document.getElementById('attTagClassText');
@@ -11849,25 +12556,28 @@
       var el = document.getElementById('attTagWeekText');
       if (el) el.textContent = currentWeekFilter;
     }
-    if (activeShift) {
-      setSession(activeShift.dataset.val);
+    if (activeArm) {
+      currentClassArmFilter = activeArm.dataset.val;
     }
     closeSheet(null, 'attFilterSideModal');
-    showToast('Filters applied successfully');
+    showToast('Filters applied: ' + currentWeekFilter + ', ' + currentClassFilter + ' (' + currentClassArmFilter + ')');
   }
 
   function resetAttFilters() {
-    selectAttClassFilter(null, 'JSS 1 Gold');
+    selectAttClassFilter(null, 'JSS 1');
     selectAttWeekFilter(null, 'Week 8');
-    selectAttShiftFilter(null, 'morning');
+    selectAttClassArmFilter(null, 'Gold');
     applyAttFilters();
   }
+
 
   function submitAttendance() {
     hapticPulse();
     var present = attendanceData.filter(function(l){ return l.mark === 'present'; }).length;
+    var late = attendanceData.filter(function(l){ return l.mark === 'late'; }).length;
+    var absent = attendanceData.filter(function(l){ return l.mark === 'absent'; }).length;
     var total = attendanceData.length;
-    showToast('Attendance submitted (' + present + '/' + total + ' present) for ' + currentClassFilter + ' - ' + currentDay);
+    showToast('Attendance submitted (' + present + ' Present, ' + late + ' Late, ' + absent + ' Absent) for ' + currentClassFilter + ' ' + currentClassArmFilter + ' - ' + currentDay);
   }
 
   function selectAttendanceClass(e, className) {
